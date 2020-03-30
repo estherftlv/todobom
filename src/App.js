@@ -13,6 +13,7 @@ import Login from './components/pages/Login';
 import Marketplace from './components/pages/marketplace/marketplace';
 import { createBrowserHistory } from "history";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Layout from './components/common/layout/layout';
 
 
 
@@ -38,12 +39,14 @@ const App = ()=>(
     <ThemeProvider theme={theme}>
       <Router history={history}>
       	<AuthContainer>
-        <PageSpinner/>
-          <Switch>
-            <Route exact path="/" component={Home}/>
-            <Route exact path="/login" component={Login}/>
-			<Route exact path="/marketplace" component={Marketplace}/>
-          </Switch>
+			<PageSpinner/>
+			<Switch>
+				<Layout>
+					<Route exact path="/" component={Home}/>
+					<Route exact path="/login" component={Login}/>
+					<Route exact path="/marketplace" component={Marketplace}/>
+				</Layout>	  
+			</Switch>
       	</AuthContainer>
       </Router>
     </ThemeProvider>
