@@ -16,9 +16,11 @@ const Login = ({history, user}) => {
 				<Label>
 					I am Login.js{user.uid}
 				</Label>
-				{!(user && user.uid) && <Button onClick={() => dispatch(authenticate({provider: 'GOOGLE'}))}>Google AUTHENTICATE</Button>}
-				{user.uid && <Button onClick={() => dispatch(logout())}>Logout</Button>}
-		  </Hero>
+				{!(user && user.uid) ?
+					<Button onClick={() => dispatch(authenticate({provider: 'GOOGLE'}))}>Google AUTHENTICATE</Button> : 
+					<Button onClick={() => dispatch(logout())}>Logout</Button> 
+				}
+			</Hero>
 		</Page>
 	);
 };

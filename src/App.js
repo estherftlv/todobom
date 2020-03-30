@@ -10,6 +10,14 @@ import Spinner from './components/common/Spinner';
 import AuthContainer from './components/common/AuthContainer';
 import Home from './components/pages/Home.js';
 import Login from './components/pages/Login';
+import Marketplace from './components/pages/marketplace/marketplace';
+import { createBrowserHistory } from "history";
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
+
+const history = createBrowserHistory();
+
 
 const PageSpinner = () => {
 	const checked = useSelector(state => state.user.checked);
@@ -28,12 +36,13 @@ const PageSpinner = () => {
 const App = ()=>(
   <Provider store={store}>
     <ThemeProvider theme={theme}>
-      <Router>
+      <Router history={history}>
       	<AuthContainer>
         <PageSpinner/>
           <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/login" component={Login}/>
+			<Route exact path="/marketplace" component={Marketplace}/>
           </Switch>
       	</AuthContainer>
       </Router>
