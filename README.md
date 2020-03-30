@@ -1,5 +1,15 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+You must have npm on your machine: https://www.npmjs.com/get-npm
+All necessary packages are specified in package.json,
+Before running the project, navigate  to project folder in your cmd terminal and type:
+npm install --save react-router-dom  (this package is for navigating between pages in a Single Page App)
+npm i styled-components  (this package is helpful for dynamic styling components in ES6)
+npm install --save redux
+npm install react-redux (this package maintains state management across all components in the App)
+npm install firebase --save
+
+
 ## Available Scripts
 
 In the project directory, you can run:

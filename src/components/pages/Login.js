@@ -1,23 +1,26 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import styled from 'styled-components';
+import {authenticate} from '../../redux/actions/user.actions';
 
 
 import Button from '../common/Button';
 
-const Home = ({ history }) => {
+const Login = props => {
 	return (
 		<Page>
 			<Hero>
+					<Button onClick={() => props.history.push('/')}>Back home</Button>
 				<Label>
 					I am Login.js
 				</Label>
-				<Button onClick={()=>{history.push('/')}}>Home</Button>
+					<Button onClick={() => props.authenticate({provider: 'GOOGLE'})}>login with GOOGLE</Button>
 		  </Hero>
 		</Page>
 	);
 };
 
-export default Home;
+export default connect(null, {authenticate})(Login);
 
 
 const Page = styled.div`
@@ -34,6 +37,5 @@ const Hero = styled.div`
 	color: #000000;
 `;
 const Label = styled.div`
-	margin: 100px 20px 0 20px;
 	line-height: 32px;
 `;
