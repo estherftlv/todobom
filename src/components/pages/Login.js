@@ -1,26 +1,36 @@
 import React from 'react';
-import {connect} from 'react-redux';
+import {withRouter} from 'react-router-dom';
+import {connect, useDispatch} from 'react-redux';
+import {authenticate, logout} from '../../redux/actions/user.actions';
 import styled from 'styled-components';
-import {authenticate} from '../../redux/actions/user.actions';
 
 
 import Button from '../common/Button';
 
-const Login = props => {
+const Login = ({history, user}) => {
+	const dispatch = useDispatch();
 	return (
 		<Page>
 			<Hero>
-					<Button onClick={() => props.history.push('/')}>Back home</Button>
+				<Button onClick={() => history.push('/')}>Back home</Button>
 				<Label>
-					I am Login.js
+					I am Login.js{user.uid}
 				</Label>
-					<Button onClick={() => props.authenticate({provider: 'GOOGLE'})}>login with GOOGLE</Button>
+				{!(user && user.uid) && <Button onClick={() => dispatch(authenticate({provider: 'GOOGLE'}))}>Google AUTHENTICATE</Button>}
+				{user.uid && <Button onClick={() => dispatch(logout())}>Logout</Button>}
 		  </Hero>
 		</Page>
 	);
 };
 
-export default connect(null, {authenticate})(Login);
+
+const mapStateToProps = state => {
+	return {
+		user: state.user
+	};
+};
+
+export default connect(mapStateToProps)(withRouter(Login));
 
 
 const Page = styled.div`

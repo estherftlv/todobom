@@ -45,6 +45,7 @@ class firebaseManager {
 	}
 
 	logout() {
+		console.log("fireBasemanager:logout")
 		firebase.auth().signOut();
 	}
 

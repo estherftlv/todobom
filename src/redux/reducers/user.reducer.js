@@ -18,6 +18,10 @@ const userReducer = (state = INITIAL_STATE, action) => {
 				...action.payload.user,
 				checked: true
 			};
+		case AT.LOGOUT:
+			return {
+				INITIAL_STATE
+			};
 
 
 		default:

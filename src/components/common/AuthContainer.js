@@ -8,8 +8,9 @@ const AuthContainer = ({children}) => {
 
   useEffect(() => {
     if (user && user.uid) {
-      if(user.currentMiniUser===undefined) history.push('/');//TBD- where do I navaigate if logged in??
+      if(user.currentMiniUser===undefined) history.push('/');
     } else {
+      console.log("navigate back to home Page if not logged in????")
       history.push('/');
     }
   }, [user,history]);
