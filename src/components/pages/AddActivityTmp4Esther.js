@@ -21,18 +21,19 @@ const AddActivityTmp4Esther = ({history, user}) => {
 	const [newItem, setNewItem] = useState("");//for adding a topics
 
 	//question state:
-	const [title, setTitle] = useState("New activity");
-	const [subject, setSubject] = useState(null);//drop down list
-	const [topic, setTopic] = useState(null);//drop down list
-	const [tag, setTag] = useState(null);//
-	const [description, setDescription] = useState(null);
+	const [ID, setID] = useState("");
+	const [subject, setSubject] = useState("none");//drop down list
+	const [topic, setTopic] = useState("none");//drop down list
+  const [title, setTitle] = useState("New activity");
+	const [url, setUrl] = useState("none");//
+	const [description, setDescription] = useState("none");
 	const [duration, setDuration] = useState(0);//in minutes
 	const [minAge, setMinAge] = useState(0);//optional
-	const [maxAge, setMaxAge] = useState(null);//optional
-	const [rating, setRating] = useState(null);//will be updated
-	const [active, setActive] = useState(null);//is obsolete?
+	const [maxAge, setMaxAge] = useState(0);//optional
+	const [rating, setRating] = useState("none");//will be updated
+//	const [active, setActive] = useState(true);//is obsolete?
 
-	const [image, setImage] = useState(null);//TBD load file to storage and link to that URL
+	const [image, setImage] = useState("none");//TBD load file to storage and link to that URL
 
   const [showError, setShowError] = useState("");
 
@@ -48,6 +49,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
   const subjects = ["a","b","c","d"];
   const topics = ["topic1","topic2","topic3","topic4"];
+  const active = "true";
 
   const toggle = useCallback((x)=>{
     if(open===null)
@@ -83,8 +85,8 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
   const onAddtoFirebase = useCallback(action=>{
     setShowError("");
-    setTitle(action.id);
-  },[setTitle]);
+    setID(action.id);
+  },[setID]);
 
 
 	const addToFireBase = useCallback(()=>{
@@ -93,22 +95,35 @@ const AddActivityTmp4Esther = ({history, user}) => {
 				const date = new Date();
 	      const createDateMSec = date.valueOf();
 	      const createDate = date.toString();
-				const uid = user.uid;
-				const email = user.email;
-				const displayName = user.displayName;
-				// const newAct = {subject,
-        //                 topic,
-        //                 createDateMSec, createDate,
-				// 	              uid,email,displayName,
-        //                 description};
-        const newAct = {someKey: "nkjhkj",someOtherKey:"jkhgjkh", createDateMSec, createDate};
+        if(!user.uid){
+          console.log("Please login before adding activity");
+        }
+				const uid = user.uid? user.uid: "loggedOut";
+				const email = user.email? user.email: "loggedOut";
+				const displayName = user.displayName? user.displayName: "loggedOut";
+        const ageRange = (1000*minAge + maxAge);
+				const newAct = {
+                        subject,
+                        topic,
+                        title,
+                        url,
+                        description,
+                        duration,
+                        ageRange,
+                        rating,
+                        createDateMSec,
+                        createDate,
+					              uid,
+                        email,
+                        displayName,
+                        active};
 				dispatch(addActivity(newAct, onAddtoFirebase));
 
-	},[subject, topic, user, onAddtoFirebase,description, dispatch]);
+	},[subject, topic, duration, maxAge, minAge, rating, title, url,user, onAddtoFirebase,description, dispatch]);
 
 
 
-  const menu = (type, stateProp, list, propSetter, mayAdd=true)=>{
+  const menu = (type, stateProp, list, propSetter, mayAdd=false)=>{
     if(!list)
     	return "";
     return(<ClickOut onClick={()=>handleClickOut(type)}>
@@ -146,13 +161,19 @@ const AddActivityTmp4Esther = ({history, user}) => {
     <Page>
       <Row>
 				<Button onClick={()=>{addToFireBase()}}>addToFireBase</Button>
-				<H1 onChange ={e=>setTitle(e.target.value)}>{title}</H1>
+				<H1>{ID}</H1>
 			</Row>
 			<Row>
 				{menu("SUBJECT", subject, subjects,setSubject)}
 				{menu("TOPIC", topic, topics, setTopic, true)}
 			</Row>
-			<KeyVal keyName="description" value={description} onChange={setDescription}/>
+      <TextInput onChange={event =>setTitle(event.target.value)} placeholder="Title">Title</TextInput>
+      <TextInput onChange={event =>setUrl(event.target.value)} placeholder="url">url</TextInput>
+      <KeyVal keyName="description" value={description} onChange={setDescription}/>
+      <TextInput onChange={event =>setDuration(event.target.value)} placeholder="duration">duration</TextInput>
+      <TextInput onChange={event =>setMinAge(event.target.value)} placeholder="minAge">minAge</TextInput>
+      <TextInput onChange={event =>setMaxAge(event.target.value)} placeholder="maxAge">maxAge</TextInput>
+      <TextInput onChange={event =>setRating(event.target.value)} placeholder="rating">rating</TextInput>
       <H1>Image</H1>
       <Button onClick={()=>{console.log("add image")}}>add image</Button>
     </Page>
