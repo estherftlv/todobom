@@ -3,10 +3,13 @@ import './sideNav.scss';
 import {FaToolbox , FaTasks , FaCaretLeft} from 'react-icons/fa'
 import {IoIosGift , IoMdSettings} from 'react-icons/io'
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../../redux/actions/user.actions';
 
 
 export default function SideNav({onClick , active =''}) {
-    const [activeUrl , setActiveUrl] = useState('')
+    const [activeUrl , setActiveUrl] = useState('');
+    const dispatch = useDispatch();
 
     useEffect(() => {
         setActiveUrl(active.split('/')[1]);
@@ -32,9 +35,7 @@ export default function SideNav({onClick , active =''}) {
                     {activeUrl === 'rewards' && <FaCaretLeft className="activeIcon"/>}
                 </Link>
             </div>
-            <Link to="/setting" className="linkNav sideNavIcon">
-                <IoMdSettings className="sideNavIcon setting"/>
-            </Link>
+            <IoMdSettings className="sideNavIcon setting" onClick={() => dispatch(logout())}/>
         </div>
     )
 }
