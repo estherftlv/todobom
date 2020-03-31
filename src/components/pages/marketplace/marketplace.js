@@ -3,13 +3,10 @@ import React from 'react';
 
 import style from './marketplace.module.scss';
 import { Button, InputGroup, FormControl } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../../redux/actions/user.actions';
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import Activity from '../../common/activity/activity';
 
 const Marketplace  = () => {
-    const dispatch = useDispatch();
 
     const searchChange =(e) =>{
         console.log(e.target.value);
@@ -29,7 +26,6 @@ const Marketplace  = () => {
             />
             </InputGroup>
             <Button><FaPlus/>Add Activity</Button> 
-            <Button onClick={() => dispatch(logout())}>Logout</Button> 
             <small>Pick your favorite activities and add them to your lists</small>
         </h2>
         <div className={style.activities}>
