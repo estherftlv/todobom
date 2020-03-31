@@ -1,0 +1,22 @@
+.header{
+    padding: 25px;
+    display: grid;
+    grid-template-columns: 1fr 300px 150px 80px;
+    grid-column-gap: 15px;
+    .search {
+        width: 300px;
+    }
+    small {
+        color: var(--mainColor);
+        font-size: 0.9rem;
+    }
+}
+
+.activities{
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    // div{
+    //     margin: 30px;
+    // }
+}

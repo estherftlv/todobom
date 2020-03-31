@@ -1,5 +1,4 @@
 import * as AT from '../action.types';
-import {values} from 'lodash';
 
 const INITIAL_STATE = {
 	checked: false,
