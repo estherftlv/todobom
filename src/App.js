@@ -10,9 +10,10 @@ import Spinner from './components/common/Spinner';
 import AuthContainer from './components/common/AuthContainer';
 import Home from './components/pages/Home.js';
 import Login from './components/pages/Login';
-import Marketplace from './components/pages/marketplace/marketplace';
 import { createBrowserHistory } from "history";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Rewards from './components/pages/Rewards';
+
 
 
 
@@ -42,7 +43,7 @@ const App = ()=>(
           <Switch>
             <Route exact path="/" component={Home}/>
             <Route exact path="/login" component={Login}/>
-			<Route exact path="/marketplace" component={Marketplace}/>
+			<Route exact path="/rewards" component={Rewards}/>
           </Switch>
       	</AuthContainer>
       </Router>

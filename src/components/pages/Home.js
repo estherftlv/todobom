@@ -12,6 +12,7 @@ const Home = ({ history }) => {
 					I am Home.js, App.js contains me. if you want to add more pages- add a page in src/components/pages folder, import it to App.js and add to list of  &lt;Routes &gt;
 				</Label>
 				<Button onClick={()=>{history.push('/login')}}>Login</Button>
+				<Button onClick={()=>{history.push('/rewards')}}>Rewards</Button>
 		  </Hero>
 		</Page>
 	);

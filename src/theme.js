@@ -22,9 +22,17 @@ export const themeA = {
 	a800: '#072A60'
 };
 
+export const themeRewards = {
+	light_sea_green: '#7bec9f',
+	lite_purple: '#9013fe',
+	dark_purple: '#9013fe'
+}
 
 
 export default {
 	...themeP,
-	...themeA
+	...themeA,
+	...themeRewards
 };
+
+
