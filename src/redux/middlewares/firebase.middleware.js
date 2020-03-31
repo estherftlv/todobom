@@ -35,6 +35,9 @@ const firebaseMiddleware = store => {
 					}
 				});
 				break;
+			case AT.ADD_ACTIVITY:
+			  firebase.pushKey('/activities/',action.payload.subject, action.payload,action.callback);
+				break;
 			case AT.ADD_MINI_USER:
 			  firebase.push('/miniUsers/',action.payload.uid, action.payload,refreshMiniUsers(action));
 				break;
