@@ -22,7 +22,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 	//question state:
 	const [ID, setID] = useState("");
-	const [subject, setSubject] = useState("none");//drop down list
+	const [category, setCategory] = useState("none");//drop down list
 	const [topic, setTopic] = useState("none");//drop down list
   const [title, setTitle] = useState("New activity");
 	const [url, setUrl] = useState("none");//
@@ -47,7 +47,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 
 
-  const subjects = ["a","b","c","d"];
+  const categorys = ["a","b","c","d"];
   const topics = ["topic1","topic2","topic3","topic4"];
   const active = "true";
 
@@ -103,7 +103,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 				const displayName = user.displayName? user.displayName: "loggedOut";
         const ageRange = (1000*minAge + maxAge);
 				const newAct = {
-                        subject,
+                        category,
                         topic,
                         title,
                         url,
@@ -119,7 +119,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
                         active};
 				dispatch(addActivity(newAct, onAddtoFirebase));
 
-	},[subject, topic, duration, maxAge, minAge, rating, title, url,user, onAddtoFirebase,description, dispatch]);
+	},[category, topic, duration, maxAge, minAge, rating, title, url,user, onAddtoFirebase,description, dispatch]);
 
 
 
@@ -164,7 +164,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 				<H1>{ID}</H1>
 			</Row>
 			<Row>
-				{menu("SUBJECT", subject, subjects,setSubject)}
+				{menu("CATEGORY", category, categorys,setCategory)}
 				{menu("TOPIC", topic, topics, setTopic, true)}
 			</Row>
       <TextInput onChange={event =>setTitle(event.target.value)} placeholder="Title">Title</TextInput>

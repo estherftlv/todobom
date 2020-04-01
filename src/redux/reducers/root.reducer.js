@@ -2,9 +2,9 @@ import {combineReducers} from "redux";
 
 // reducers
 import user from './user.reducer';
-import topics from './topics.reducer';
+import activities from './activities.reducer';
 
 export default combineReducers({
 	user,
-	topics
+	activities
 });
