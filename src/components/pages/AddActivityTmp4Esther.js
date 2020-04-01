@@ -4,6 +4,7 @@ import {useDispatch, connect} from "react-redux";
 
 import { FaImage } from 'react-icons/fa';
 
+import { CATEGORIES } from '../../utils/enums';
 // components
 import Button from '../common/Button';
 import TextInput from '../common/TextInput';
@@ -11,7 +12,7 @@ import ClickOut from '../common/ClickOut';
 import KeyVal from '../common/KeyVal';
 import Spinner from '../common/Spinner';
 import FileLoader from '../common/FileLoader';
-//import FileLoader from '../common/FileLoader';
+import { Dropdown } from 'react-bootstrap';
 
 import {addActivity} from "../../redux/actions/activity.actions";
 
@@ -51,7 +52,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 
 
-  const categorys = ["a","b","c","d"];
+  const categories = Object.keys(CATEGORIES);
   const topics = ["topic1","topic2","topic3","topic4"];
   const active = "true";
 
@@ -163,24 +164,24 @@ const AddActivityTmp4Esther = ({history, user}) => {
           //else:
 	return (
     <Page>
-      <Row>
+			<Row>
+      <Col>
 				<Button onClick={()=>{addToFireBase()}}>addToFireBase</Button>
 				<H1>{ID}</H1>
-			</Row>
-			<Row>
-				{menu("CATEGORY", category, categorys,setCategory)}
+				{menu("CATEGORY", category, categories,setCategory)}
 				{menu("TOPIC", topic, topics, setTopic, true)}
+  
+	      <TextInput onChange={event =>setTitle(event.target.value)} lable="Title" placeholder="Add your title here"/>
+	      <TextInput onChange={event =>setUrl(event.target.value)} placeholder="url">url</TextInput>
+	      <KeyVal keyName="description" value={description} onChange={setDescription}/>
+	      <TextInput onChange={event =>setTime(event.target.value)} placeholder="duration">duration</TextInput>
+	      <TextInput onChange={event =>setMinAge(event.target.value)} placeholder="minAge">minAge</TextInput>
+	      <TextInput onChange={event =>setMaxAge(event.target.value)} placeholder="maxAge">maxAge</TextInput>
+	      <TextInput onChange={event =>setRating(event.target.value)} placeholder="rating">rating</TextInput>
+	      <TextInput onChange={event =>setUpload(event.target.value)}>{upload}</TextInput>
+			</Col>
+				<FileLoader width="100%" onDone={obj=>{setUpload(obj.downloadURL)}}/>
 			</Row>
-      <TextInput onChange={event =>setTitle(event.target.value)} lable="Title" placeholder="Add your title here"/>
-      <TextInput onChange={event =>setUrl(event.target.value)} placeholder="url">url</TextInput>
-      <KeyVal keyName="description" value={description} onChange={setDescription}/>
-      <TextInput onChange={event =>setTime(event.target.value)} placeholder="duration">duration</TextInput>
-      <TextInput onChange={event =>setMinAge(event.target.value)} placeholder="minAge">minAge</TextInput>
-      <TextInput onChange={event =>setMaxAge(event.target.value)} placeholder="maxAge">maxAge</TextInput>
-      <TextInput onChange={event =>setRating(event.target.value)} placeholder="rating">rating</TextInput>
-      <TextInput onChange={event =>setUpload(event.target.value)}>{upload}</TextInput>
-      <H1>Image</H1>
-			<FileLoader width="100%" onDone={obj=>{setUpload(obj.downloadURL)}}/>
     </Page>
 	);
 };
@@ -214,8 +215,16 @@ const H1 = styled.div`
 
 const Row = styled.div`
 	display: flex;
-	flex-direction: row-reverse;
-	align-items: flex-end;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	left:0px;
+`;
+const Col = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 	justify-content: center;
 	width: 100%;
 	left:0px;
