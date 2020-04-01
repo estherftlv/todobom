@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {connect, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 
@@ -9,13 +9,19 @@ import { Button, InputGroup, FormControl } from 'react-bootstrap';
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import Activity from '../../common/activity/activity';
 import { Addtolist } from '../../common/addtolist/addtolist';
+import ActivityFilter from '../../common/activityFilter/activityFilter';
 
 const Marketplace  = ({activities, user}) => {
 
     const [listPopupPos , setListPopupPos] = useState(false);
     // TODO: get the list from firebase
     const [list , setList] = useState([]);
+    const [filters , setFilter] = useState({});
     const dispatch = useDispatch();
+
+    useEffect(()=>{
+        faSearchClicked();
+    },[])
 
     const searchChange =(e) =>{
         console.log(`typed search for: ${e.target.value}`);
@@ -32,6 +38,21 @@ const Marketplace  = ({activities, user}) => {
     const addToList = (data) =>{
         console.log(data)
         setList([...list, data])
+    }
+
+    const addFilter = (type, value)=>{
+        if(type === 'category'){
+            if(filters[type] && filters[type].includes(value)){
+                filters[type].splice(filters[type].indexOf(value),1);
+            }else{
+                filters[type] = filters[type] ?  [...filters[type], value] : [value];
+            }
+        } else{
+            filters[type] = value;
+        }
+
+
+        setFilter({...filters})
     }
 
     return (
@@ -56,6 +77,7 @@ const Marketplace  = ({activities, user}) => {
             }
         </div>
         <Addtolist list={list} addFunction={addToList} pos={listPopupPos} tolgglePopup={toggleActivityToList}/>
+        <ActivityFilter addFilter={addFilter}/>
         </>
     )
 }
