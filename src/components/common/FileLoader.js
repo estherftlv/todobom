@@ -1,6 +1,7 @@
 import React, {useCallback, useState, useRef} from 'react';
 import styled from 'styled-components';
 import {useDispatch} from "react-redux";
+import { FaImage } from 'react-icons/fa';
 
 import { Button } from 'react-bootstrap';
 import Progress from './Progress';
