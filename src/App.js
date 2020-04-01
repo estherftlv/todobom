@@ -12,7 +12,7 @@ import Home from './components/pages/Home.js';
 import Login from './components/pages/Login';
 import { createBrowserHistory } from "history";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Rewards from './components/pages/Rewards';
+import Rewards from './components/pages/rewards/Rewards';
 
 
 

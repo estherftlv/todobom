@@ -24,7 +24,7 @@ export const themeA = {
 
 export const themeRewards = {
 	light_sea_green: '#7bec9f',
-	lite_purple: '#9013fe',
+	light_purple: '#a400ff',
 	dark_purple: '#9013fe'
 }
 
