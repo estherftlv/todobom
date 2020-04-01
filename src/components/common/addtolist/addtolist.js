@@ -40,7 +40,7 @@ export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
     return (
         pos &&
         <div className="addtolist" style={{top: pos.y - 15 , left: pos.x - 105}}>
-            <h6>ADD TO LIST <FaPlus/> <IoIosClose onClick={()=>{tolgglePopup(null)}}/> </h6>
+            <h6>ADD TO LIST <IoIosClose onClick={()=>{tolgglePopup(null)}}/> </h6>
             {
             lists.map((item, index) => <div key={index} className="inListCheckbox">
                         <input type="checkbox" id={`checkBox_${index}`}/>
