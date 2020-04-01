@@ -26,7 +26,6 @@ const Container = styled.div`
 `;
 
 const Label = styled.div`
-	color: ${({theme,error}) => theme.p600};
 	font-size: 14px;
 	min-height: 17px;
 	font-weight: 500;
