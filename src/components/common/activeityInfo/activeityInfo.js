@@ -19,12 +19,6 @@ export const ActiveityInfo = ({closeCb , activity , openListPicker}) => {
         time = activity.time || 0;
     
     const openList = () => {
-        const {x, y , id} = activity;
-        const pos = {
-            x,
-            y,
-            activityId: id
-        }
         closeCb();
         openListPicker(activity)
     }
@@ -52,8 +46,8 @@ export const ActiveityInfo = ({closeCb , activity , openListPicker}) => {
                         </a>
                     }
                     <span>
-                        <TodoBtn className="small" onClick={openList}>Assign to list</TodoBtn>
                         <TodoBtn className="small" reverse={true} onClick={()=>closeCb(null)}>Close</TodoBtn>
+                        <TodoBtn className="small" onClick={openList}>Assign to list</TodoBtn>
                     </span>
                 </footer>
             </div>

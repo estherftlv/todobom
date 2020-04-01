@@ -6,7 +6,7 @@ import {fetchActivities} from '../../../redux/actions/activity.actions';
 import {fetchLists} from '../../../redux/actions/list.actions';
 
 import style from './marketplace.module.scss';
-import { Button, InputGroup, FormControl } from 'react-bootstrap';
+import { InputGroup, FormControl } from 'react-bootstrap';
 import { FaSearch, FaPlus } from 'react-icons/fa';
 import Activity from '../../common/activity/activity';
 import { Addtolist } from '../../common/addtolist/addtolist';
@@ -22,7 +22,7 @@ const Marketplace  = ({activities, user, lists}) => {
     const [activityInfo , setActivityInfo] = useState(null);
     // TODO: get the list from firebase
     const [list , setList] = useState([]);
-    const [filters , setFilter] = useState({ category : [], time : [0,61], age:[0,120]});
+    const [filters , setFilter] = useState({ category : [], time : [0,61], age:[0,18]});
     const dispatch = useDispatch();
     useEffect(()=>{
         faSearchClicked();
@@ -73,7 +73,7 @@ const Marketplace  = ({activities, user, lists}) => {
 
         const filterdActivities = originalActivity.filter(activity =>{
             if(activity.category && !filters.category.includes(activity.category)) {
-                return;
+                return ;
             }
             if(activity.ageRange && !between(activity.age ,filters.age[0],filters.age[1])){
                 return ;
@@ -81,6 +81,7 @@ const Marketplace  = ({activities, user, lists}) => {
             if(activity.time && !between(activity.time, filters.time[0], filters.time[1])){
                 return ;
             }
+            
             return activity;
         })
 

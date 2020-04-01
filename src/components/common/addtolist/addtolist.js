@@ -4,7 +4,7 @@ import { IoIosClose } from "react-icons/io";
 import './addtolist.scss';
 
 export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
-    const [isOpen , setIsOpen] = useState(false);
+    const [ , setIsOpen] = useState(false);
     const [addInput , setAddInput] = useState(false);
 
     useEffect(() => {
@@ -22,7 +22,7 @@ export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
     const checkListBeforeInsert = (e) =>{
         const value = e.target.value;
         if(!list.includes(value) && value){
-            addFunction(value);
+            addFunction({title: value});
         }
         setAddInput(false);
     }
@@ -35,7 +35,7 @@ export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
             list.map((item, index) => <div key={index} className="inListCheckbox">
                         <input type="checkbox" id={`checkBox_${index}`}/>
                         <FaCheck className="checkboxV"/>
-                        <label class="container" htmlFor={`checkBox_${item.Title}`}>
+                        <label className="container" htmlFor={`checkBox_${index}`}>
                         {item.Title}
                         </label>
             </div> )
