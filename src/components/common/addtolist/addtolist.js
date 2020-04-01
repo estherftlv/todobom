@@ -6,12 +6,17 @@ import './addtolist.scss';
 export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
     const [ , setIsOpen] = useState(false);
     const [addInput , setAddInput] = useState(false);
+    const [lists , setLists] = useState(list);
 
     useEffect(() => {
         if(pos){
             setIsOpen(true);
         }
     },[pos])
+
+    useEffect(() => {
+        setLists(list)
+    },[list])
 
     const addInputChange=(e)=>{
         if(e.key === 'Enter'){
@@ -21,8 +26,13 @@ export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
 
     const checkListBeforeInsert = (e) =>{
         const value = e.target.value;
-        if(!list.includes(value) && value){
-            addFunction({title: value});
+        const newVal = {title: value};
+        const inlist = lists.filter(item=> item.title === value)
+
+        if(inlist.length === 0){
+            setLists([...lists, newVal]);
+            //TODO: this is the cb funvtion for the firebase for add to list - from markeatplce js 
+            addFunction(newVal);
         }
         setAddInput(false);
     }
@@ -32,11 +42,11 @@ export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
         <div className="addtolist" style={{top: pos.y - 15 , left: pos.x - 105}}>
             <h6>ADD TO LIST <FaPlus/> <IoIosClose onClick={()=>{tolgglePopup(null)}}/> </h6>
             {
-            list.map((item, index) => <div key={index} className="inListCheckbox">
+            lists.map((item, index) => <div key={index} className="inListCheckbox">
                         <input type="checkbox" id={`checkBox_${index}`}/>
                         <FaCheck className="checkboxV"/>
                         <label className="container" htmlFor={`checkBox_${index}`}>
-                        {item.Title}
+                        {item.title}
                         </label>
             </div> )
             }
