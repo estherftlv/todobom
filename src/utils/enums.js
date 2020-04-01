@@ -18,5 +18,10 @@ export const CATEGORIES = {
     cooking:{
         color:'#ff9000',
         text: 'Cooking'
-    }   
+    },
+    none:{
+        color:'#333333',
+        text: 'None'
+    },
+
 }

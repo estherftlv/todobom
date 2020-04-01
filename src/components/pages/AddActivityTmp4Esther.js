@@ -22,12 +22,12 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 	//question state:
 	const [ID, setID] = useState("");
-	const [subject, setSubject] = useState("none");//drop down list
+	const [category, setCategory] = useState("none");//drop down list
 	const [topic, setTopic] = useState("none");//drop down list
   const [title, setTitle] = useState("New activity");
 	const [url, setUrl] = useState("none");//
 	const [description, setDescription] = useState("none");
-	const [duration, setDuration] = useState(0);//in minutes
+	const [time, setTime] = useState(0);//in minutes
 	const [minAge, setMinAge] = useState(0);//optional
 	const [maxAge, setMaxAge] = useState(0);//optional
 	const [rating, setRating] = useState("none");//will be updated
@@ -47,7 +47,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 
 
-  const subjects = ["a","b","c","d"];
+  const categorys = ["a","b","c","d"];
   const topics = ["topic1","topic2","topic3","topic4"];
   const active = "true";
 
@@ -103,12 +103,12 @@ const AddActivityTmp4Esther = ({history, user}) => {
 				const displayName = user.displayName? user.displayName: "loggedOut";
         const ageRange = (1000*minAge + maxAge);
 				const newAct = {
-                        subject,
+                        category,
                         topic,
                         title,
                         url,
                         description,
-                        duration,
+                        time,
                         ageRange,
                         rating,
                         createDateMSec,
@@ -119,7 +119,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
                         active};
 				dispatch(addActivity(newAct, onAddtoFirebase));
 
-	},[subject, topic, duration, maxAge, minAge, rating, title, url,user, onAddtoFirebase,description, dispatch]);
+	},[category, topic, time, maxAge, minAge, rating, title, url,user, onAddtoFirebase,description, dispatch]);
 
 
 
@@ -164,13 +164,13 @@ const AddActivityTmp4Esther = ({history, user}) => {
 				<H1>{ID}</H1>
 			</Row>
 			<Row>
-				{menu("SUBJECT", subject, subjects,setSubject)}
+				{menu("CATEGORY", category, categorys,setCategory)}
 				{menu("TOPIC", topic, topics, setTopic, true)}
 			</Row>
       <TextInput onChange={event =>setTitle(event.target.value)} placeholder="Title">Title</TextInput>
       <TextInput onChange={event =>setUrl(event.target.value)} placeholder="url">url</TextInput>
       <KeyVal keyName="description" value={description} onChange={setDescription}/>
-      <TextInput onChange={event =>setDuration(event.target.value)} placeholder="duration">duration</TextInput>
+      <TextInput onChange={event =>setTime(event.target.value)} placeholder="duration">duration</TextInput>
       <TextInput onChange={event =>setMinAge(event.target.value)} placeholder="minAge">minAge</TextInput>
       <TextInput onChange={event =>setMaxAge(event.target.value)} placeholder="maxAge">maxAge</TextInput>
       <TextInput onChange={event =>setRating(event.target.value)} placeholder="rating">rating</TextInput>

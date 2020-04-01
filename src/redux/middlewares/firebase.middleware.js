@@ -2,6 +2,7 @@ import * as AT from '../action.types';
 import firebaseManager from '../../services/firebaseManager';
 
 import {setUser, setMiniUsers, setUserData} from "../actions/user.actions";
+import {setActivities} from "../actions/activity.actions";
 
 const firebase = new firebaseManager();
 const firebaseMiddleware = store => {
@@ -38,6 +39,10 @@ const firebaseMiddleware = store => {
 			case AT.ADD_ACTIVITY:
 			  firebase.pushKey('/activities/',action.payload.subject, action.payload,action.callback);
 				break;
+			case AT.FETCH_ACTIVITIES:
+				  firebase.get('/activities', data => {store.dispatch(setActivities(data))});
+					break;
+
 			case AT.ADD_MINI_USER:
 			  firebase.push('/miniUsers/',action.payload.uid, action.payload,refreshMiniUsers(action));
 				break;
