@@ -40,7 +40,7 @@ export default function Activity({plusClick = null, activity}) {
             <div className={cls.details}>
                 <div className={cls.imagePlaceholder} style={{backgroundImage:`url(${imageSrc})`}}/>
                 <div className={cls.description} style={{backgroundColor:`${colorActivity}`}}>{description}</div>
-                <div className={cls.more} onClick={openMore}>more</div>
+                <div className={cls.more} style={{color:`${colorActivity}`}} onClick={openMore}>more</div>
             </div>
 
         </div>
