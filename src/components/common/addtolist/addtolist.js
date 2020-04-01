@@ -31,21 +31,21 @@ export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
         pos &&
         <div className="addtolist" style={{top: pos.y - 15 , left: pos.x - 105}}>
             <h6>ADD TO LIST <FaPlus/> <IoIosClose onClick={()=>{tolgglePopup(null)}}/> </h6>
-            { 
+            {
             list.map((item, index) => <div key={index} className="inListCheckbox">
                         <input type="checkbox" id={`checkBox_${index}`}/>
                         <FaCheck className="checkboxV"/>
-                        <label class="container" htmlFor={`checkBox_${index}`}>
-                        {item}
+                        <label class="container" htmlFor={`checkBox_${item.Title}`}>
+                        {item.Title}
                         </label>
             </div> )
             }
 
             {
                 !addInput ?
-                <span className="addList" onClick={()=>setAddInput(true)}><FaPlus/>Create new list</span> : 
+                <span className="addList" onClick={()=>setAddInput(true)}><FaPlus/>Create new list</span> :
                 <input type="text" onKeyPress={addInputChange} onBlur={checkListBeforeInsert}/>
-            }    
+            }
         </div>
     )
 }
