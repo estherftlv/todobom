@@ -95,13 +95,13 @@
     .rangeInput{
         position: relative;
         &::before{
-            content: attr(afterMin);
+            content: attr(aftermin);
             position: absolute;
             left:0px;
             top: 30px;
         }
         &::after{
-            content: attr(afterMax);
+            content: attr(aftermax);
             position: absolute;
             right:0px;
             top: 30px;
@@ -109,13 +109,13 @@
 
         .rangeStyle{
             &::before{
-                content: attr(afterMin);
+                content: attr(aftermin);
                 position: absolute;
                 left: 40%;
                 top: 15px
             }
             &::after{
-                content: attr(afterMax);
+                content: attr(aftermax);
                 position: absolute;
                 left: 50%;
                 top: 15px
@@ -126,26 +126,26 @@
     .ageRange{
         position: relative;
         &::before{
-            content: attr(afterMin);
+            content: attr(aftermin);
             position: absolute;
             left:0px;
             top: 30px;
         }
         &::after{
-            content: attr(afterMax);
+            content: attr(aftermax);
             position: absolute;
             right:0px;
             top: 30px;
         }
         .rangeStyle{
             &::before{
-                content: attr(afterMin);
+                content: attr(aftermin);
                 position: absolute;
                 left: 40%;
                 top: 15px
             }
             &::after{
-                content: attr(afterMax);
+                content: attr(aftermax);
                 position: absolute;
                 left: 50%;
                 top: 15px

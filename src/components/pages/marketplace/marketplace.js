@@ -11,12 +11,15 @@ import { FaSearch, FaPlus } from 'react-icons/fa';
 import Activity from '../../common/activity/activity';
 import { Addtolist } from '../../common/addtolist/addtolist';
 import ActivityFilter from '../../common/activityFilter/activityFilter';
+import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
+import { TodoBtn } from '../../common/todoBtn/todoBtn';
 
 let originalActivity =  null;
 const Marketplace  = ({activities, user, lists}) => {
 
     const [listPopupPos , setListPopupPos] = useState(false);
     const [activitiesList , setActivitiesList] = useState([]);
+    const [activityInfo , setActivityInfo] = useState(null);
     // TODO: get the list from firebase
     const [list , setList] = useState([]);
     const [filters , setFilter] = useState({ category : [], time : [0,61], age:[0,120]});
@@ -84,6 +87,7 @@ const Marketplace  = ({activities, user, lists}) => {
         setActivitiesList(filterdActivities)
     }
 
+
     return (
         <>
         <h2 className={style.header}>
@@ -98,16 +102,17 @@ const Marketplace  = ({activities, user, lists}) => {
                 onChange= {searchChange}
             />
             </InputGroup>
-            <Link to={'/addActivity'}><Button><FaPlus/>Add Activity</Button></Link>
+            <Link to={'/addActivity'}><TodoBtn><FaPlus/>Add Activity</TodoBtn></Link>
             <small>Pick your favorite activities and add them to your lists</small>
         </h2>
         <div className={style.activities}>
             {
-                activitiesList.map(activity => <Activity key={activity.id} activity={activity} plusClick={toggleActivityToList}/>)
+                activitiesList.map(activity => <Activity key={activity.id} showActivityInfo={setActivityInfo} activity={activity} plusClick={toggleActivityToList}/>)
             }
         </div>
         <Addtolist list={lists} addFunction={addToList} pos={listPopupPos} tolgglePopup={toggleActivityToList}/>
         <ActivityFilter addFilter={addFilter}/>
+        {<ActiveityInfo closeCb={setActivityInfo} openListPicker={setListPopupPos} activity={activityInfo}/>}
         </>
     )
 }

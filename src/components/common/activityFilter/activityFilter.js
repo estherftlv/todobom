@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import './activityFilter.scss'
 import { FaChevronLeft, FaCheck } from 'react-icons/fa';
 import { CATEGORIES } from '../../../utils/enums';
+
 import Slider from 'rc-slider';
 
 import 'rc-slider/assets/index.css';
@@ -13,10 +14,12 @@ export default function ActivityFilter({addFilter}) {
     const [age , setAge] = useState([3,15]);
 
     const onDurationSliderChange = (value) =>{
+        setDuration(value);
         addFilter('time',value)
     }
 
     const onAgeChange = (value) =>{
+        setAge(value);
         addFilter('age',value)
     }
 
@@ -44,15 +47,15 @@ export default function ActivityFilter({addFilter}) {
                 )}
 
                 <h6>Activity duration (estimated)</h6>
-                <div className="rangeInput" afterMin="0" afterMax="60+">
-                    <div className="rangeStyle" afterMin={`${duration[0]} - `} afterMax={duration[1] > 60 ? '60+' : duration[1]}> 
+                <div className="rangeInput" aftermin="0" aftermax="60+">
+                    <div className="rangeStyle" aftermin={`${duration[0]} - `} aftermax={duration[1] > 60 ? '60+' : duration[1]}> 
                         <Range className="duration" min={0} max={61} defaultValue={[15,45]} onChange={onDurationSliderChange }/>
                     </div>
                 </div>
                 <br/>
                 <h6>Suitable for ages</h6>
-                <div className="ageRange" afterMin="0" afterMax="25">
-                    <div className="rangeStyle" afterMin={`${age[0]} - `} afterMax={age[1] > 60 ? '60+' : age[1]}> 
+                <div className="ageRange" aftermin="0" aftermax="25">
+                    <div className="rangeStyle" aftermin={`${age[0]} - `} aftermax={age[1] > 60 ? '60+' : age[1]}> 
                         <Range className="duration" min={0} max={61} defaultValue={[3,15]} onChange={onAgeChange }/>
                     </div>
                 </div>

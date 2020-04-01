@@ -3,7 +3,7 @@ import cls from './activity.module.scss';
 import { FaPlus } from 'react-icons/fa';
 import { CATEGORIES } from '../../../utils/enums';
 
-export default function Activity({plusClick = null, activity}) {
+export default function Activity({plusClick = null, activity, showActivityInfo}) {
 
     const [offset , setOffset] = React.useState(1000);
     const category = CATEGORIES[activity.category.toLowerCase()]!==undefined? CATEGORIES[activity.category.toLowerCase()]: CATEGORIES["none"];
@@ -20,7 +20,10 @@ export default function Activity({plusClick = null, activity}) {
         })
     }, [time])
 
-    const openMore = () => {console.log('more clicked')}
+    const openMore = (e) => {
+        const activityInfo = {...activity , x: e.clientX, y : e.clientY - 200,}
+        showActivityInfo(activityInfo)
+    }
 
     const addActivityToList = (e) => {
         const pos = {

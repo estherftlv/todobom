@@ -7,6 +7,7 @@ const Button = ({onClick, children}) => (
 	</Container>
 );
 
+
 export default Button;
 
 const Container = styled.div`
