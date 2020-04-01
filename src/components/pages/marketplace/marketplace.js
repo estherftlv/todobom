@@ -11,17 +11,22 @@ import Activity from '../../common/activity/activity';
 import { Addtolist } from '../../common/addtolist/addtolist';
 import ActivityFilter from '../../common/activityFilter/activityFilter';
 
+let originalActivity =  null;
 const Marketplace  = ({activities, user}) => {
 
     const [listPopupPos , setListPopupPos] = useState(false);
+    const [activitiesList , setActivitiesList] = useState([]);
     // TODO: get the list from firebase
     const [list , setList] = useState([]);
-    const [filters , setFilter] = useState({});
+    const [filters , setFilter] = useState({ category : [], time : [0,61], age:[0,120]});
     const dispatch = useDispatch();
-
     useEffect(()=>{
         faSearchClicked();
     },[])
+
+    useEffect(()=>{
+        setActivitiesList(activities);
+    },[activities])
 
     const searchChange =(e) =>{
         console.log(`typed search for: ${e.target.value}`);
@@ -36,7 +41,6 @@ const Marketplace  = ({activities, user}) => {
 
     // TODO: add the firebase api 
     const addToList = (data) =>{
-        console.log(data)
         setList([...list, data])
     }
 
@@ -50,15 +54,39 @@ const Marketplace  = ({activities, user}) => {
         } else{
             filters[type] = value;
         }
+        setFilter({...filters});
+        applyFilters();
 
+    }
 
-        setFilter({...filters})
+    function between(x, min, max) {
+        return x >= min && x <= max;
+    }
+
+    const applyFilters = () =>{
+        if(originalActivity === null) originalActivity = activitiesList ;
+
+        const filterdActivities = originalActivity.filter(activity =>{
+            if(activity.category && !filters.category.includes(activity.category)) {
+                return;
+            }
+            if(activity.ageRange && !between(activity.age ,filters.age[0],filters.age[1])){
+                return ;
+            }
+            if(activity.time && !between(activity.time, filters.time[0], filters.time[1])){
+                return ;
+            }
+            return activity;
+        })
+
+        setActivitiesList(filterdActivities)
     }
 
     return (
         <>
         <h2 className={style.header}>
         <span>MARKETPLACE</span>
+
         <InputGroup className={style.search}>
             <InputGroup.Append>
                 <InputGroup.Text style={{backgroundColor:'transparent', borderRight: 'none'}} id="basic-addon2"><FaSearch onClick={faSearchClicked}/> </InputGroup.Text>
@@ -73,7 +101,7 @@ const Marketplace  = ({activities, user}) => {
         </h2>
         <div className={style.activities}>
             {
-                activities.map(activity => <Activity key={activity.id} activity={activity} plusClick={toggleActivityToList}/>)
+                activitiesList.map(activity => <Activity key={activity.id} activity={activity} plusClick={toggleActivityToList}/>)
             }
         </div>
         <Addtolist list={list} addFunction={addToList} pos={listPopupPos} tolgglePopup={toggleActivityToList}/>

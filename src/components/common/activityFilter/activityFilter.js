@@ -8,7 +8,7 @@ import 'rc-slider/assets/index.css';
 const Range = Slider.Range;
 
 export default function ActivityFilter({addFilter}) {
-    const [openFilter , setOpenFilter] = useState(true);
+    const [openFilter , setOpenFilter] = useState(false);
     const [duration , setDuration] = useState([15,45]);
     const [age , setAge] = useState([3,15]);
 
