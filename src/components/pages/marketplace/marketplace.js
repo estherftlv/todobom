@@ -9,35 +9,6 @@ import { FaSearch, FaPlus } from 'react-icons/fa';
 import Activity from '../../common/activity/activity';
 import { Addtolist } from '../../common/addtolist/addtolist';
 
-
-// const activitiesObj = [
-//     {
-//         id: 1,
-//         time :30 ,
-//         description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-//         category: 'sport'
-//     },
-//     {
-//         id: 2,
-//         time :60 ,
-//         description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-//         category: 'cooking'
-//     },
-//     {
-//         id: 3,
-//         time :45 ,
-//         description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-//         category: 'diy'
-//     },
-//     {
-//         id: 5,
-//         time :99 ,
-//         description: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
-//         category: 'education'
-//     }
-//
-// ]
-
 const Marketplace  = ({activities, user}) => {
 
     const [listPopupPos , setListPopupPos] = useState(false);
@@ -47,7 +18,7 @@ const Marketplace  = ({activities, user}) => {
         console.log(`typed search for: ${e.target.value}`);
     }
     const faSearchClicked =() =>{
-      dispatch(fetchActivities(""));
+        dispatch(fetchActivities(""));
     }
 
     const toggleActivityToList = (pos = null) =>{

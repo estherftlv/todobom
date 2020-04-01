@@ -9,12 +9,13 @@ export default function Activity({plusClick = null, activity}) {
     const category = CATEGORIES[activity.category.toLowerCase()]!==undefined? CATEGORIES[activity.category.toLowerCase()]: CATEGORIES["none"];
     const imageSrc= activity.imageSrc || 'https://loremflickr.com/320/240' ,
         description= activity.description || "description placeholder",
-        colorActivity= category,
-        time = activity.time;
+        colorActivity= category.color,
+        time = activity.time || 0;
 
     React.useEffect(() => {
         setTimeout(()=>{
-            const newOffset = time >60 ? 0 : 1000 - (time * 1255 / 100);
+            const newOffset = time >60 ? 0 : (time !== 0 ? 1000 - (time * 1255 / 100) : 1000) ;
+            
             setOffset(newOffset);
         })
     }, [time])
@@ -32,7 +33,7 @@ export default function Activity({plusClick = null, activity}) {
     return (
         <div className={cls.activityBox}>
             <div className={cls.time} onClick={addActivityToList}>
-                    <span>{time > 60 ? '60+' : time} min</span>
+                    <span><time>{time > 60 ? '60+' : time}</time> min</span>
                     <span><FaPlus/></span>
             </div>
             <svg className={cls.svgTime} width='250' height='250' viewBox='-10 -10 250 250'>
