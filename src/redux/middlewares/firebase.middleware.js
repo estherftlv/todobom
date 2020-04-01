@@ -42,7 +42,12 @@ const firebaseMiddleware = store => {
 			case AT.FETCH_ACTIVITIES:
 				  firebase.get('/activities', data => {store.dispatch(setActivities(data))});
 					break;
-
+			case AT.UPLOAD_FILE:
+			  firebase.uploadImage(action.payload);
+				break;
+			case AT.CHECK_FILE:
+			  firebase.checkFile(action.payload);
+				break;
 			case AT.ADD_MINI_USER:
 			  firebase.push('/miniUsers/',action.payload.uid, action.payload,refreshMiniUsers(action));
 				break;

@@ -32,7 +32,7 @@ const Inner = styled.div`
 	position: absolute;
 	top: 0;
 	left: 0;
-	height: 10px;
+	height: 50px;
 	width: 0;
 	background: ${({ theme, color }) => color || theme.a400};
 	max-width: ${({ percentage }) => `${percentage}%`}

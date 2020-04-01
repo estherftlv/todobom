@@ -2,12 +2,15 @@ import React, {useCallback, useState} from 'react';
 import styled from 'styled-components';
 import {useDispatch, connect} from "react-redux";
 
+import { FaImage } from 'react-icons/fa';
+
 // components
 import Button from '../common/Button';
 import TextInput from '../common/TextInput';
 import ClickOut from '../common/ClickOut';
 import KeyVal from '../common/KeyVal';
 import Spinner from '../common/Spinner';
+import FileLoader from '../common/FileLoader';
 //import FileLoader from '../common/FileLoader';
 
 import {addActivity} from "../../redux/actions/activity.actions";
@@ -36,6 +39,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 	const [image, setImage] = useState("none");//TBD load file to storage and link to that URL
 
   const [showError, setShowError] = useState("");
+	const [upload,setUpload] = useState(null);
 
 	//technology: TBD?
   //isPDF
@@ -167,15 +171,16 @@ const AddActivityTmp4Esther = ({history, user}) => {
 				{menu("CATEGORY", category, categorys,setCategory)}
 				{menu("TOPIC", topic, topics, setTopic, true)}
 			</Row>
-      <TextInput onChange={event =>setTitle(event.target.value)} placeholder="Title">Title</TextInput>
+      <TextInput onChange={event =>setTitle(event.target.value)} lable="Title" placeholder="Add your title here"/>
       <TextInput onChange={event =>setUrl(event.target.value)} placeholder="url">url</TextInput>
       <KeyVal keyName="description" value={description} onChange={setDescription}/>
       <TextInput onChange={event =>setTime(event.target.value)} placeholder="duration">duration</TextInput>
       <TextInput onChange={event =>setMinAge(event.target.value)} placeholder="minAge">minAge</TextInput>
       <TextInput onChange={event =>setMaxAge(event.target.value)} placeholder="maxAge">maxAge</TextInput>
       <TextInput onChange={event =>setRating(event.target.value)} placeholder="rating">rating</TextInput>
+      <TextInput onChange={event =>setUpload(event.target.value)}>{upload}</TextInput>
       <H1>Image</H1>
-      <Button onClick={()=>{console.log("add image")}}>add image</Button>
+			<FileLoader width="100%" onDone={obj=>{setUpload(obj.downloadURL)}}/>
     </Page>
 	);
 };

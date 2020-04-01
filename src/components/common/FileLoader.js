@@ -1,9 +1,8 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, useRef} from 'react';
 import styled from 'styled-components';
 import {useDispatch} from "react-redux";
 
-
-import Button from './Button';
+import { Button } from 'react-bootstrap';
 import Progress from './Progress';
 
 const FileLoader = ({onDone}) => {
@@ -14,6 +13,7 @@ const FileLoader = ({onDone}) => {
 	const [progress, setProgress] = useState(0);
 	const [label, setLabel] = useState("file_location");
 	const [error, setError] = useState("status");
+  const inputImg = useRef(null);
 
 
   const uploadFile = useCallback(() =>{
@@ -22,7 +22,7 @@ const FileLoader = ({onDone}) => {
       payload: {file,setProgress,setLabel,onDone}
     }
     dispatch(action);
-  },[file,dispatch,onDone])
+  },[file,dispatch,onDone]);
 
   const checkFile = useCallback(()=>{
     const action ={
@@ -30,11 +30,16 @@ const FileLoader = ({onDone}) => {
       payload:{file,setLabel,setError,uploadFile,onDone}
     }
     dispatch(action);
-  },[file,dispatch,uploadFile,onDone])
+  },[file,dispatch,uploadFile,onDone]);
+
+  const clickFile = useCallback(e=>{
+      inputImg.current.click();
+    },[inputImg]);
 
   return(
     <Row>
-      <Input type="file" onChange={event => {setFile(event.target.files[0])}}></Input>
+      <Input type="file" onChange={event => {setFile(event.target.files[0])}} ref={inputImg} hidden/>
+      <Button onClick={clickFile}><FaImage/>Add Image</Button>
       <Button disabled={file===undefined} onClick={checkFile}>UPLOAD_FILE</Button>
       <Progress disabled={file===undefined} percentage={progress}/>
       <Label>{error}</Label>
