@@ -3,6 +3,7 @@ import {connect, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {fetchActivities} from '../../../redux/actions/activity.actions';
+import {fetchLists} from '../../../redux/actions/list.actions';
 
 import style from './marketplace.module.scss';
 import { Button, InputGroup, FormControl } from 'react-bootstrap';
@@ -12,7 +13,7 @@ import { Addtolist } from '../../common/addtolist/addtolist';
 import ActivityFilter from '../../common/activityFilter/activityFilter';
 
 let originalActivity =  null;
-const Marketplace  = ({activities, user}) => {
+const Marketplace  = ({activities, user, lists}) => {
 
     const [listPopupPos , setListPopupPos] = useState(false);
     const [activitiesList , setActivitiesList] = useState([]);
@@ -26,6 +27,7 @@ const Marketplace  = ({activities, user}) => {
 
     useEffect(()=>{
         setActivitiesList(activities);
+        dispatch(fetchLists(user));
     },[activities])
 
     const searchChange =(e) =>{
@@ -39,7 +41,7 @@ const Marketplace  = ({activities, user}) => {
         setListPopupPos(pos);
     }
 
-    // TODO: add the firebase api 
+    // TODO: add the firebase api
     const addToList = (data) =>{
         setList([...list, data])
     }
@@ -104,7 +106,7 @@ const Marketplace  = ({activities, user}) => {
                 activitiesList.map(activity => <Activity key={activity.id} activity={activity} plusClick={toggleActivityToList}/>)
             }
         </div>
-        <Addtolist list={list} addFunction={addToList} pos={listPopupPos} tolgglePopup={toggleActivityToList}/>
+        <Addtolist list={lists} addFunction={addToList} pos={listPopupPos} tolgglePopup={toggleActivityToList}/>
         <ActivityFilter addFilter={addFilter}/>
         </>
     )
@@ -112,7 +114,8 @@ const Marketplace  = ({activities, user}) => {
 
 const mapStateToProps = state => ({
 	activities: state.activities,
-	user:state.user
+	user:state.user,
+  lists: state.lists
 });
 
 export default connect(
