@@ -46,6 +46,7 @@ const App = ()=>(
 					<Route exact path="/" component={Home}/>
 					<Route exact path="/login" component={Login}/>
 					<Route exact path="/AddActivityTmp4Esther" component={AddActivityTmp4Esther}/>
+					<Route exact path="/addActivity" component={AddActivityTmp4Esther}/>
 					<Route exact path="/marketplace" component={Marketplace}/>
 				</Layout>
 			</Switch>

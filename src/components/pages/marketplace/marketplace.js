@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {connect, useDispatch} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 import {fetchActivities} from '../../../redux/actions/activity.actions';
 
@@ -12,6 +13,8 @@ import { Addtolist } from '../../common/addtolist/addtolist';
 const Marketplace  = ({activities, user}) => {
 
     const [listPopupPos , setListPopupPos] = useState(false);
+    // TODO: get the list from firebase
+    const [list , setList] = useState([]);
     const dispatch = useDispatch();
 
     const searchChange =(e) =>{
@@ -23,6 +26,12 @@ const Marketplace  = ({activities, user}) => {
 
     const toggleActivityToList = (pos = null) =>{
         setListPopupPos(pos);
+    }
+
+    // TODO: add the firebase api 
+    const addToList = (data) =>{
+        console.log(data)
+        setList([...list, data])
     }
 
     return (
@@ -38,7 +47,7 @@ const Marketplace  = ({activities, user}) => {
                 onChange= {searchChange}
             />
             </InputGroup>
-            <Button><FaPlus/>Add Activity</Button>
+            <Link to={'/addActivity'}><Button><FaPlus/>Add Activity</Button></Link>
             <small>Pick your favorite activities and add them to your lists</small>
         </h2>
         <div className={style.activities}>
@@ -46,7 +55,7 @@ const Marketplace  = ({activities, user}) => {
                 activities.map(activity => <Activity key={activity.id} activity={activity} plusClick={toggleActivityToList}/>)
             }
         </div>
-        <Addtolist pos={listPopupPos}/>
+        <Addtolist list={list} addFunction={addToList} pos={listPopupPos} tolgglePopup={toggleActivityToList}/>
         </>
     )
 }

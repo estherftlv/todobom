@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { FaPlus, FaCheck } from 'react-icons/fa'
+import { IoIosClose } from "react-icons/io";
 import './addtolist.scss';
 
-export const Addtolist = ({pos}) => {
+export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
     const [isOpen , setIsOpen] = useState(false);
     const [addInput , setAddInput] = useState(false);
-    const [list , setList] = useState([]);
 
     useEffect(() => {
         if(pos){
@@ -22,15 +22,15 @@ export const Addtolist = ({pos}) => {
     const checkListBeforeInsert = (e) =>{
         const value = e.target.value;
         if(!list.includes(value) && value){
-            setList([...list, value]);
+            addFunction(value);
         }
         setAddInput(false);
     }
 
     return (
-        isOpen &&
-        <div className="addtolist" style={{top: pos.y - 15 , left: pos.x - 15}}>
-            <h6>ADD TO LIST <FaPlus/></h6>
+        pos &&
+        <div className="addtolist" style={{top: pos.y - 15 , left: pos.x - 105}}>
+            <h6>ADD TO LIST <FaPlus/> <IoIosClose onClick={()=>{tolgglePopup(null)}}/> </h6>
             { 
             list.map((item, index) => <div key={index} className="inListCheckbox">
                         <input type="checkbox" id={`checkBox_${index}`}/>

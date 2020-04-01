@@ -3,6 +3,7 @@
     display: grid;
     grid-template-columns: 1fr 300px 150px;
     grid-column-gap: 15px;
+    align-items: end;
     .search {
         width: 300px;
     }
@@ -16,7 +17,4 @@
     display: flex;
     justify-content: flex-start;
     flex-wrap: wrap;
-    // div{
-    //     margin: 30px;
-    // }
 }
