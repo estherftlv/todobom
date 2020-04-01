@@ -27,7 +27,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
   const [title, setTitle] = useState("New activity");
 	const [url, setUrl] = useState("none");//
 	const [description, setDescription] = useState("none");
-	const [duration, setDuration] = useState(0);//in minutes
+	const [time, setTime] = useState(0);//in minutes
 	const [minAge, setMinAge] = useState(0);//optional
 	const [maxAge, setMaxAge] = useState(0);//optional
 	const [rating, setRating] = useState("none");//will be updated
@@ -108,7 +108,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
                         title,
                         url,
                         description,
-                        duration,
+                        time,
                         ageRange,
                         rating,
                         createDateMSec,
@@ -119,7 +119,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
                         active};
 				dispatch(addActivity(newAct, onAddtoFirebase));
 
-	},[category, topic, duration, maxAge, minAge, rating, title, url,user, onAddtoFirebase,description, dispatch]);
+	},[category, topic, time, maxAge, minAge, rating, title, url,user, onAddtoFirebase,description, dispatch]);
 
 
 
@@ -170,7 +170,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
       <TextInput onChange={event =>setTitle(event.target.value)} placeholder="Title">Title</TextInput>
       <TextInput onChange={event =>setUrl(event.target.value)} placeholder="url">url</TextInput>
       <KeyVal keyName="description" value={description} onChange={setDescription}/>
-      <TextInput onChange={event =>setDuration(event.target.value)} placeholder="duration">duration</TextInput>
+      <TextInput onChange={event =>setTime(event.target.value)} placeholder="duration">duration</TextInput>
       <TextInput onChange={event =>setMinAge(event.target.value)} placeholder="minAge">minAge</TextInput>
       <TextInput onChange={event =>setMaxAge(event.target.value)} placeholder="maxAge">maxAge</TextInput>
       <TextInput onChange={event =>setRating(event.target.value)} placeholder="rating">rating</TextInput>

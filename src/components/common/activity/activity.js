@@ -6,7 +6,7 @@ import { CATEGORIES } from '../../../utils/enums';
 export default function Activity({plusClick = null, activity}) {
 
     const [offset , setOffset] = React.useState(1000);
-    const category = CATEGORIES[activity.category.toLowerCase()]!=undefined? CATEGORIES[activity.category.toLowerCase()]: CATEGORIES["none"];
+    const category = CATEGORIES[activity.category.toLowerCase()]!==undefined? CATEGORIES[activity.category.toLowerCase()]: CATEGORIES["none"];
     const imageSrc= activity.imageSrc || 'https://loremflickr.com/320/240' ,
         description= activity.description || "description placeholder",
         colorActivity= category,
@@ -17,7 +17,7 @@ export default function Activity({plusClick = null, activity}) {
             const newOffset = time >60 ? 0 : 1000 - (time * 1255 / 100);
             setOffset(newOffset);
         })
-    }, [])
+    }, [time])
 
     const openMore = () => {console.log('more clicked')}
 
