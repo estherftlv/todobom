@@ -31,10 +31,19 @@ export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
 
         if(inlist.length === 0){
             setLists([...lists, newVal]);
-            //TODO: this is the cb funvtion for the firebase for add to list - from markeatplce js 
+            //TODO: ester-  this is the cb funvtion for the firebase for add to list - from markeatplce js 
             addFunction(newVal);
         }
-        setAddInput(false);
+        //setAddInput(false);
+    }
+
+    const assingActiveToList = (e, item, acti) => { 
+        if(e.target.checked){ // is slected
+            // TODO: ester = add to list...
+            console.log(item, pos.activityId);
+        } else{
+            //todo: ester = remove from list
+        }
     }
 
     return (
@@ -43,7 +52,7 @@ export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
             <h6>ADD TO LIST <IoIosClose onClick={()=>{tolgglePopup(null)}}/> </h6>
             {
             lists.map((item, index) => <div key={index} className="inListCheckbox">
-                        <input type="checkbox" id={`checkBox_${index}`}/>
+                        <input type="checkbox" id={`checkBox_${index}`} onChange={(e)=> assingActiveToList(e, item)}/>
                         <FaCheck className="checkboxV"/>
                         <label className="container" htmlFor={`checkBox_${index}`}>
                         {item.title}

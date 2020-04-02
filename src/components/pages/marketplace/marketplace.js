@@ -44,8 +44,9 @@ const Marketplace  = ({activities, user, lists}) => {
         setListPopupPos(pos);
     }
 
-    // TODO: add the firebase api
+    // TODO: -ester -  add list to firebase
     const addToList = (data) =>{
+        debugger;
         setList([...list, data])
     }
 
