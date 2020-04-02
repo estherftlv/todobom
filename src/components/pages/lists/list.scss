@@ -11,8 +11,9 @@ h2{
     overflow-x: scroll;
     overflow-y: hidden;
     white-space: nowrap;
-    width: 90%;
-    white-space:nowrap
+    width: calc(100vw - 150px);
+    display:flex;
+
 }
 
 
@@ -86,7 +87,7 @@ h2{
 
 .addList{
     display: inline-block;
-    width: 417px;
+    min-width: 417px;
     min-height:calc(100vh - 150px);
     border: 1px solid var(--mainColor);
     border-radius: 5px;
