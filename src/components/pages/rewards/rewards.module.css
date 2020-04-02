@@ -39,10 +39,3 @@ h2{
 .newRewardArea:hover > .plus{
     background: url('./images/plus-dark-xl.png') center;
 }
-
-
-.rewardContainer{
-    max-height: calc(100vh - 350px);
-    overflow-y: auto;
-}
-

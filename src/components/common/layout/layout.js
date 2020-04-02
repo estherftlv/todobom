@@ -13,7 +13,11 @@ export default function Layout({children , location}){
 
     return (
         <main className={`mainLayout ${sideNavOpen ? 'open' : ''}`} >
-            {!hideNavBar.includes(location.pathname) && <SideNav active={location.pathname} onClick={toggleSideNav}/>}
+            {!hideNavBar.includes(location.pathname) &&
+                <div>
+                    <SideNav active={location.pathname} onClick={toggleSideNav}/>
+                </div> 
+                }
             <div>
                 {children}
             </div>
