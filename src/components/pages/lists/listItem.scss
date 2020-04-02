@@ -1,0 +1,46 @@
+.listItem{
+    width: 417px;
+    height:calc(100vh - 150px);
+    border: 1px solid var(--mainColor);
+    border-radius: 5px;
+    header{
+        color: var(--mainColor);
+        padding: 15px;
+        h2{
+            text-transform: uppercase;
+            color: var(--mainColor);
+        }
+        .prograss{
+            margin-top:50px;
+            width: 95%;
+            left: 5px;
+            border: 1px solid var(--mainColor);
+            height: 10px;
+            border-radius: 5px;
+            position: relative;
+            .fill{
+                height: 8px;
+                background-color: var(--mainColor);
+                width: 45%;
+            }
+            span{
+                position: absolute;
+                top: -40px;
+                svg{
+                    position: absolute;
+                    left: -17px;
+                    top: -7px;
+                    path{
+                        fill: var(--mainColor);
+                    }
+                }
+
+                &.green{
+                    svg path{
+                        fill: var(--greenColor);
+                    }
+                }
+            }
+        } 
+    }
+}
