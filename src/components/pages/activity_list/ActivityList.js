@@ -44,7 +44,7 @@ const ActivityList = ({history, user}) => {
                         <div className={style.activityHeader} >
                             <div className={style.checkBoxArea}>
                                 <input type="checkbox" className={style.checkBox}/>
-                                <img src={require("./images/time.png")} alt="clock"/>
+                                {/* <img src={require("./images/time.png")} alt="clock"/> */}
                                 <p>60 min</p>
                             </div>
                             <div className={style.titleArea}></div>

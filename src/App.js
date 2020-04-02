@@ -53,7 +53,6 @@ const App = ()=>(
 					<Route exact path="/marketplace" component={Marketplace}/>
 					<Route exact path="/list" component={List}/>
 					<Route exact path="/rewards" component={Rewards}/>
-					<Route exact path="/list" component={ActivityList}/>
 				</Layout>
 			</Switch>
       	</AuthContainer>

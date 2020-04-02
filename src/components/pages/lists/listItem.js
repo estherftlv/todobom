@@ -26,6 +26,8 @@ export const ListItem = () => {
             }
                 <div class="fill" style={{width:`${progress / one }%`}}/>
             </div>  
+
+            
         </header>
         
         </div>
