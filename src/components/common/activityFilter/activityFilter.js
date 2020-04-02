@@ -56,7 +56,7 @@ export default function ActivityFilter({addFilter}) {
                 <h6>Suitable for ages</h6>
                 <div className="ageRange" aftermin="0" aftermax="18">
                     <div className="rangeStyle" aftermin={`${age[0]} - `} aftermax={age[1]}> 
-                        <Range className="duration" min={0} max={61} defaultValue={[0,18]} onChange={onAgeChange }/>
+                        <Range className="duration" min={0} max={18} defaultValue={[0,18]} onChange={onAgeChange }/>
                     </div>
                 </div>
 

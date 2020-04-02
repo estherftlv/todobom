@@ -28,6 +28,8 @@ export const purples ={
 }
 
 
+=======
+>>>>>>> 73481ace108cc9df6b43760bdc5c18d60e88b526
 export default {
 	...themeP,
 	...themeA,

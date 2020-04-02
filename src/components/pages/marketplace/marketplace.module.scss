@@ -6,6 +6,14 @@
     align-items: end;
     .search {
         width: 300px;
+        border:solid 2px var(--mainColor);
+        border-radius: 5px;
+        display:flex;
+        align-items: center;
+        input{
+            border: none;
+        }
+
     }
     small {
         color: var(--mainColor);

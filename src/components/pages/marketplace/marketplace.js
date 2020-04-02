@@ -72,17 +72,18 @@ const Marketplace  = ({activities, user, lists}) => {
         if(originalActivity === null) originalActivity = activitiesList ;
 
         const filterdActivities = originalActivity.filter(activity =>{
-            if(activity.category && !filters.category.includes(activity.category)) {
-                return ;
+            let isValid = true;
+            if(filters.category.includes(activity.category)) {
+                isValid = false;
             }
-            if(activity.ageRange && !between(activity.age ,filters.age[0],filters.age[1])){
-                return ;
+            if( !(activity.minAge >= filters.age[0]) && !(activity.maxAge <= filters.age[1])){
+                isValid = false;
             }
-            if(activity.time && !between(activity.time, filters.time[0], filters.time[1])){
-                return ;
+            if(!between(activity.time, filters.time[0], filters.time[1])){
+                isValid = false;
             }
             
-            return activity;
+            if(isValid) return activity;
         })
 
         setActivitiesList(filterdActivities)
@@ -96,7 +97,7 @@ const Marketplace  = ({activities, user, lists}) => {
 
         <InputGroup className={style.search}>
             <InputGroup.Append>
-                <InputGroup.Text style={{backgroundColor:'transparent', borderRight: 'none'}} id="basic-addon2"><FaSearch onClick={faSearchClicked}/> </InputGroup.Text>
+                <InputGroup.Text style={{backgroundColor:'transparent', border: 'none'}} id="basic-addon2"><FaSearch onClick={faSearchClicked}/> </InputGroup.Text>
             </InputGroup.Append>
             <FormControl
                 style={{backgroundColor:'transparent', borderLeft: 'none'}}
@@ -121,7 +122,7 @@ const Marketplace  = ({activities, user, lists}) => {
 const mapStateToProps = state => ({
 	activities: state.activities,
 	user:state.user,
-  lists: state.lists
+    lists: state.lists
 });
 
 export default connect(

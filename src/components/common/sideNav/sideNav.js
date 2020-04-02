@@ -5,6 +5,9 @@ import {IoIosGift , IoMdSettings} from 'react-icons/io'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../../redux/actions/user.actions';
+import { ReactComponent as Logout } from './logout.svg'; 
+import { ReactComponent as Audit } from './audit.svg'; 
+import { ReactComponent as Present } from './present.svg'; 
 
 
 export default function SideNav({onClick , active =''}) {
@@ -27,15 +30,16 @@ export default function SideNav({onClick , active =''}) {
                     {activeUrl === 'marketplace' && <FaCaretLeft className="activeIcon"/>}
                 </Link>
                 <Link to="/list" className="linkNav sideNavIcon">
-                    <FaTasks className="sideNavIcon"/>
+                    <Audit className="sideNavIcon"/>
                     {activeUrl === 'list' && <FaCaretLeft className="activeIcon"/>}
                 </Link>
                 <Link to="/rewards" className="linkNav sideNavIcon">
-                    <IoIosGift className="sideNavIcon"/>
+                    <Present className="sideNavIcon"/>
                     {activeUrl === 'rewards' && <FaCaretLeft className="activeIcon"/>}
                 </Link>
             </div>
-            <IoMdSettings className="sideNavIcon setting" onClick={() => dispatch(logout())}/>
+            <Logout className="sideNavIcon setting" onClick={() => dispatch(logout())}/>
+            {/* <IoMdSettings className="sideNavIcon setting" onClick={() => dispatch(logout())}/> */}
         </div>
     )
 }

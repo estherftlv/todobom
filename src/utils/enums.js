@@ -1,11 +1,11 @@
 export const CATEGORIES = {
     sport: {
-        color:'#a30000',
+        color:'#ff3a28',
         text: 'Sport & Fitness',
         imageSrc: 'https://loremflickr.com/320/240/sport'
     } ,
     diy: {
-        color:'#2b9854',
+        color:'#32e56d',
         text: 'Do It Yourself',
         imageSrc: 'https://loremflickr.com/320/240/diy'
     } ,
@@ -14,14 +14,14 @@ export const CATEGORIES = {
         text: 'Educational',
         imageSrc: 'https://loremflickr.com/320/240/education'
     },
-    video: {
+    entertainment: {
         color:'#4a90e2',
-        text: 'Videos',
+        text: 'Entertainment',
         imageSrc: 'https://loremflickr.com/320/240/video'
     } ,
-    cooking:{
-        color:'#ff9000',
-        text: 'Cooking',
+    chores:{
+        color:'#ff7500',
+        text: 'Chores',
         imageSrc: 'https://loremflickr.com/320/240/cooking'
     },
     none:{
