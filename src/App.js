@@ -17,6 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from './components/common/layout/layout';
 import { List } from './components/pages/lists/list';
 import Rewards from './components/pages/rewards/rewards';
+import ActivityList from './components/pages/activity_list/ActivityList';
 
 
 
