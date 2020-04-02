@@ -2,10 +2,14 @@ import React, {useCallback, useState} from 'react';
 import styled from 'styled-components';
 import {useDispatch, connect} from "react-redux";
 
-import { FaImage } from 'react-icons/fa';
+import Slider, { Range } from 'rc-slider';
+
+import 'rc-slider/assets/index.css';
+
 
 import { CATEGORIES } from '../../utils/enums';
 // components
+
 import Button from '../common/Button';
 import TextInput from '../common/TextInput';
 import ClickOut from '../common/ClickOut';
@@ -16,7 +20,6 @@ import { Dropdown } from 'react-bootstrap';
 
 import {addActivity} from "../../redux/actions/activity.actions";
 
-
 const AddActivityTmp4Esther = ({history, user}) => {
 	const dispatch = useDispatch();
 
@@ -26,14 +29,14 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 	//question state:
 	const [ID, setID] = useState("");
-	const [category, setCategory] = useState("none");//drop down list
+	const [category, setCategory] = useState("other");//drop down list
 	const [topic, setTopic] = useState("none");//drop down list
   const [title, setTitle] = useState("New activity");
 	const [url, setUrl] = useState("none");//
 	const [description, setDescription] = useState("none");
 	const [time, setTime] = useState(0);//in minutes
 	const [minAge, setMinAge] = useState(0);//optional
-	const [maxAge, setMaxAge] = useState(0);//optional
+	const [maxAge, setMaxAge] = useState(120);//optional
 	const [rating, setRating] = useState("none");//will be updated
 //	const [active, setActive] = useState(true);//is obsolete?
 
@@ -41,6 +44,22 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
   const [showError, setShowError] = useState("");
 	const [upload,setUpload] = useState(null);
+
+	const [duration , setDuration] = useState([0,65]);
+	const [age , setAge] = useState([0,18]);
+
+
+
+	const onAgeChange = (value) =>{
+			setAge(value);
+	}
+
+	const marks = {
+  15: '15',
+  30: '30',
+  45: '45',
+  60: '60+',
+};
 
 	//technology: TBD?
   //isPDF
@@ -88,6 +107,12 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
   }, [handleClickOut]);
 
+
+  const onDurationSliderChange = useCallback(value=>{
+    setTime(value)
+  },[setTime]);
+
+
   const onAddtoFirebase = useCallback(action=>{
     setShowError("");
     setID(action.id);
@@ -106,7 +131,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 				const uid = user.uid? user.uid: "loggedOut";
 				const email = user.email? user.email: "loggedOut";
 				const displayName = user.displayName? user.displayName: "loggedOut";
-        const ageRange = (1000*minAge + maxAge);
+        const minMaxAgeRange = (1000*minAge + maxAge);
 				const newAct = {
                         category,
                         topic,
@@ -114,7 +139,9 @@ const AddActivityTmp4Esther = ({history, user}) => {
                         url,
                         description,
                         time,
-                        ageRange,
+												minAge,
+												maxAge,
+                        minMaxAgeRange,
                         rating,
                         createDateMSec,
                         createDate,
@@ -164,29 +191,39 @@ const AddActivityTmp4Esther = ({history, user}) => {
           //else:
 	return (
     <Page>
+			<H1>ADD A NEW ACTIVITY</H1>
 			<Row>
-      <Col>
-				<Button onClick={()=>{addToFireBase()}}>addToFireBase</Button>
-				<H1>{ID}</H1>
-				{menu("CATEGORY", category, categories,setCategory)}
-				{menu("TOPIC", topic, topics, setTopic, true)}
-  
-	      <TextInput onChange={event =>setTitle(event.target.value)} lable="Title" placeholder="Add your title here"/>
-	      <TextInput onChange={event =>setUrl(event.target.value)} placeholder="url">url</TextInput>
-	      <KeyVal keyName="description" value={description} onChange={setDescription}/>
-	      <TextInput onChange={event =>setTime(event.target.value)} placeholder="duration">duration</TextInput>
-	      <TextInput onChange={event =>setMinAge(event.target.value)} placeholder="minAge">minAge</TextInput>
-	      <TextInput onChange={event =>setMaxAge(event.target.value)} placeholder="maxAge">maxAge</TextInput>
-	      <TextInput onChange={event =>setRating(event.target.value)} placeholder="rating">rating</TextInput>
-	      <TextInput onChange={event =>setUpload(event.target.value)}>{upload}</TextInput>
-			</Col>
-				<FileLoader width="100%" onDone={obj=>{setUpload(obj.downloadURL)}}/>
+	      <Col width="30%">
+
+					<H1>{ID}</H1>
+
+					<TextInput label="Activity type" placeholder="Select category"/>
+					<TextInput onChange={event =>setUrl(event.target.value)} label="Link to activity (optional)" placeholder="Copy and paste the activity’s web address">url</TextInput>
+		      <TextInput onChange={event =>setTitle(event.target.value)} label="Activity title" placeholder="Name your activity"/>
+		      <TextInput onChange={event =>setDescription(event.target.value)} label="Activity description (optional)" placeholder="Describe your activity in detail"/>
+		      <TextInput onChange={event =>setMinAge(event.target.value)} placeholder="minAge">minAge</TextInput>
+		      <TextInput onChange={event =>setMaxAge(event.target.value)} placeholder="maxAge">maxAge</TextInput>
+					<Label>Activity duration (estimated)</Label>
+					<Slider min={0} max={60} marks={marks} railStyle={{backgroundColor:'#9013fe'}} onAfterChange={value=>setTime(value)}/>
+					<Label>Suitable for ages</Label>
+					<Slider min={0} max={60} marks={marks} railStyle={{backgroundColor:'#9013fe'}} onAfterChange={value=>console.log(value)}/>
+				</Col>
+				<Col width="60%">
+					<FileLoader width="100%" onDone={obj=>{setUpload(obj.downloadURL)}}/>
+					<TextInput onChange={event =>setUpload(event.target.value)} label="Picture URL (optional)" placeholder={upload}/>
+					<SaveCancel>
+						<Button onClick={()=>{history.push('/rewards')}} secondary>Cancel</Button>
+						<Button onClick={()=>{addToFireBase()}}>Save</Button>
+					</SaveCancel>
+				</Col>
 			</Row>
     </Page>
 	);
 };
 
 	// <FileLoader onDone={obj=>{setUpload(obj.downloadURL)}}/>
+	//{menu("CATEGORY", category, categories,setCategory)}
+	// <TextInput onChange={event =>setUpload(event.target.value)}>{upload}</TextInput>
 
 const mapStateToProps = state => {
 	return {
@@ -200,36 +237,51 @@ const Page = styled.div`
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+	justify-content: flex-start;
+	align-items: flex-start;
 	box-sizing: border-box;
-	padding: 20px;
+
 `;
 
 const H1 = styled.div`
-	font-size: 20px;
-	font-weight: bold;
-  margin: 20px;
-	color: ${({theme,red})=> red && theme.r500};
+	font-size: 2rem;
+	font-weight: 500;
+	line-height: 1.2;
+	color: ${({theme})=> theme.purple1};
 `;
 
 const Row = styled.div`
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
-	left:0px;
-`;
-const Col = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	width: 100%;
+	align-items: flex-start;
 	left:0px;
 `;
 
+const SaveCancel = styled.div`
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	align-self: flex-end;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+`;
+
+const Col = styled.div`
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	margin: 0px 20px 20px 0px;
+`;
+
+const Label = styled.div`
+	font-size: 16px;
+	min-height: 20px;
+	width: 100%;
+	margin-top: 30px;
+	color: ${({theme})=> theme.purple2};
+`;
 
 const Box = styled.div`
 	min-width: 120px;

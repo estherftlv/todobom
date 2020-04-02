@@ -22,9 +22,14 @@ export const themeA = {
 	a800: '#072A60'
 };
 
+export const purples ={
+	purple1: '#9013FE',
+	purple2: '#A400FF'
+}
 
 
 export default {
 	...themeP,
-	...themeA
+	...themeA,
+	...purples
 };

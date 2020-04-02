@@ -26,7 +26,7 @@ export const CATEGORIES = {
     },
     none:{
         color:'#333333',
-        text: 'None',
+        text: 'other',
         imageSrc: 'https://loremflickr.com/320/240/none'
     },
 
