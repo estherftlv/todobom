@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Button = ({onClick, children}) => (
-	<Container onClick={onClick}>
+const Button = ({onClick, children,secondary}) => (
+	<Container onClick={onClick} secondary={secondary}>
 		{children}
 	</Container>
 );
@@ -19,8 +19,8 @@ const Container = styled.div`
 	transition: all 300ms;
 	border-radius: 2px;
 	margin: 5px;
-	background: #F3F3F3;
-	color: #000000;
+	background: ${({theme}) => theme.purple1};
+	color: ${({theme}) => theme.p0};
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -28,8 +28,14 @@ const Container = styled.div`
 
 
 	&:hover {
-		background: #F4F4F$;
 	}
+
+	${({secondary, theme}) => secondary && `
+		background: ${theme.p0};
+		color: ${theme.purple1};
+		border: 1px solid ${theme.purple1};
+
+	`};
 
 
 

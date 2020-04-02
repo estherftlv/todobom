@@ -22,15 +22,15 @@ export default TextInput;
 const Container = styled.div`
 	display: flex;
 	flex-direction: column;
-	width: 100%;
+	width: 450px;
+	margin: 10px 0px 10px 0px;
 `;
 
 const Label = styled.div`
-	font-size: 14px;
-	min-height: 17px;
-	font-weight: 500;
-	margin-bottom: 5px;
-	margin-top: 5px;
+	font-size: 16px;
+	min-height: 20px;
+	margin: 5px 0px;
+	color: ${({theme})=> theme.purple2};
 	${({error, theme}) => error && `
 		color: ${theme.r500};
 	`};
@@ -50,7 +50,7 @@ const Input = styled.input`
 	${({error, theme}) => error && `
 		border: 1px solid ${({theme}) => theme.r500};
 	`};
-	border-radius: 2px;
+	border-radius: 3px;
 
 	&::placeholder {
 		color: ${({ theme }) => theme.p300};
