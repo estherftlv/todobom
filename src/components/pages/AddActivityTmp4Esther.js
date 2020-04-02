@@ -16,7 +16,7 @@ import ClickOut from '../common/ClickOut';
 import KeyVal from '../common/KeyVal';
 import Spinner from '../common/Spinner';
 import FileLoader from '../common/FileLoader';
-import { Dropdown } from 'react-bootstrap';
+import { Dropdown, DropdownButton, DropdownItem } from 'react-bootstrap';
 
 import {addActivity} from "../../redux/actions/activity.actions";
 
@@ -59,6 +59,17 @@ const AddActivityTmp4Esther = ({history, user}) => {
   30: '30',
   45: '45',
   60: '60+',
+};
+	const marksAge = {
+  1: '1',
+  3: '3',
+  5: '5',
+  7: '7',
+  10: '10',
+  12: '12',
+  14: '14',
+  16: '16',
+  18: '18+',
 };
 
 	//technology: TBD?
@@ -108,8 +119,9 @@ const AddActivityTmp4Esther = ({history, user}) => {
   }, [handleClickOut]);
 
 
-  const onDurationSliderChange = useCallback(value=>{
-    setTime(value)
+  const onAgeRangeChange = useCallback(value=>{
+    setMinAge(value[0]);
+    setMaxAge(value[1]);
   },[setTime]);
 
 
@@ -197,20 +209,21 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 					<H1>{ID}</H1>
 
-					<TextInput label="Activity type" placeholder="Select category"/>
+					<TextInput label="Activity type" placeholder={category}/>
+					<DropdownButton title="Select a category" onChange={e=>setCategory(e)}>
+							{categories.map(item => <DropdownItem key={item}>{item}</DropdownItem>)}
+	        </DropdownButton>
 					<TextInput onChange={event =>setUrl(event.target.value)} label="Link to activity (optional)" placeholder="Copy and paste the activity’s web address">url</TextInput>
 		      <TextInput onChange={event =>setTitle(event.target.value)} label="Activity title" placeholder="Name your activity"/>
 		      <TextInput onChange={event =>setDescription(event.target.value)} label="Activity description (optional)" placeholder="Describe your activity in detail"/>
-		      <TextInput onChange={event =>setMinAge(event.target.value)} placeholder="minAge">minAge</TextInput>
-		      <TextInput onChange={event =>setMaxAge(event.target.value)} placeholder="maxAge">maxAge</TextInput>
 					<Label>Activity duration (estimated)</Label>
 					<Slider min={0} max={60} marks={marks} railStyle={{backgroundColor:'#9013fe'}} onAfterChange={value=>setTime(value)}/>
 					<Label>Suitable for ages</Label>
-					<Slider min={0} max={60} marks={marks} railStyle={{backgroundColor:'#9013fe'}} onAfterChange={value=>console.log(value)}/>
+					<Range min={0} max={18} marks={marksAge} railStyle={{backgroundColor:'#9013fe'}} onAfterChange={value=>console.log(value)}/>
 				</Col>
 				<Col width="60%">
 					<FileLoader width="100%" onDone={obj=>{setUpload(obj.downloadURL)}}/>
-					<TextInput onChange={event =>setUpload(event.target.value)} label="Picture URL (optional)" placeholder={upload}/>
+					<TextInput onChange={event =>setUpload(event.target.value)} label="Picture URL (optional)" defaultValue={upload}/>
 					<SaveCancel>
 						<Button onClick={()=>{history.push('/rewards')}} secondary>Cancel</Button>
 						<Button onClick={()=>{addToFireBase()}}>Save</Button>
@@ -253,7 +266,8 @@ const H1 = styled.div`
 const Row = styled.div`
 	display: flex;
 	flex-direction: row;
-	align-items: flex-start;
+	align-items: space-around;
+	margin-top: 20px;
 	left:0px;
 `;
 

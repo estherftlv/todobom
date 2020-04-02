@@ -29,6 +29,7 @@ const Container = styled.div`
 const Label = styled.div`
 	font-size: 16px;
 	min-height: 20px;
+	margin: 5px 0px;
 	color: ${({theme})=> theme.purple2};
 	${({error, theme}) => error && `
 		color: ${theme.r500};

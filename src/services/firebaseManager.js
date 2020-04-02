@@ -113,11 +113,12 @@ class firebaseManager {
 		newPath.getDownloadURL().then(downloadURL => {setError(`${file.name} already exists:`);setLabel(downloadURL);onDone({file,downloadURL})},
 																							 error => {setError(`upload... ${file.name}`);uploadFile()});
 	}
-	uploadImage({file, setProgress,setLabel,onDone})
+	uploadImage({file, setProgress,setLabel,onDone,setImageLocation})
 	{
 		var ref = this.storage.ref()
 		var newPath = ref.child(`images/${file.name}`);
 		var uploadTask = newPath.put(file);
+		let percentLoaded = 0;
 
 			// Register three observers:
 			// 1. 'state_changed' observer, called any time the state changes
@@ -126,14 +127,15 @@ class firebaseManager {
 			uploadTask.on('state_changed', function(snapshot){
 					// Observe state change events such as progress, pause, and resume
 					// Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-					setProgress((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+					percentLoaded = Math.floor((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+					setProgress(percentLoaded);
 					//console.log('Upload is ' + progress + '% done');
 					switch (snapshot.state) {
 						case firebase.storage.TaskState.PAUSED: // or 'paused'
-						setLabel('Upload is paused');
+						setLabel('Upload to DB has paused');
 						break;
 						case firebase.storage.TaskState.RUNNING: // or 'running'
-						setLabel('Upload is running');
+						setLabel(`Uploading ${file.name} to DB, ${percentLoaded}%`);
 						break;
 						default:
 						setLabel(`loading ${file.name}`);
@@ -148,7 +150,7 @@ class firebaseManager {
 						// For instance, get the download URL: https://firebasestorage.googleapis.com/...
 						uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
 						onDone({file,downloadURL});
-						setLabel(downloadURL);
+						setImageLocation(downloadURL);
 					});
 					});
 
