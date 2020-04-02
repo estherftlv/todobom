@@ -16,6 +16,7 @@ import { createBrowserHistory } from "history";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from './components/common/layout/layout';
 import Rewards from './components/pages/rewards/rewards';
+import ActivityList from './components/pages/activity_list/ActivityList';
 
 
 
@@ -50,6 +51,7 @@ const App = ()=>(
 					<Route exact path="/addActivity" component={AddActivityTmp4Esther}/>
 					<Route exact path="/marketplace" component={Marketplace}/>
 					<Route exact path="/rewards" component={Rewards}/>
+					<Route exact path="/list" component={ActivityList}/>
 				</Layout>
 			</Switch>
       	</AuthContainer>

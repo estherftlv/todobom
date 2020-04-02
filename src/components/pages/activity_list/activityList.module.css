@@ -1,0 +1,47 @@
+.subHeader{
+    color: '#9013fe';
+    font-size: 2rem;
+    color: #9013fe;
+}
+
+.contentItemsCenter{
+    display: flex;
+    align-items: center;
+}
+
+.headerContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.headerContainer > div{
+    background: url('./images/more.png') center;
+    width: 20px;
+}
+.headerContainer > h2{
+    color: #9013fe;
+    font-size: 34px;
+    
+}
+
+
+/* 
+    Activity component
+*/
+
+.activityContainer{
+    height: 130px;
+    width: 100%;
+    background: #ff87d0;
+    border: 1px solid #9013fe;
+    border-radius: 4px;
+}
+
+.activityContainer > .activityHeader{
+    display: flex;
+    justify-content: space-between;
+}
+
+input[type=checkbox]{
+    border: 1px solid #9013fe;
+    margin-right: 2px;
+}   

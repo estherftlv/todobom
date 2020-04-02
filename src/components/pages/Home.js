@@ -14,6 +14,7 @@ const Home = ({ history }) => {
 				<Button onClick={()=>{history.push('/login')}}>Login</Button>
 				<Button onClick={()=>{history.push('/AddActivityTmp4Esther')}}>AddActivityTmp4Esther</Button>
 				<Button onClick={()=>{history.push('/rewards')}}>Rewards</Button>
+				<Button onClick={()=>{history.push('/list')}}>ActivityList</Button>
 		  </Hero>
 		</Page>
 	);
