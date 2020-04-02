@@ -22,8 +22,6 @@ export const themeA = {
 	a800: '#072A60'
 };
 
-
-
 export default {
 	...themeP,
 	...themeA
