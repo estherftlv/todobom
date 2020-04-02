@@ -8,7 +8,7 @@ const AuthContainer = ({children}) => {
   
   useEffect(() => {
     if (user && user.uid) {
-        history.push('/list');
+        history.push('/marketplace');
     } else {
       console.log("navigate back to home Page if not logged in????")
       history.push('/');

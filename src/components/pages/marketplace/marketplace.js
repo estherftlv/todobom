@@ -15,6 +15,8 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
 import { TodoBtn } from '../../common/todoBtn/todoBtn';
 
 let originalActivity =  null;
+let timeOut = null;
+
 const Marketplace  = ({activities, user, lists}) => {
 
     const [listPopupPos , setListPopupPos] = useState(false);
@@ -34,6 +36,13 @@ const Marketplace  = ({activities, user, lists}) => {
     },[activities])
 
     const searchChange =(e) =>{
+        if(timeOut) clearTimeout(timeOut);
+        if(originalActivity === null) originalActivity = activitiesList ;
+        const value = e.target.value;
+        timeOut = setTimeout(()=>{
+            const newActivites = originalActivity.filter(item => item.title.includes(value) || item.description.includes(value));
+            setActivitiesList(newActivites)
+        },500)
         console.log(`typed search for: ${e.target.value}`);
     }
     const faSearchClicked =() =>{

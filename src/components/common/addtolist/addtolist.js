@@ -37,7 +37,7 @@ export const Addtolist = ({pos , list , addFunction , tolgglePopup}) => {
         //setAddInput(false);
     }
 
-    const assingActiveToList = (e, item, acti) => { 
+    const assingActiveToList = (e, item) => { 
         if(e.target.checked){ // is slected
             // TODO: ester = add to list...
             console.log(item, pos.activityId);
