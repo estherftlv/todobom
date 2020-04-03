@@ -11,6 +11,9 @@ export const List = () => {
     }
 
     function addList() {
+        // Pop-up
+
+        // new List
         const newI = {name:`${user.name} ${itemListComponent.length + 1}`}        
         setItemList([...itemListComponent , newI])
     }

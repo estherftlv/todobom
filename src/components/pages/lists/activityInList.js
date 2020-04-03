@@ -3,7 +3,7 @@ import './listItem.scss'
 import { ReactComponent as Present } from '../../common/sideNav/present.svg'
 import './activity.scss'
 
-export const Activity = () => {
+export const ActivityInList = () => {
 
     return (
         <div className="activity">

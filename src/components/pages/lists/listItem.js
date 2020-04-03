@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import './listItem.scss'
 import { ReactComponent as Present } from '../../common/sideNav/present.svg'
-import { Activity } from './activity'
+import { ActivityInList } from './activityInList'
 
 
 export const ListItem = ({name}) => {
+
     const lists = [45 , 120 , 245];
     const max = Math.max(...lists);
     const min = Math.min(...lists);
@@ -14,9 +15,10 @@ export const ListItem = ({name}) => {
     // Menu
     const [menuPos, setMenuPos] = useState(null);
     const [isMenuopen, setIsMenuOpen] = useState(false);
+
     // List property
-    const [listName, setListName] = useState('name')
-    const [activities, setActivities] = useState([])
+    const [listName, setListName] = useState('name');
+    const [activities, setActivities] = useState([]);
 
     const listPosition = lists.map(lists =>({pos : lists / one, value: lists }));
 
@@ -26,8 +28,8 @@ export const ListItem = ({name}) => {
             y : e.clientY
         }
         
-        setIsMenuOpen(true)
-        setMenuPos(pos)
+        setIsMenuOpen(true);
+        setMenuPos(pos);
     }
 
     const closeMenu = () => {
@@ -51,12 +53,10 @@ export const ListItem = ({name}) => {
 
     const ester_fullReset = () => {
         console.log('ester_fullReset');
-        
     }
 
     const ester_deleteList = () => {
         console.log('ester_deleteList');
-
     }
 
 
@@ -93,12 +93,12 @@ export const ListItem = ({name}) => {
                     </div>
                 </div>
 
-                <Activity></Activity>
+                <ActivityInList></ActivityInList>
 
             </header>
             
             {/* Popup */}
-            {menuPos && isMenuopen && <div className="menu" style={{left: menuPos.x - 277, top: menuPos.y - 182}}>
+            {menuPos && isMenuopen && <div className="menu" style={{left: menuPos.x, top: menuPos.y}}>
                     <img onClick={closeMenu} className="closeMenuBtn" src={require('./images/more.png')}/>
                     <p onClick={ester_renameList}>Rename list</p>
                     <p onClick={ester_duplicateList}>Duplicate list</p>
