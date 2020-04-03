@@ -74,7 +74,7 @@ export const Addtolist = ({pos , list , addNewList , updateList, togglePopup}) =
 
             {
                 !addInput ?
-                <span className="addList" onClick={()=>setAddInput(true)}><FaPlus/>Create new list</span> :
+                <span className="addListItem" onClick={()=>setAddInput(true)}><FaPlus/>Create new list</span> :
                 <input type="text" onKeyPress={addInputChange} onBlur={checkListBeforeInsert}/>
             }
         </div>
