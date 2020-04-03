@@ -3,7 +3,7 @@ import {connect, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {fetchActivities} from '../../../redux/actions/activity.actions';
-import {fetchLists} from '../../../redux/actions/list.actions';
+import {fetchLists, addActivityToList, addNewListForUser} from '../../../redux/actions/list.actions';
 
 import style from './marketplace.module.scss';
 import { InputGroup, FormControl } from 'react-bootstrap';
@@ -54,8 +54,13 @@ const Marketplace  = ({activities, user, lists}) => {
     }
 
     // TODO: -ester -  add list to firebase
+    const addNewList = (data) =>{
+        dispatch(addNewListForUser({user,data}));
+
+    }
+
     const addToList = (data) =>{
-        debugger;
+        dispatch(addActivityToList({user,data}));
         setList([...list, data])
     }
 
@@ -92,7 +97,7 @@ const Marketplace  = ({activities, user, lists}) => {
             if(!between(activity.time, filters.time[0], filters.time[1])){
                 isValid = false;
             }
-            
+
             if(isValid) return activity;
         })
 
@@ -122,7 +127,7 @@ const Marketplace  = ({activities, user, lists}) => {
                 activitiesList.map(activity => <Activity key={activity.id} showActivityInfo={setActivityInfo} activity={activity} plusClick={toggleActivityToList}/>)
             }
         </div>
-        <Addtolist list={lists} addFunction={addToList} pos={listPopupPos} tolgglePopup={toggleActivityToList}/>
+        <Addtolist list={lists} updateList={addToList} pos={listPopupPos} togglePopup={toggleActivityToList} addNewList={addNewList}/>
         <ActivityFilter addFilter={addFilter}/>
         {<ActiveityInfo closeCb={setActivityInfo} openListPicker={setListPopupPos} activity={activityInfo}/>}
         </>
@@ -132,7 +137,7 @@ const Marketplace  = ({activities, user, lists}) => {
 const mapStateToProps = state => ({
 	activities: state.activities,
 	user:state.user,
-    lists: state.lists
+  lists: state.lists
 });
 
 export default connect(
