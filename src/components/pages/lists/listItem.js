@@ -4,7 +4,7 @@ import { ReactComponent as Present } from '../../common/sideNav/present.svg'
 import { ActivityInList } from './activityInList'
 
 
-export const ListItem = ({name}) => {
+export const ListItem = ({name, openMenuFunc}) => {
 
     const lists = [45 , 120 , 245];
     const max = Math.max(...lists);
@@ -13,8 +13,7 @@ export const ListItem = ({name}) => {
     const one = max / 100;
 
     // Menu
-    const [menuPos, setMenuPos] = useState(null);
-    const [isMenuopen, setIsMenuOpen] = useState(false);
+
 
     // List property
     const [listName, setListName] = useState('name');
@@ -22,43 +21,8 @@ export const ListItem = ({name}) => {
 
     const listPosition = lists.map(lists =>({pos : lists / one, value: lists }));
 
-    const openMenu = (e) => {
-        const pos = {
-            x: e.clientX,
-            y : e.clientY
-        }
-        
-        setIsMenuOpen(true);
-        setMenuPos(pos);
-    }
-
-    const closeMenu = () => {
-        setIsMenuOpen(false)
-    }
     
-    // Menu pop-up functions
-
-    const ester_renameList = () => {
-        setListName('name from fireBase')
-        console.log("ester_renameList");
-    }
-
-    const ester_duplicateList = () => {
-        console.log("ester_duplicateList");
-    }
-
-    const ester_resetList = () => {
-        console.log("ester_resetList");
-    }
-
-    const ester_fullReset = () => {
-        console.log('ester_fullReset');
-    }
-
-    const ester_deleteList = () => {
-        console.log('ester_deleteList');
-    }
-
+    
 
     return (
         <div className="listItem">
@@ -66,7 +30,8 @@ export const ListItem = ({name}) => {
             <header>
                 <div className="headerAndMore">
                     <h2>{listName}</h2>
-                    <div onClick={openMenu}/>
+                    {/* Pass listID to openMenuFunc as parameter*/}
+                    <div onClick={e => openMenuFunc(e)}/>
                 </div>
 
                 <div className="prograss">
@@ -97,15 +62,7 @@ export const ListItem = ({name}) => {
 
             </header>
             
-            {/* Popup */}
-            {menuPos && isMenuopen && <div className="menu" style={{left: menuPos.x, top: menuPos.y}}>
-                    <img onClick={closeMenu} className="closeMenuBtn" src={require('./images/more.png')}/>
-                    <p onClick={ester_renameList}>Rename list</p>
-                    <p onClick={ester_duplicateList}>Duplicate list</p>
-                    <p onClick={ester_resetList}>Reset list (keep undone)</p>
-                    <p onClick={ester_fullReset}>Full reset(remove all)</p>
-                    <p onClick={ester_deleteList} className="deleteList">Delete list</p>
-                </div>}
+            
         </div>
     )
 }
