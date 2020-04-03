@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './listItem.scss'
-import { ReactComponent as Present } from '../../common/sideNav/present.svg'
+//import { ReactComponent as Present } from '../../common/sideNav/present.svg'
 import './activity.scss'
 
 export const ActivityInList = () => {
@@ -16,9 +16,9 @@ export const ActivityInList = () => {
 
                 <div className="titleArea">
                     <span>EDUCATIONAL</span>
-                </div>                    
+                </div>
             </div>
-                    
+
 
             <div className="activityBody">
                 <div className="activityImage"></div>

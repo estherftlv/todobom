@@ -13,10 +13,9 @@ import { CATEGORIES } from '../../utils/enums';
 import Button from '../common/Button';
 import TextInput from '../common/TextInput';
 import ClickOut from '../common/ClickOut';
-import KeyVal from '../common/KeyVal';
 import Spinner from '../common/Spinner';
 import FileLoader from '../common/FileLoader';
-import { Dropdown, DropdownButton, DropdownItem } from 'react-bootstrap';
+import { DropdownButton, DropdownItem } from 'react-bootstrap';
 
 import {addActivity} from "../../redux/actions/activity.actions";
 
@@ -30,29 +29,17 @@ const AddActivityTmp4Esther = ({history, user}) => {
 	//question state:
 	const [ID, setID] = useState("");
 	const [category, setCategory] = useState("other");//drop down list
-	const [topic, setTopic] = useState("none");//drop down list
   const [title, setTitle] = useState("New activity");
 	const [url, setUrl] = useState("none");//
 	const [description, setDescription] = useState("none");
 	const [time, setTime] = useState(0);//in minutes
 	const [minAge, setMinAge] = useState(0);//optional
 	const [maxAge, setMaxAge] = useState(120);//optional
-	const [rating, setRating] = useState("none");//will be updated
-//	const [active, setActive] = useState(true);//is obsolete?
 
-	const [image, setImage] = useState("none");//TBD load file to storage and link to that URL
 
   const [showError, setShowError] = useState("");
 	const [upload,setUpload] = useState(null);
 
-	const [duration , setDuration] = useState([0,65]);
-	const [age , setAge] = useState([0,18]);
-
-
-
-	const onAgeChange = (value) =>{
-			setAge(value);
-	}
 
 	const marks = {
   15: '15',
@@ -83,7 +70,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 
   const categories = Object.keys(CATEGORIES);
-  const topics = ["topic1","topic2","topic3","topic4"];
+  //const topics = ["topic1","topic2","topic3","topic4"];
   const active = "true";
 
   const toggle = useCallback((x)=>{
@@ -122,7 +109,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
   const onAgeRangeChange = useCallback(value=>{
     setMinAge(value[0]);
     setMaxAge(value[1]);
-  },[setTime]);
+  },[setMinAge, setMaxAge]);
 
 
   const onAddtoFirebase = useCallback(action=>{
@@ -146,7 +133,6 @@ const AddActivityTmp4Esther = ({history, user}) => {
         const minMaxAgeRange = (1000*minAge + maxAge);
 				const newAct = {
                         category,
-                        topic,
                         title,
                         url,
                         description,
@@ -154,7 +140,6 @@ const AddActivityTmp4Esther = ({history, user}) => {
 												minAge,
 												maxAge,
                         minMaxAgeRange,
-                        rating,
                         createDateMSec,
                         createDate,
 					              uid,
@@ -163,7 +148,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
                         active};
 				dispatch(addActivity(newAct, onAddtoFirebase));
 
-	},[category, topic, time, maxAge, minAge, rating, title, url,user, onAddtoFirebase,description, dispatch]);
+	},[category, time, maxAge, minAge, title, url,user, onAddtoFirebase,description, dispatch]);
 
 
 
@@ -195,7 +180,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 
 
-  if(!topics || topics===undefined)//await return of topics from firebase
+  if(false)//TBD: if(!topics || topics===undefined)//await return of topics from firebase
   return (<Page>
   						<H1>loading topics</H1>
  						<Spinner/>
@@ -219,7 +204,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 					<Label>Activity duration (estimated)</Label>
 					<Slider min={0} max={60} marks={marks} railStyle={{backgroundColor:'#9013fe'}} onAfterChange={value=>setTime(value)}/>
 					<Label>Suitable for ages</Label>
-					<Range min={0} max={18} marks={marksAge} railStyle={{backgroundColor:'#9013fe'}} onAfterChange={value=>console.log(value)}/>
+					<Range min={0} max={18} marks={marksAge} railStyle={{backgroundColor:'#9013fe'}} onAfterChange={value=>onAgeRangeChange(value)}/>
 				</Col>
 				<Col width="60%">
 					<FileLoader width="100%" onDone={obj=>{setUpload(obj.downloadURL)}}/>

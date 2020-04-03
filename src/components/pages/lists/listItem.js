@@ -21,8 +21,8 @@ export const ListItem = ({name, openMenuFunc}) => {
 
     const listPosition = lists.map(lists =>({pos : lists / one, value: lists }));
 
-    
-    
+
+
 
     return (
         <div className="listItem">
@@ -40,9 +40,9 @@ export const ListItem = ({name, openMenuFunc}) => {
                     </span>)
                 }
                     <div className="fill" style={{width:`${progress / one }%`}}/>
-                </div>  
-                
-            
+                </div>
+
+
                 <div className="feedBack">
                     <div className="checkBoxArea">
                         <input type="checkbox" className="checkBox"/>
@@ -52,16 +52,16 @@ export const ListItem = ({name, openMenuFunc}) => {
 
                     <div className="titleArea">
                         <span className="howWasIt">How was it?</span>
-                        <img className="recommend" src={require('./images/recommend.png')}/>
-                        <img className="unRecommend" src={require('./images/un-recommend.png')}/>
+                        <img className="recommend" src={require('./images/recommend.png')} alt="thumbs up"/>
+                        <img className="unRecommend" src={require('./images/un-recommend.png')} alt="thumbs down"/>
                     </div>
                 </div>
 
                 <ActivityInList></ActivityInList>
 
             </header>
-            
-            
+
+
         </div>
     )
 }

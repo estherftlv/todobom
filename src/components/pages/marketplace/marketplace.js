@@ -8,6 +8,8 @@ import {fetchLists, addActivityToList, addNewListForUser} from '../../../redux/a
 import style from './marketplace.module.scss';
 import { InputGroup, FormControl } from 'react-bootstrap';
 import { FaSearch, FaPlus } from 'react-icons/fa';
+
+import Spinner from '../../common/Spinner';
 import Activity from '../../common/activity/activity';
 import { Addtolist } from '../../common/addtolist/addtolist';
 import ActivityFilter from '../../common/activityFilter/activityFilter';
@@ -26,14 +28,12 @@ const Marketplace  = ({activities, user, lists}) => {
     const [list , setList] = useState([]);
     const [filters , setFilter] = useState({ category : [], time : [0,61], age:[0,18]});
     const dispatch = useDispatch();
-    useEffect(()=>{
-        faSearchClicked();
-    },[])
 
     useEffect(()=>{
+        dispatch(fetchActivities(""));
         setActivitiesList(activities);
         dispatch(fetchLists(user));
-    },[activities])
+    },[dispatch, activities, user])
 
     const searchChange =(e) =>{
         if(timeOut) clearTimeout(timeOut);
@@ -86,7 +86,7 @@ const Marketplace  = ({activities, user, lists}) => {
     const applyFilters = () =>{
         if(originalActivity === null) originalActivity = activitiesList ;
 
-        const filterdActivities = originalActivity.filter(activity =>{
+        const filteredActivities = originalActivity.filter(activity =>{
             let isValid = true;
             if(filters.category.includes(activity.category)) {
                 isValid = false;
@@ -101,9 +101,8 @@ const Marketplace  = ({activities, user, lists}) => {
             if(isValid) return activity;
         })
 
-        setActivitiesList(filterdActivities)
+        setActivitiesList(filteredActivities)
     }
-
 
     return (
         <>
@@ -124,7 +123,10 @@ const Marketplace  = ({activities, user, lists}) => {
         </h2>
         <div className={style.activities}>
             {
+              (activities.length>0)?
                 activitiesList.map(activity => <Activity key={activity.id} showActivityInfo={setActivityInfo} activity={activity} plusClick={toggleActivityToList}/>)
+              :<Spinner/>
+              }
             }
         </div>
         <Addtolist list={lists} updateList={addToList} pos={listPopupPos} togglePopup={toggleActivityToList} addNewList={addNewList}/>
