@@ -3,7 +3,7 @@ import firebaseManager from '../../services/firebaseManager';
 
 import {setUser, setMiniUsers, setUserData} from "../actions/user.actions";
 import {setActivities} from "../actions/activity.actions";
-import {setLists} from "../actions/list.actions";
+import {fetchLists,setLists} from "../actions/list.actions";
 
 const firebase = new firebaseManager();
 const firebaseMiddleware = store => {
@@ -49,6 +49,12 @@ const firebaseMiddleware = store => {
 			case AT.UPLOAD_FILE:
 			  firebase.uploadImage(action.payload);
 				break;
+			case AT.ADD_NEWLIST_FOR_USER:
+				  firebase.pushKey(`/lists/${action.payload.user.uid}/`,null , action.payload.data, data => {store.dispatch(fetchLists(action.payload.user))});
+					break;
+			case AT.ADD_ACTIVITY_TO_LIST:
+				  firebase.set(`/lists/${action.payload.user.uid}/${action.payload.data.id}`,action.payload.data ,data => {store.dispatch(fetchLists(action.payload.user))});
+					break;
 			case AT.CHECK_FILE:
 			  firebase.checkFile(action.payload);
 				break;
