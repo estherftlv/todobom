@@ -16,7 +16,7 @@ export const ListItem = ({name, openMenuFunc}) => {
 
 
     // List property
-    const [listName, setListName] = useState('name');
+    const [listName, setListName] = useState(name);
     const [activities, setActivities] = useState([]);
 
     const listPosition = lists.map(lists =>({pos : lists / one, value: lists }));
@@ -26,7 +26,6 @@ export const ListItem = ({name, openMenuFunc}) => {
 
     return (
         <div className="listItem">
-            
             <header>
                 <div className="headerAndMore">
                     <h2>{listName}</h2>

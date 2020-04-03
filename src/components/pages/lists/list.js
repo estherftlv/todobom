@@ -2,12 +2,38 @@ import React from 'react'
 import './list.scss'
 import { ListItem } from './listItem';
 import { useState } from 'react';
+import { Modal } from 'react-bootstrap';
+import { Button } from 'react-bootstrap';
 
 export const List = () => {
     const [itemListComponent, setItemList] = useState([]);
     const [menuPos, setMenuPos] = useState(null);
     const [isMenuopen, setIsMenuOpen] = useState(false);
+    const [listName, setListName] = useState('default')
 
+    // add list popup
+
+    const addListInput = React.createRef();
+
+    const [show, setShow] = useState(false);
+
+
+    const ester_handleAddList = () => {
+        handleClose();
+        const name = addListInput.current.value
+        setListName(name)
+        addList()
+    }
+    const handleClose = () => {setShow(false)};
+    const handleShow = () => setShow(true);
+
+    // add list item component
+
+    function addList() {
+        // new List
+        const newI = {name:`${listName} ${itemListComponent.length + 1}`}        
+        setItemList([...itemListComponent , newI])
+    }
 
     const openMenu = (e, listID = null) => {
         const pos = {
@@ -48,21 +74,6 @@ export const List = () => {
     }
 
 
-
-
-    const user = {
-        name: "Amalia"
-    }
-
-    function addList() {
-        // Pop-up
-
-        // new List
-        const newI = {name:`${user.name} ${itemListComponent.length + 1}`}        
-        setItemList([...itemListComponent , newI])
-    }
-
-
     return (
         <div>
             <div className="header">
@@ -75,7 +86,7 @@ export const List = () => {
                 <div className="horizontal">
 
                     
-                    {itemListComponent.map( item => <ListItem key={item.name} name={user.name} openMenuFunc={openMenu}/> )}
+                    {itemListComponent.map( item => <ListItem key={item.name} name={listName} openMenuFunc={openMenu}/> )}
                     
 
                     <div className="addList">
@@ -85,7 +96,7 @@ export const List = () => {
                                 <h2>New List</h2> 
                             </div>
                         </header>
-                        <div onClick={addList} className="bigPlus"></div>
+                        <div onClick={handleShow} className="bigPlus"></div>
                     </div>
                 </div>
             </main>
@@ -98,6 +109,30 @@ export const List = () => {
                     <p onClick={ester_fullReset}>Full reset(remove all)</p>
                     <p onClick={ester_deleteList} className="deleteList">Delete list</p>
                 </div>}
+
+
+
+        <div className="addListPopUp">
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Modal heading</Modal.Title>
+                </Modal.Header>
+
+                <Modal.Body>
+                    <input ref={addListInput} type="text"/>
+                </Modal.Body>
+
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={ester_handleAddList}>
+                        Add List
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </div>
 
         </div>
     )
