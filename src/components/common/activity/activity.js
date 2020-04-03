@@ -26,6 +26,7 @@ export default function Activity({plusClick = null, activity, showActivityInfo})
     }
 
     const addActivityToList = (e) => {
+        
         const pos = {
             x: e.clientX,
             y : e.clientY,

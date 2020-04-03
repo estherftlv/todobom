@@ -18,14 +18,14 @@ export const List = () => {
 
     return (
         <div>
-            <div class="header">
+            <div className="header">
             <h2 className="header">
             <span>ACTIVITY LIST</span>
                 <small>Edit and monitor activity lists</small>
             </h2>    
             </div>
             <main>
-                <div class="horizontal">
+                <div className="horizontal">
 
                     
                     {itemListComponent.map( item => <ListItem key={item.name} name={user.name}/> )}
@@ -33,12 +33,12 @@ export const List = () => {
 
                     <div className="addList">
                         <header>
-                            <div class="header2">
-                            <div class="plus"></div> 
+                            <div className="header2">
+                            <div className="plus"></div> 
                                 <h2>New List</h2> 
                             </div>
                         </header>
-                        <div onClick={addList} class="bigPlus"></div>
+                        <div onClick={addList} className="bigPlus"></div>
                     </div>
                 </div>
             </main>

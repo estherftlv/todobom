@@ -8,8 +8,8 @@ import style from './reward.module.css';
 
 
 
-const Reward = ({history, user, name}) => {
-	const dispatch = useDispatch();
+const Reward = ({name}) => {
+	// const dispatch = useDispatch();
 	return (
             <RawardContainer>
                 <div className={style.contentItemsCenter}>
