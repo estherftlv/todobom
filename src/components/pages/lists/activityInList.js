@@ -3,13 +3,14 @@ import './listItem.scss'
 //import { ReactComponent as Present } from '../../common/sideNav/present.svg'
 import './activity.scss'
 
-export const ActivityInList = ({data}) => {
+export const ActivityInList = ({data,markAsDone, category, showActivity}) => {
+
 
     return (
         <div className="activity">
-            <div className="activityHeader" >
+            <div className="activityHeader" style={{backgroundColor:category.color}}>
                 <div className= "checkBoxArea">
-                    <input type="checkbox" className="checkBox"/>
+                    <input type="checkbox" className="checkBox" onClick={()=>markAsDone(data.id)}/>
                     <img src={require("./images/time.png")} alt="clock"/>
                     <p>{data.time}</p>
                 </div>
@@ -26,7 +27,7 @@ export const ActivityInList = ({data}) => {
                     <div className='desc'>
                         <p>{data.description}</p>
                     </div>
-                    <button className="dectMoreBtn">More</button>
+                    <button className="dectMoreBtn" onClick={()=>showActivity(data)}>More</button>
                 </div>
             </div>
         </div>

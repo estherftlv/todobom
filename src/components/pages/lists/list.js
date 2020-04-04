@@ -7,12 +7,14 @@ import { Button } from 'react-bootstrap';
 import {addNewListForUser, deleteListByUser, updateListData} from '../../../redux/actions/list.actions';
 
 import { ListItem } from './listItem';
+import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
 
  const List = ({user,itemListComponent}) => {
     const [menuPos, setMenuPos] = useState(null);
     const [isMenuopen, setIsMenuOpen] = useState(false);
     const [listName, setListName] = useState('default')
     const [currentListID, setCurrentListID] = useState(null);
+    const [activityInfo, setActivityInfo] = useState(null);
 
     // add list popup
     const [show, setShow] = useState(false);
@@ -123,6 +125,15 @@ import { ListItem } from './listItem';
         dispatch(updateListData({user,data}));
     }
 
+    const updateListProgress = (listData) => {
+        console.log('ester_fullReset');
+        //make a shallow copy and reset assignedActs
+        const found = itemListComponent.find(list=>list.id===currentListID)
+        const data = {...found, assignedActs:listData};
+        dispatch(updateListData({user,data}));
+        //TODO: ester -  retun  after dispatch old list and not updated list
+    }
+
 
     const deleteList = useCallback(() => {
   		  dispatch(deleteListByUser({user, currentListID}));
@@ -142,7 +153,13 @@ import { ListItem } from './listItem';
                 <div className="horizontal">
 
 
-                    {itemListComponent.map( item => <ListItem key={item.id} data={item} openMenuFunc={e =>openMenu(e,item.id)}/> )}
+                    {itemListComponent.map( (item, index) =>
+                        <ListItem 
+                            key={index} 
+                            updateListProgress={updateListProgress} 
+                            data={item} 
+                            showActivity={setActivityInfo}
+                            openMenuFunc={e =>openMenu(e,item.id)}/> )}
 
 
                     <div className="addList">
@@ -172,7 +189,7 @@ import { ListItem } from './listItem';
           {popUp()}
 
         </div>
-
+        <ActiveityInfo closeCb={setActivityInfo} activity={activityInfo} /> 
         </div>
     )
 };

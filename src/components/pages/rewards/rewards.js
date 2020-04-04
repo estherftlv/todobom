@@ -13,6 +13,7 @@ const Rewards = ({history, user}) => {
     const dispatch = useDispatch();
     const [rewardsComponent, setRewardsNum] = useState([]);
 
+
     function addReward() {
         const newR = {name:`Reward #${rewardsComponent.length + 1}`}        
         setRewardsNum([...rewardsComponent , newR])
@@ -24,7 +25,7 @@ const Rewards = ({history, user}) => {
             <h2 className={style.subHeader}>Define rewards for activity completion</h2>
 
             <div className={style.rewardContainer}>
-                {rewardsComponent.map( item => <Reward key={item.name} name={item.name}/> )}
+                {rewardsComponent.map( (item,index) => <Reward key={item.name} defaultTime={(index+1) * 45} name={item.name}/> )}
             </div>
              
 

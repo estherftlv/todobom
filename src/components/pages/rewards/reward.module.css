@@ -83,8 +83,6 @@ div.userImputContainer .timeArea{
    padding: 8px;
 }
 
-
-
 .trash {
    margin-left: 10px;
    width: 36px;
@@ -95,5 +93,11 @@ div.userImputContainer .timeArea{
 
 .trash:hover {
    background: url('./images/trash-bin-dark.png');
+   cursor: pointer;
+}
+.save{
+   font-size: 2em;
+   margin: 0 5px;
+   color:var(--mainColor);
    cursor: pointer;
 }

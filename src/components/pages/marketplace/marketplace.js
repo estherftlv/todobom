@@ -138,7 +138,7 @@ const Marketplace  = ({activities, user, lists}) => {
                 activitiesList.map(activity => <Activity key={activity.id} showActivityInfo={setActivityInfo} activity={activity} plusClick={toggleActivityToList}/>)
               :<Spinner/>
               }
-            }
+            
         </div>
         <Addtolist list={lists} updateList={addToList} pos={listPopupPos} togglePopup={toggleActivityToList} addNewList={addNewList}/>
         <ActivityFilter addFilter={addFilter}/>

@@ -6,7 +6,7 @@ import { IoMdClose } from 'react-icons/io';
 import { FaRegClock } from 'react-icons/fa';
 import { FiExternalLink } from "react-icons/fi";
 
-export const ActiveityInfo = ({closeCb , activity , openListPicker}) => {
+export const ActiveityInfo = ({closeCb , activity , openListPicker = null}) => {
 
     if(!activity) {
         return null;
@@ -47,7 +47,7 @@ export const ActiveityInfo = ({closeCb , activity , openListPicker}) => {
                     }
                     <span>
                         <TodoBtn className="small" reverse={true} onClick={()=>closeCb(null)}>Close</TodoBtn>
-                        <TodoBtn className="small" onClick={openList}>Assign to list</TodoBtn>
+                        {openListPicker && <TodoBtn className="small" onClick={openList}>Assign to list</TodoBtn>}
                     </span>
                 </footer>
             </div>
