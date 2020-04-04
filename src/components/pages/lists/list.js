@@ -16,13 +16,55 @@ import { ListItem } from './listItem';
 
     // add list popup
     const [show, setShow] = useState(false);
+    const [popupType, setPopupType] = useState("");
 
     const inputText = useRef(null);
 
 
     const dispatch = useDispatch();
 
+    const popUp = () =>{
+      let modalTitle = "";
+      let handlerClick = ()=>{};
+      let saveText = "Done";
+      switch(popupType){
+        case "newList":
+          modalTitle = "Add a new list";
+          handlerClick = ester_handleAddList;
+          saveText = "Add";
+          break;
+        case "rename":
+          modalTitle = "Rename the list";
+          handlerClick = ester_renameList;
+          break;
+        case "duplicate":
+          modalTitle = "copy the list";
+          handlerClick = ester_duplicateList;
+          break;
+      }
 
+      return(
+        <Modal show={show} onHide={()=>setShow(false)}>
+            <Modal.Header closeButton>
+                <Modal.Title>{modalTitle}</Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <input ref={inputText} type="text"/>
+            </Modal.Body>
+
+            <Modal.Footer>
+                <Button variant="secondary" onClick={()=>setShow(false)}>
+                    Close
+                </Button>
+                <Button variant="primary" onClick={handlerClick}>
+                    {saveText}
+                </Button>
+            </Modal.Footer>
+        </Modal>
+      )
+
+    }
     const ester_handleAddList = () => {
         const data = {title: inputText.current.value};
         dispatch(addNewListForUser({user,data}));
@@ -62,7 +104,11 @@ import { ListItem } from './listItem';
     }
 
     const ester_duplicateList = () => {
-        console.log("ester_duplicateList");
+      const found = itemListComponent.find(list=>list.id===currentListID);
+      const title = `Copy of ${found.title}`;
+      const data = {...found, title};
+      dispatch(addNewListForUser({user,data}));
+      setShow(false);
     }
 
     const ester_resetList = () => {
@@ -106,14 +152,14 @@ import { ListItem } from './listItem';
                                 <h2>New List</h2>
                             </div>
                         </header>
-                        <div onClick={()=>setShow(true)} className="bigPlus"></div>
+                        <div onClick={()=>{setPopupType("newList");setShow(true)}} className="bigPlus"></div>
                     </div>
                 </div>
             </main>
 
             {menuPos && isMenuopen && <div className="menu" style={{left: menuPos.x - 170, top: menuPos.y}}>
                     <img onClick={closeMenu} className="closeMenuBtn" src={require('./images/more.png')} alt="closeMenuBtn"/>
-                    <p onClick={ester_renameList}>Rename list</p>
+                    <p onClick={()=>{setPopupType("rename");setShow(true)}}>Rename list</p>
                     <p onClick={ester_duplicateList}>Duplicate list</p>
                     <p onClick={ester_resetList}>Reset list (all undone)</p>
                     <p onClick={ester_fullReset}>Full reset(remove all)</p>
@@ -123,25 +169,8 @@ import { ListItem } from './listItem';
 
 
         <div className="addListPopUp">
+          {popUp()}
 
-            <Modal show={show} onHide={()=>setShow(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Add a new list</Modal.Title>
-                </Modal.Header>
-
-                <Modal.Body>
-                    <input ref={inputText} type="text"/>
-                </Modal.Body>
-
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={()=>setShow(true)}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={ester_handleAddList}>
-                        Add List
-                    </Button>
-                </Modal.Footer>
-            </Modal>
         </div>
 
         </div>
