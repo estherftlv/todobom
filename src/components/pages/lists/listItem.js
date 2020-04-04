@@ -4,7 +4,7 @@ import { ReactComponent as Present } from '../../common/sideNav/present.svg'
 import { ActivityInList } from './activityInList'
 
 
-export const ListItem = ({name, openMenuFunc}) => {
+export const ListItem = ({data, openMenuFunc}) => {
 
     const lists = [45 , 120 , 245];
     const max = Math.max(...lists);
@@ -16,7 +16,6 @@ export const ListItem = ({name, openMenuFunc}) => {
 
 
     // List property
-    const [listName, setListName] = useState(name);
     const [activities, setActivities] = useState([]);
 
     const listPosition = lists.map(lists =>({pos : lists / one, value: lists }));
@@ -28,7 +27,7 @@ export const ListItem = ({name, openMenuFunc}) => {
         <div className="listItem">
             <header>
                 <div className="headerAndMore">
-                    <h2>{listName}</h2>
+                    <h2>{data.title}</h2>
                     {/* Pass listID to openMenuFunc as parameter*/}
                     <div onClick={e => openMenuFunc(e)}/>
                 </div>

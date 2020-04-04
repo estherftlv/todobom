@@ -1,12 +1,13 @@
 import React from 'react'
 import './list.scss'
-import { ListItem } from './listItem';
 import { useState } from 'react';
+import {useDispatch, connect} from "react-redux";
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
-export const List = () => {
-    const [itemListComponent, setItemList] = useState([]);
+import { ListItem } from './listItem';
+
+ const List = ({user,itemListComponent}) => {
     const [menuPos, setMenuPos] = useState(null);
     const [isMenuopen, setIsMenuOpen] = useState(false);
     const [listName, setListName] = useState('default')
@@ -30,7 +31,7 @@ export const List = () => {
     function addList() {
         // new List
         const newI = {name:`${listName} ${itemListComponent.length + 1}`}
-        setItemList([...itemListComponent , newI])
+        //setItemList([...itemListComponent , newI])
     }
 
     const openMenu = (e, listID = null) => {
@@ -77,14 +78,14 @@ export const List = () => {
             <div className="header">
             <h2 className="header">
             <span>ACTIVITY LIST</span>
-                <small>Edit and monitor activity lists</small>
+                <small>Edit your todo lists</small>
             </h2>
             </div>
             <main>
                 <div className="horizontal">
 
 
-                    {itemListComponent.map( item => <ListItem key={item.name} name={listName} openMenuFunc={openMenu}/> )}
+                    {itemListComponent.map( item => <ListItem key={item.id} data={item} openMenuFunc={openMenu}/> )}
 
 
                     <div className="addList">
@@ -103,7 +104,7 @@ export const List = () => {
                     <img onClick={closeMenu} className="closeMenuBtn" src={require('./images/more.png')} alt="closeMenuBtn"/>
                     <p onClick={ester_renameList}>Rename list</p>
                     <p onClick={ester_duplicateList}>Duplicate list</p>
-                    <p onClick={ester_resetList}>Reset list (keep undone)</p>
+                    <p onClick={ester_resetList}>Reset list (all undone)</p>
                     <p onClick={ester_fullReset}>Full reset(remove all)</p>
                     <p onClick={ester_deleteList} className="deleteList">Delete list</p>
                 </div>}
@@ -134,4 +135,12 @@ export const List = () => {
 
         </div>
     )
-}
+};
+
+const mapStateToProps = state => {
+	return {
+		user: state.user,
+    itemListComponent: state.lists
+	};
+};
+export default connect(mapStateToProps)(List);

@@ -42,20 +42,21 @@ export const Addtolist = ({pos , list , addNewList , updateList, togglePopup}) =
     const assignActivityToList = (e, currentList) => {
         console.log(currentList, pos.activityId);
         const activityId = pos.activityId;
-        const title = currentList.title;
-        const id = currentList.id;
-        var activityObj = {[activityId]: false}//true or false indicates whether the activity has been completed
-        let assignedActs = (currentList.assignedActs===undefined)? []: cloneDeep(currentList.assignedActs);
+        //const found = list.find(element => element.id===??I need all the activities to pass all details to activityObject);
+        const found = {title:"test", time:45, description:"for testing until all activities are passed to assignActivityToList"}
+        let activityObj = {...found, active: false}//active= true/false indicates whether the activity has been completed
+        let updated = cloneDeep(currentList);
+        let assignedActs = (updated.assignedActs===undefined)? []: updated.assignedActs;
 
         if(e.target.checked){ //checkbox has been selected
             // TODO: ester = add to list...
             assignedActs.push(activityObj);
         } else{
             //todo: ester = remove from list
-            assignedActs = assignedActs.filter(act=> (act.id!==id));
+            assignedActs = assignedActs.filter(act=> (act.id!==activityId));
         }
-        const updatedList = {id, title, assignedActs};
-        updateList(updatedList);
+        const myUpdatedList = {...updated, assignedActs};
+        updateList(myUpdatedList);
     }
 
     return (
