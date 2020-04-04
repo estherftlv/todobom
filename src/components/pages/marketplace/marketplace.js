@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {connect, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {cloneDeep} from 'lodash';
 
 import {fetchActivities} from '../../../redux/actions/activity.actions';
 import {fetchLists, addActivityToList, addNewListForUser} from '../../../redux/actions/list.actions';
@@ -59,9 +60,19 @@ const Marketplace  = ({activities, user, lists}) => {
 
     }
 
-    const addToList = (data) =>{
+    const addToList = ({checked, currentList, activityId}) =>{
+        const found = activities.find(act => act.id===activityId);
+        let activityObj = {...found, active: false,completed: false}//active= true/false indicates whether the activity has been completed
+        let updated = cloneDeep(currentList);
+        let assignedActs = (updated.assignedActs===undefined)? []: updated.assignedActs;
+
+        if(checked){ //checkbox has been selected
+            assignedActs.push(activityObj);
+        } else{
+            assignedActs = assignedActs.filter(assigned=> (assigned.id!==activityId));
+        }
+        const data = {...updated, assignedActs};
         dispatch(addActivityToList({user,data}));
-        setList([...list, data])
     }
 
     const addFilter = (type, value)=>{

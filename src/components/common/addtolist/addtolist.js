@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {cloneDeep} from 'lodash';
+
 import { FaPlus, FaCheck } from 'react-icons/fa';
 import { IoIosClose } from "react-icons/io";
 import './addtolist.scss';
@@ -42,21 +42,9 @@ export const Addtolist = ({pos , list , addNewList , updateList, togglePopup}) =
     const assignActivityToList = (e, currentList) => {
         console.log(currentList, pos.activityId);
         const activityId = pos.activityId;
-        //const found = list.find(element => element.id===??I need all the activities to pass all details to activityObject);
-        const found = {id:activityId, title:"test", time:45, description:"for testing until all activities are passed to assignActivityToList"}
-        let activityObj = {...found, active: false,completed: false}//active= true/false indicates whether the activity has been completed
-        let updated = cloneDeep(currentList);
-        let assignedActs = (updated.assignedActs===undefined)? []: updated.assignedActs;
+        const checked  = e.target.checked;
 
-        if(e.target.checked){ //checkbox has been selected
-            // TODO: ester = add to list...
-            assignedActs.push(activityObj);
-        } else{
-            //todo: ester = remove from list
-            assignedActs = assignedActs.filter(act=> (act.id!==activityId));
-        }
-        const myUpdatedList = {...updated, assignedActs};
-        updateList(myUpdatedList);
+        updateList({checked, currentList, activityId});
     }
 
     return (
