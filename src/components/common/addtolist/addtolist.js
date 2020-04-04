@@ -47,16 +47,22 @@ export const Addtolist = ({pos , list , addNewList , updateList, togglePopup}) =
         updateList({checked, currentList, activityId});
     }
 
+    const isActivityInList = (list)=> {
+        const inList = list.assignedActs && list.assignedActs.find(item=> item.id && item.id === pos.activityId);
+        return inList;
+    }
+
     return (
         pos &&
         <div className="addtolist" style={{top: pos.y - 15 , left: pos.x - 105}}>
             <h6>ADD TO LIST <IoIosClose onClick={()=>{togglePopup(null)}}/> </h6>
             {
             lists.map((item, index) => <div key={index} className="inListCheckbox">
-                        <input type="checkbox" id={`checkBox_${index}`} onChange={(e)=> assignActivityToList(e, item)}/>
+                        <input type="checkbox" checked={isActivityInList(item)} id={`checkBox_${index}`}  onChange={(e)=> assignActivityToList(e, item)}/>
                         <FaCheck className="checkboxV"/>
                         <label className="container" htmlFor={`checkBox_${index}`}>
                         {item.title}
+                        {list.assignedActs}
                         </label>
             </div> )
             }
