@@ -13,16 +13,40 @@ const Reward = ({name, defaultTime}) => {
     // const dispatch = useDispatch();
     const inputTime = useRef(null);
     const inputDiscription = useRef(null);
-    const [isSave, setIsSave] =useState(false)
+    const [isSave, setIsSave] = useState(false);
+    const [isDesciptionValid, setIsDesciptionValid] = useState(true);
+    const [isTimeValid, setIsTimeValid] = useState(true);
+
 
     const saveReward = useCallback(() => {
-            console.log(inputTime.current.value , inputDiscription.current.value)
-            // validaation - ,,,if(inputTime.current.value , inputDiscription.current.value)
-            //doSomething(a, b);
+        
+        let timeFlag = true;
+        let descFlag = true;
+        
+        if (inputTime.current.value.length <= 0){
+            timeFlag = false;
+            setIsTimeValid(false);
+        }else {
+            setIsTimeValid(true);
+        }
+        
+        if (inputDiscription.current.value.length <= 0){
+            descFlag = false;
+            setIsDesciptionValid(false);
+        }else {
+            setIsDesciptionValid(true);
+        }
+
+
+        ////TODO : Ester - save rewards in the block 
+        if (timeFlag && descFlag){
             setIsSave(true);
-            //TODO : ester - save rewards to firebase + load them on initial
-        },
-        []
+            //TODO : Ester - save rewards to firebase + load them on initial
+            //doSomething(a, b);
+        }
+        
+    },
+    []
     );
     
 	return (
@@ -36,7 +60,9 @@ const Reward = ({name, defaultTime}) => {
                     <div  className={style.timeArea}>
                         <h4>Time to earn</h4>
 
-                        <div className={style.timeInputContainer}>
+                        <div className={style.timeInputContainer}
+                             style={{border: isTimeValid ? '2px solid #9013fe' : '2px solid #f75f5b'}}>
+
                             <div className={style.first}>
                                 <input ref={inputTime} placeholder={defaultTime} type="number" min={defaultTime} max="999"/>
                             </div>
@@ -49,7 +75,12 @@ const Reward = ({name, defaultTime}) => {
                     <div className={style.descriptionArea}>
                         <h4>Reward description</h4>
                         <div className={style.contentItemsCenter}>
-                            <input ref={inputDiscription} placeholder="Choose a tackout for the entrie family" type="text"/>
+
+                            <input 
+                                ref={inputDiscription}
+                                style={{border: isDesciptionValid ? '2px solid #9013fe' : '2px solid #f75f5b'}}
+                                placeholder="Choose a tackout for the entrie family" type="text"/>
+
                             {!isSave && <MdDone className={style.save} onClick={saveReward}/>}        
                             <div className={style.trash}></div>
                         </div>
