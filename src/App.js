@@ -15,7 +15,7 @@ import Marketplace from './components/pages/marketplace/marketplace';
 import { createBrowserHistory } from "history";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from './components/common/layout/layout';
-import { List } from './components/pages/lists/list';
+import List from './components/pages/lists/list';
 import Rewards from './components/pages/rewards/rewards';
 
 

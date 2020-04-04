@@ -69,7 +69,7 @@ class firebaseManager {
 
 	// path - for ex - /questions/34567
 	set(path, data, callback) {
-		var ref = this.database.ref(path);
+		let ref = this.database.ref(path);
 		ref.set(data,callback);
 	}
 
@@ -77,6 +77,11 @@ class firebaseManager {
 		this.database.ref(path).once('value').then(snapshot => {
 			callback(snapshot.val());
 		});
+	}
+
+	remove(path)	{
+		let ref = this.database.ref(path);
+		ref.remove();
 	}
 
 	transaction(path,transactionUpdate){

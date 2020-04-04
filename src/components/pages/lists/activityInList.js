@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React from 'react'
 import './listItem.scss'
-import { ReactComponent as Present } from '../../common/sideNav/present.svg'
+//import { ReactComponent as Present } from '../../common/sideNav/present.svg'
 import './activity.scss'
 
-export const ActivityInList = () => {
+export const ActivityInList = ({data}) => {
 
     return (
         <div className="activity">
@@ -11,20 +11,20 @@ export const ActivityInList = () => {
                 <div className= "checkBoxArea">
                     <input type="checkbox" className="checkBox"/>
                     <img src={require("./images/time.png")} alt="clock"/>
-                    <p>60 min</p>
+                    <p>{data.time}</p>
                 </div>
 
                 <div className="titleArea">
-                    <span>EDUCATIONAL</span>
-                </div>                    
+                    <span>{data.category}</span>
+                </div>
             </div>
-                    
+
 
             <div className="activityBody">
-                <div className="activityImage"></div>
+                <div className="activityImage"><img src={data.imageSrc}/></div>
                 <div className="activityDescription">
                     <div className='desc'>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime nam molestiae voluptatibus eius placeat fuga magni laborum libero numquam aspernatur.</p>
+                        <p>{data.description}</p>
                     </div>
                     <button className="dectMoreBtn">More</button>
                 </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {cloneDeep} from 'lodash';
+
 import { FaPlus, FaCheck } from 'react-icons/fa';
 import { IoIosClose } from "react-icons/io";
 import './addtolist.scss';
@@ -42,19 +42,9 @@ export const Addtolist = ({pos , list , addNewList , updateList, togglePopup}) =
     const assignActivityToList = (e, currentList) => {
         console.log(currentList, pos.activityId);
         const activityId = pos.activityId;
-        const title = currentList.title;
-        const id = currentList.id;
-        var activityObj = {[activityId]: false}//true or false indicates whether the activity has been completed
-        let assignedActs = (currentList.assignedActs===undefined)? []: cloneDeep(currentList.assignedActs);
-        if(e.target.checked){ //checkbox has been selected
-            // TODO: ester = add to list...
-            assignedActs.push(activityObj);
-        } else{
-            //todo: ester = remove from list
-            assignedActs = assignedActs.filter(act=> (act.id!==id));
-        }
-        const updatedList = {id, title, assignedActs};
-        updateList(updatedList);
+        const checked  = e.target.checked;
+
+        updateList({checked, currentList, activityId});
     }
 
     return (

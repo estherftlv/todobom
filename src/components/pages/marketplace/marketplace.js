@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import {connect, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
+import {cloneDeep} from 'lodash';
 
 import {fetchActivities} from '../../../redux/actions/activity.actions';
-import {fetchLists, addActivityToList, addNewListForUser} from '../../../redux/actions/list.actions';
+import {fetchLists, updateListData, addNewListForUser} from '../../../redux/actions/list.actions';
 
 import style from './marketplace.module.scss';
 import { InputGroup, FormControl } from 'react-bootstrap';
 import { FaSearch, FaPlus } from 'react-icons/fa';
+
+import Spinner from '../../common/Spinner';
 import Activity from '../../common/activity/activity';
 import { Addtolist } from '../../common/addtolist/addtolist';
 import ActivityFilter from '../../common/activityFilter/activityFilter';
@@ -26,14 +29,12 @@ const Marketplace  = ({activities, user, lists}) => {
     const [list , setList] = useState([]);
     const [filters , setFilter] = useState({ category : [], time : [0,61], age:[0,18]});
     const dispatch = useDispatch();
-    useEffect(()=>{
-        faSearchClicked();
-    },[])
 
     useEffect(()=>{
+        dispatch(fetchActivities(""));
         setActivitiesList(activities);
         dispatch(fetchLists(user));
-    },[activities])
+    },[dispatch, activities, user])
 
     const searchChange =(e) =>{
         if(timeOut) clearTimeout(timeOut);
@@ -59,9 +60,19 @@ const Marketplace  = ({activities, user, lists}) => {
 
     }
 
-    const addToList = (data) =>{
-        dispatch(addActivityToList({user,data}));
-        setList([...list, data])
+    const addToList = ({checked, currentList, activityId}) =>{
+        const found = activities.find(act => act.id===activityId);
+        let activityObj = {...found, active: false,completed: false}//active= true/false indicates whether the activity has been completed
+        let updated = cloneDeep(currentList);
+        let assignedActs = (updated.assignedActs===undefined)? []: updated.assignedActs;
+
+        if(checked){ //checkbox has been selected
+            assignedActs.push(activityObj);
+        } else{
+            assignedActs = assignedActs.filter(assigned=> (assigned.id!==activityId));
+        }
+        const data = {...updated, assignedActs};
+        dispatch(updateListData({user,data}));
     }
 
     const addFilter = (type, value)=>{
@@ -86,7 +97,7 @@ const Marketplace  = ({activities, user, lists}) => {
     const applyFilters = () =>{
         if(originalActivity === null) originalActivity = activitiesList ;
 
-        const filterdActivities = originalActivity.filter(activity =>{
+        const filteredActivities = originalActivity.filter(activity =>{
             let isValid = true;
             if(filters.category.includes(activity.category)) {
                 isValid = false;
@@ -101,9 +112,8 @@ const Marketplace  = ({activities, user, lists}) => {
             if(isValid) return activity;
         })
 
-        setActivitiesList(filterdActivities)
+        setActivitiesList(filteredActivities)
     }
-
 
     return (
         <>
@@ -124,7 +134,10 @@ const Marketplace  = ({activities, user, lists}) => {
         </h2>
         <div className={style.activities}>
             {
+              (activities.length>0)?
                 activitiesList.map(activity => <Activity key={activity.id} showActivityInfo={setActivityInfo} activity={activity} plusClick={toggleActivityToList}/>)
+              :<Spinner/>
+              }
             }
         </div>
         <Addtolist list={lists} updateList={addToList} pos={listPopupPos} togglePopup={toggleActivityToList} addNewList={addNewList}/>
