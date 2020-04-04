@@ -20,8 +20,9 @@ const Reward = ({name, defaultTime}) => {
             // validaation - ,,,if(inputTime.current.value , inputDiscription.current.value)
             //doSomething(a, b);
             setIsSave(true);
+            //TODO : ester - save rewards to firebase + load them on initial
         },
-        [],
+        []
     );
     
 	return (
