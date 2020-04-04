@@ -1,11 +1,10 @@
-import React from 'react'
-import './list.scss'
-import { useCallback,useState } from 'react';
+import React, { useCallback,useState,useRef} from 'react';
 import {useDispatch, connect} from "react-redux";
+import './list.scss'
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
-import {deleteListByUser} from '../../../redux/actions/list.actions';
+import {addNewListForUser, deleteListByUser} from '../../../redux/actions/list.actions';
 
 import { ListItem } from './listItem';
 
@@ -16,18 +15,17 @@ import { ListItem } from './listItem';
     const [currentListID, setCurrentListID] = useState(null);
 
     // add list popup
-
-    const addListInput = React.createRef();
-
     const [show, setShow] = useState(false);
+
+    const inputText = useRef(null);
+
 
     const dispatch = useDispatch();
 
 
     const ester_handleAddList = () => {
-        const name = addListInput.current.value;
-        setListName(name);
-        addList();
+        const data = {title: inputText.current.value};
+        dispatch(addNewListForUser({user,data}));
         setShow(false);
     }
 
@@ -127,7 +125,7 @@ import { ListItem } from './listItem';
                 </Modal.Header>
 
                 <Modal.Body>
-                    <input ref={addListInput} type="text"/>
+                    <input ref={inputText} type="text"/>
                 </Modal.Body>
 
                 <Modal.Footer>
