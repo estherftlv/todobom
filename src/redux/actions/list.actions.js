@@ -11,8 +11,8 @@ export const setLists = payload => ({
 	payload: values(payload)
 });
 
-export const addActivityToList = payload => ({
-	type: AT.ADD_ACTIVITY_TO_LIST,
+export const updateListData = payload => ({
+	type: AT.UPDATE_LIST_DATA,
 	payload
 });
 

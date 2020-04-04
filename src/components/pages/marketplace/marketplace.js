@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {cloneDeep} from 'lodash';
 
 import {fetchActivities} from '../../../redux/actions/activity.actions';
-import {fetchLists, addActivityToList, addNewListForUser} from '../../../redux/actions/list.actions';
+import {fetchLists, updateListData, addNewListForUser} from '../../../redux/actions/list.actions';
 
 import style from './marketplace.module.scss';
 import { InputGroup, FormControl } from 'react-bootstrap';
@@ -72,7 +72,7 @@ const Marketplace  = ({activities, user, lists}) => {
             assignedActs = assignedActs.filter(assigned=> (assigned.id!==activityId));
         }
         const data = {...updated, assignedActs};
-        dispatch(addActivityToList({user,data}));
+        dispatch(updateListData({user,data}));
     }
 
     const addFilter = (type, value)=>{

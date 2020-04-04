@@ -4,7 +4,7 @@ import './list.scss'
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
-import {addNewListForUser, deleteListByUser} from '../../../redux/actions/list.actions';
+import {addNewListForUser, deleteListByUser, updateListData} from '../../../redux/actions/list.actions';
 
 import { ListItem } from './listItem';
 
@@ -71,6 +71,10 @@ import { ListItem } from './listItem';
 
     const ester_fullReset = () => {
         console.log('ester_fullReset');
+        //make a shallow copy and reset assignedActs
+        const found = itemListComponent.find(list=>list.id===currentListID)
+        const data = {...found, assignedActs:null};
+        dispatch(updateListData({user,data}));
     }
 
 

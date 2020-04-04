@@ -52,7 +52,7 @@ const firebaseMiddleware = store => {
 			case AT.ADD_NEWLIST_FOR_USER:
 				  firebase.pushKey(`/lists/${action.payload.user.uid}/`,null , action.payload.data, data => {store.dispatch(fetchLists(action.payload.user))});
 					break;
-			case AT.ADD_ACTIVITY_TO_LIST:
+			case AT.UPDATE_LIST_DATA:
 				  firebase.set(`/lists/${action.payload.user.uid}/${action.payload.data.id}`,action.payload.data ,data => {store.dispatch(fetchLists(action.payload.user))});
 					break;
 			case AT.DELETE_LIST_BY_USER:

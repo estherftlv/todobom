@@ -21,7 +21,7 @@ export const ActivityInList = ({data}) => {
 
 
             <div className="activityBody">
-                <div><img src={data.imageSrc}/></div>
+                <div className="activityImage"><img src={data.imageSrc}/></div>
                 <div className="activityDescription">
                     <div className='desc'>
                         <p>{data.description}</p>
