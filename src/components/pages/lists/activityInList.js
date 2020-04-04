@@ -3,7 +3,7 @@ import './listItem.scss'
 //import { ReactComponent as Present } from '../../common/sideNav/present.svg'
 import './activity.scss'
 
-export const ActivityInList = (data) => {
+export const ActivityInList = ({data}) => {
 
     return (
         <div className="activity">
@@ -21,7 +21,7 @@ export const ActivityInList = (data) => {
 
 
             <div className="activityBody">
-                <div className="activityImage"><img src={data.imageSrc}/></div>
+                <div><img src={data.imageSrc}/></div>
                 <div className="activityDescription">
                     <div className='desc'>
                         <p>{data.description}</p>
