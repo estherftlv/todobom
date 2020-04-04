@@ -46,7 +46,6 @@ export const Addtolist = ({pos , list , addNewList , updateList, togglePopup}) =
         const id = currentList.id;
         var activityObj = {[activityId]: false}//true or false indicates whether the activity has been completed
         let assignedActs = (currentList.assignedActs===undefined)? []: cloneDeep(currentList.assignedActs);
-
         if(e.target.checked){ //checkbox has been selected
             // TODO: ester = add to list...
             assignedActs.push(activityObj);
