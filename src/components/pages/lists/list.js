@@ -1,9 +1,11 @@
 import React from 'react'
 import './list.scss'
-import { useState } from 'react';
+import { useCallback,useState } from 'react';
 import {useDispatch, connect} from "react-redux";
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
+
+import {deleteListByUser} from '../../../redux/actions/list.actions';
 
 import { ListItem } from './listItem';
 
@@ -11,12 +13,15 @@ import { ListItem } from './listItem';
     const [menuPos, setMenuPos] = useState(null);
     const [isMenuopen, setIsMenuOpen] = useState(false);
     const [listName, setListName] = useState('default')
+    const [currentListID, setCurrentListID] = useState(null);
 
     // add list popup
 
     const addListInput = React.createRef();
 
     const [show, setShow] = useState(false);
+
+    const dispatch = useDispatch();
 
 
     const ester_handleAddList = () => {
@@ -35,6 +40,7 @@ import { ListItem } from './listItem';
     }
 
     const openMenu = (e, listID = null) => {
+        setCurrentListID(listID);
         const pos = {
             x: e.clientX,
             y : e.clientY
@@ -68,9 +74,11 @@ import { ListItem } from './listItem';
         console.log('ester_fullReset');
     }
 
-    const ester_deleteList = () => {
-        console.log('ester_deleteList');
-    }
+
+    const deleteList = useCallback(() => {
+  		  dispatch(deleteListByUser({user, currentListID}));
+
+  	}, [currentListID]);
 
 
     return (
@@ -85,7 +93,7 @@ import { ListItem } from './listItem';
                 <div className="horizontal">
 
 
-                    {itemListComponent.map( item => <ListItem key={item.id} data={item} openMenuFunc={openMenu}/> )}
+                    {itemListComponent.map( item => <ListItem key={item.id} data={item} openMenuFunc={e =>openMenu(e,item.id)}/> )}
 
 
                     <div className="addList">
@@ -106,7 +114,7 @@ import { ListItem } from './listItem';
                     <p onClick={ester_duplicateList}>Duplicate list</p>
                     <p onClick={ester_resetList}>Reset list (all undone)</p>
                     <p onClick={ester_fullReset}>Full reset(remove all)</p>
-                    <p onClick={ester_deleteList} className="deleteList">Delete list</p>
+                    <p onClick={deleteList} className="deleteList">Delete list</p>
                 </div>}
 
 

@@ -55,6 +55,10 @@ const firebaseMiddleware = store => {
 			case AT.ADD_ACTIVITY_TO_LIST:
 				  firebase.set(`/lists/${action.payload.user.uid}/${action.payload.data.id}`,action.payload.data ,data => {store.dispatch(fetchLists(action.payload.user))});
 					break;
+			case AT.DELETE_LIST_BY_USER:
+				  firebase.remove(`/lists/${action.payload.user.uid}/${action.payload.currentListID}`);
+					store.dispatch(fetchLists(action.payload.user));
+					break;
 			case AT.CHECK_FILE:
 			  firebase.checkFile(action.payload);
 				break;
