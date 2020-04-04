@@ -55,8 +55,9 @@ export const ListItem = ({data, openMenuFunc}) => {
                         <img className="unRecommend" src={require('./images/un-recommend.png')} alt="thumbs down"/>
                     </div>
                 </div>
-
-                <ActivityInList></ActivityInList>
+                {
+                  (data.assignedActs) &&  data.assignedActs.map(act=><ActivityInList data={act}/>)
+                }
 
             </header>
 

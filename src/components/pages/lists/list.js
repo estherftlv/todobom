@@ -49,6 +49,7 @@ import { ListItem } from './listItem';
     }
 
     const closeMenu = () => {
+        setCurrentListID(null);
         setIsMenuOpen(false)
     }
 

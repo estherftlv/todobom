@@ -38,7 +38,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 
   const [showError, setShowError] = useState("");
-	const [upload,setUpload] = useState(null);
+	const [imageSrc,setImageSrc] = useState(null);
 
 
 	const marks = {
@@ -145,10 +145,11 @@ const AddActivityTmp4Esther = ({history, user}) => {
 					              uid,
                         email,
                         displayName,
+												imageSrc,
                         active};
 				dispatch(addActivity(newAct, onAddtoFirebase));
 
-	},[category, time, maxAge, minAge, title, url,user, onAddtoFirebase,description, dispatch]);
+	},[category, time, maxAge, minAge, title, url,user, onAddtoFirebase,description, imageSrc, dispatch]);
 
 
 
@@ -207,8 +208,8 @@ const AddActivityTmp4Esther = ({history, user}) => {
 					<Range min={0} max={18} marks={marksAge} railStyle={{backgroundColor:'#9013fe'}} onAfterChange={value=>onAgeRangeChange(value)}/>
 				</Col>
 				<Col width="60%">
-					<FileLoader width="100%" onDone={obj=>{setUpload(obj.downloadURL)}}/>
-					<TextInput onChange={event =>setUpload(event.target.value)} label="Picture URL (optional)" defaultValue={upload}/>
+					<FileLoader width="100%" onDone={obj=>{setImageSrc(obj.downloadURL)}}/>
+					<TextInput onChange={event =>setImageSrc(event.target.value)} label="Picture URL (optional)" defaultValue={imageSrc}/>
 					<SaveCancel>
 						<Button onClick={()=>{history.push('/rewards')}} secondary>Cancel</Button>
 						<Button onClick={()=>{addToFireBase()}}>Save</Button>
@@ -219,9 +220,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 	);
 };
 
-	// <FileLoader onDone={obj=>{setUpload(obj.downloadURL)}}/>
 	//{menu("CATEGORY", category, categories,setCategory)}
-	// <TextInput onChange={event =>setUpload(event.target.value)}>{upload}</TextInput>
 
 const mapStateToProps = state => {
 	return {
