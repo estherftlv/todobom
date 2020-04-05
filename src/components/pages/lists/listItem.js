@@ -1,8 +1,8 @@
-import React, { useState, useCallback ,useEffect} from 'react'
+import React, { useState, useEffect} from 'react'
 import './listItem.scss'
 import { ReactComponent as Present } from '../../common/sideNav/present.svg'
 import { ActivityInList } from './activityInList'
-import { CATEGORIES } from '../../../utils/enums'; 
+import { CATEGORIES } from '../../../utils/enums';
 import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
 
 export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity}) => {
@@ -17,10 +17,10 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity})
     const [isUnLike, setIsUnLike] = useState(false);
 
     useEffect(() => {
-        if(data.assignedActs){
+        if(data.assignedActs&&(!missionData)){
             setMissionData(data.assignedActs);
         }
-    },[data])
+    },[data,missionData])
 
     const like = () => {
         setIsLike(true);
@@ -36,20 +36,6 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity})
 
     const listPosition = lists.map(lists =>({pos : lists / one, value: lists }));
 
-
-    const updateSum = useCallback(() => {
-      let initialValue = 0;
-      let sum = 0;
-      if(data.assignedActs){
-
-          sum = data.assignedActs.reduce((accumulator, currentValue)=> {
-          return accumulator + currentValue.time;
-        }, initialValue);
-      }
-      return sum;
-
-  	}, [data]);
-
     const markAsDone = (actId) =>{
         let newProgress = progress;
             const newMissionData = missionData.map((act=> {
@@ -63,7 +49,7 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity})
             }))
             setMissionData(newMissionData);
             setProgress(newProgress);
-            updateListProgress(missionData);
+            updateListProgress(missionData, data.id);
     }
 
 
@@ -95,7 +81,7 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity})
                         const categoryData = category && CATEGORIES[category.toLowerCase()]!==undefined? CATEGORIES[category.toLowerCase()]: CATEGORIES["none"];
 
                         if (act.description || act.title){
-                            
+
                             if(!act.completed){
                                 return  <ActivityInList showActivity={showActivity} markAsDone={markAsDone} category={categoryData} data={act} key={i}/>
                             }else{
@@ -103,20 +89,21 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity})
                                     <div className="collapseActivity done" key={i} style={{backgroundColor:categoryData.color, color:'#fff'}}>
                                         <span className="howWasIt">How was it? - {categoryData.text}</span>
                                         <span>
-                                            <AiOutlineLike 
+                                            <AiOutlineLike
                                                 className="like"
                                                 onClick={!isUnLike && like}
                                                 style={{color: isUnLike ? '#9013fe75' : '#9013fe'}}/>
                                             <AiOutlineDislike
-                                                className="unLike" 
+                                                className="unLike"
                                                 onClick={!isLike && unLike}
                                                 style={{color: isLike ? '#9013fe75' : '#9013fe'}}/>
 
                                         </span>
                                     </div>
                                 )
-                            }                   
-                        };
+                            }
+                        }
+                        else return(<div/>);
                     })
                 }
 
