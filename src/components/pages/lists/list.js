@@ -5,6 +5,7 @@ import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
 import {addNewListForUser, deleteListByUser, updateListData} from '../../../redux/actions/list.actions';
+import {fetchRewards} from '../../../redux/actions/rewards.actions';
 
 import { ListItem } from './listItem';
 import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
@@ -23,6 +24,8 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
     const inputText = useRef(null);
 
     useEffect(() => {
+        if(!rewards)
+          dispatch(fetchRewards(user));
         if(!rewardsScore){
             const rewardsScore = rewards.map(reward => +reward.time)
             console.log('rewardsScore',rewardsScore)
