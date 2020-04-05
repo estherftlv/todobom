@@ -28,15 +28,15 @@ export default function SideNav({onClick , active =''}) {
         <div className="sideNav">
             <Logo className="logo"/>
             <div className="actions">
-                <Link to="/marketplace" className="linkNav sideNavIcon">
+                <Link to="/marketplace" className={`linkNav sideNavIcon ${activeUrl === 'marketplace' ? 'active' : ''}`}>
                     <FaToolbox className="sideNavIcon"/>
                     {activeUrl === 'marketplace' && <FaCaretLeft className="activeIcon"/>}
                 </Link>
-                <Link to="/list" className="linkNav sideNavIcon">
+                <Link to="/list" className={`linkNav sideNavIcon ${activeUrl === 'list' ? 'active' : ''}`}>
                     <Audit className="sideNavIcon"/>
                     {activeUrl === 'list' && <FaCaretLeft className="activeIcon"/>}
                 </Link>
-                <Link to="/rewards" className="linkNav sideNavIcon">
+                <Link to="/rewards" className={`linkNav sideNavIcon  ${activeUrl === 'rewards' ? 'active' : ''}`}>
                     <Present className="sideNavIcon"/>
                     {activeUrl === 'rewards' && <FaCaretLeft className="activeIcon"/>}
                 </Link>
