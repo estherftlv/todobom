@@ -22,7 +22,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 	const dispatch = useDispatch();
 
 
-	const [ID, setID] = useState("");
+	//const [ID, setID] = useState("");
 	const [category, setCategory] = useState("");//drop down list
   const [title, setTitle] = useState("New activity");
 	const [url, setUrl] = useState("none");//
@@ -74,8 +74,8 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 
   const onAddtoFirebase = useCallback(action=>{
-    setID(action.id);
-  },[setID]);
+    //setID(action.id);
+  },[/*setID*/]);
 
 
 	const addToFireBase = useCallback(()=>{
@@ -108,8 +108,9 @@ const AddActivityTmp4Esther = ({history, user}) => {
 												imageSrc,
                         active};
 				dispatch(addActivity(newAct, onAddtoFirebase));
+				history.push('/marketplace');
 
-	},[category, time, maxAge, minAge, title, url,user, onAddtoFirebase,description, imageSrc, dispatch]);
+	},[category, time, maxAge, minAge, title, url,user, onAddtoFirebase,description, imageSrc, dispatch,history]);
 
 
 
@@ -119,12 +120,13 @@ const AddActivityTmp4Esther = ({history, user}) => {
  						<Spinner/>
  					</Page>)
           //else:
+					//<H1>{ID}</H1>
 	return (
     <Page>
 			<H1>ADD A NEW ACTIVITY</H1>
 			<Row>
 	      <Col width="30%">
-					<H1>{ID}</H1>
+
 					<Label>Activity type</Label>
 					<ClickOut onClick={()=>setShowMenu(false)}>
 							<Box onClick={()=>setShowMenu(!showMenu)}>
@@ -149,7 +151,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 					<FileLoader width="100%" onDone={obj=>{setImageSrc(obj.downloadURL)}}/>
 					<TextInput onChange={event =>setImageSrc(event.target.value)} label="Picture URL (optional)" defaultValue={imageSrc}/>
 					<SaveCancel>
-						<Button onClick={()=>{history.push('/rewards')}} secondary>Cancel</Button>
+						<Button onClick={()=>{history.push('/marketplace')}} secondary>Cancel</Button>
 						<Button onClick={()=>{addToFireBase()}}>Save</Button>
 					</SaveCancel>
 				</Col>
