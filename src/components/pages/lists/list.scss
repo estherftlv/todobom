@@ -88,6 +88,7 @@ h2{
 .addList{
     display: inline-block;
     width: 417px;
+    min-width: 417px;
     min-height:calc(100vh - 150px);
     border: 1px solid var(--mainColor);
     border-radius: 5px;
