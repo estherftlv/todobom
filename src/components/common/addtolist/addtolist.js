@@ -21,7 +21,7 @@ export const Addtolist = ({pos , list , addNewList , updateList, togglePopup}) =
     },[list])
 
     const addInputChange=(e)=>{
-        if(e.key === 'Enter'){
+        if(e.key === 'Enter' && e.target.value.length){
             checkListBeforeInsert(e);
         }
     }
