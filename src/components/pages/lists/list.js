@@ -120,19 +120,22 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
         const found = itemListComponent.find(list=>list.id===currentListID)
         const data = {...found, assignedActs:null};
         dispatch(updateListData({user,data}));
+        setShow(false);
     }
 
-    const updateListProgress = (listData) => {
+    const updateListProgress = useCallback((listData,listID) => {
         //make a shallow copy and reset assignedActs
-        const found = itemListComponent.find(list=>list.id===currentListID)
+        const found = itemListComponent.find(list=>list.id===listID)
         const data = {...found, assignedActs:listData};
         dispatch(updateListData({user,data}));
         //TODO: ester -  retun  after dispatch old list and not updated list
-    }
+        setShow(false);
+    },[itemListComponent,dispatch,user]);
 
 
     const deleteList = useCallback(() => {
   		  dispatch(deleteListByUser({user, currentListID}));
+        setShow(false);
 
   	}, [dispatch, user, currentListID]);
 
@@ -171,7 +174,7 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
             </main>
 
             {menuPos && isMenuopen && <div className="menu" style={{left: menuPos.x - 170, top: menuPos.y}}>
-                    <img onClick={closeMenu} className="closeMenuBtn" src={require('./images/more.png')} alt="closeMenuBtn"/>
+                    <img onClick={()=>closeMenu()} className="closeMenuBtn" src={require('./images/more.png')} alt="closeMenuBtn"/>
                     <p onClick={()=>{setPopupType("rename");setShow(true)}}>Rename list</p>
                     <p onClick={duplicateList}>Duplicate list</p>
                     <p onClick={ester_resetList}>Reset list (all undone)</p>

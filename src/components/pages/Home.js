@@ -22,21 +22,21 @@ const Home = ({ history }) => {
 
 export default Home;
 
-
 const Page = styled.div`
-	width: 100vw;
-	min-height: 100vh;
-	display: flex;
-	flex-direction: column;
+   width: 100 vw;
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
 `;
 
 const Hero = styled.div`
-	width: 100vw;
-	min-height: 500px;
-	background: ${({ theme }) => theme.a100};
-	color: #000000;
+   width: 100vw;
+   min-height: 500px;
+   background: ${({ theme }) => theme.a100};
+   color: #000000;
 `;
 const Label = styled.div`
-	margin: 100px 20px 0 20px;
-	line-height: 32px;
+   margin: 100px 20px 0 20px;
+   line-height: 32px;
 `;
+
