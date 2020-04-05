@@ -50,8 +50,8 @@ const Reward = ({title, time, index, onSave,onDelete}) => {
             <RawardContainer>
                 <div className={style.contentItemsCenter}>
                     <img src={require('./images/present.png')}/>
-                    <h2 className={style.rewardTitle}>{title}</h2>
-                </div>
+                    <h2 className={style.rewardTitle}>Reward #{index+1}</h2>
+                </div> 
 
                 <div className={style.userImputContainer}>
                     <div  className={style.timeArea}>
