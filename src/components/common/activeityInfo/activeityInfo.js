@@ -39,7 +39,7 @@ export const ActiveityInfo = ({closeCb , activity , openListPicker = null}) => {
                     </div>
                 </main>
                 <footer>
-                    {activity.url && 
+                    {activity.url && activity.url !== 'none' &&
                         <a className="linkOut" href={activity.url} target="_blank">
                             <FiExternalLink/>
                             Go to activity
