@@ -3,11 +3,16 @@ import {withRouter} from 'react-router-dom';
 import {connect, useDispatch} from 'react-redux';
 import {authenticate, logout} from '../../redux/actions/user.actions';
 import styled from 'styled-components';
+import './login.scss';
+import { ReactComponent as Logo } from '../common/sideNav/logo.svg';
+import {FiMail} from 'react-icons/fi'
+import {MdLockOutline} from 'react-icons/md'
+
 
 // components
 import ClickOut from "../common/ClickOut";
 import TextInput from "../common/TextInput";
-import {InputGroup} from "react-bootstrap";
+import {InputGroup, Form} from "react-bootstrap";
 
 
 
@@ -24,54 +29,76 @@ const Login = ({history, user}) => {
 	);
 
 	return (
-		<Page>
+
+		<Page style={{background: 'radial-gradient(circle at 50% 50%, #0097df, #6300be 92%)'}}>
+
+
 			<butback>
-			{/*<buttonback onClick={() => history.push('close.png')}></buttonback>*/}
+			{/* <button onClick={() => history.push('close.png')}>x</button> */}
 			{/*	 onClick={clickFile}>*/}
 			{/*	<img src={backhome}/>*/}
 
 
 			</butback>
 
-			<logotodo>
+			<div>
+				<Logo className="logo"/>
+			</div>
 
-			</logotodo>
-			kids activity marketplace to help keep your sanity
-
-				<ContainerG>
-					<Button onClick={() => dispatch(authenticate({provider: 'GOOGLE'}))}><img width={24} src=" https://images.theconversation.com/files/93616/original/image-20150902-6700-t2axrz.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=1000&fit=clip" />Sign in with Google</Button>
-				</ContainerG>
+			<h2 className="subTitle">kids activity marketplace to help keep your sanity</h2>
 
 
-			<ContainerF>
-				<Button onClickk={() => dispatch(authenticate({provider: 'FACEBOOK'}))}></Button><img width={24} src="https://lh3.googleusercontent.com/proxy/aSQ_En6CVkmBhyEPBXaqc3mPQp4e3LkSYO8jADHOuDF50_ky0XBEa7oVk89k5_sLoJaGylBZSHNry4PuitDVlfvFvkjIv3MvAyHXdtL6MJL95uv3Z7Duv0kzU2EoDg" />Sign in with Facebook
-			</ContainerF>
+			<div onClick={() => dispatch(authenticate({provider: 'GOOGLE'}))} className="loginBtns googleLoginBtn"></div>
+
+			<div className="loginBtns facebookLoginBtn" onClickk={() => dispatch(authenticate({provider: 'FACEBOOK'}))}></div>
+
+
+			<p className="signInWithYourAccount">or sign in with your account</p>
+
+
+			
 
 
 
+			<Form.Group className="loginBtns loginEmail">
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="inputGroupPrepend"><FiMail/></InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="text"
+                  placeholder="Type your email"
+                  aria-describedby="inputGroupPrepend"
+                  name="username"
+                />
+                <Form.Control.Feedback type="invalid">
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
 
 
-				or sign in with your account
+			<Form.Group className="loginBtns">
+              <InputGroup>
+                <InputGroup.Prepend>
+                  <InputGroup.Text id="inputGroupPrepend"><MdLockOutline/></InputGroup.Text>
+                </InputGroup.Prepend>
+                <Form.Control
+                  type="text"
+                  placeholder="Type your password"
+                  aria-describedby="inputGroupPrepend"
+                  name="username"
+                />
+                <Form.Control.Feedback type="invalid">
+                </Form.Control.Feedback>
+              </InputGroup>
+            </Form.Group>
 
-			<down>
+			<div className= "loginBtns pesonLoginBtn"></div>
 
-				<InputGroup.Text>
-					Type your email
-				</InputGroup.Text>
-
-			<InputGroup.Text>
-				Type your password
-			</InputGroup.Text>
-
-				<InputGroup.Text>
-					Log in
-				</InputGroup.Text>
-				Don't have an account?
-			</down>
-
-
+			<p className="dontHaveAccount">Don't have an account? <span className="singUp">Sign up</span></p>
 
 		</Page>
+		
 	);
 };
 
@@ -126,7 +153,7 @@ const ContainerG = styled.div`
 	font-weight: 400;
 	cursor: pointer;
 	transition: all 300ms;
-	background-color: red;
+	background: url('./loginImages//Facebook@2x.png');
 	color: white;
 	display: flex;
 	align-items: center;
