@@ -10,12 +10,19 @@ h1{
 h2{
     color: #9013fe4f;
     margin: 0;
+ 
+}
+.header{
+    padding: 25px 0 0px 0;
+    color:var(--filterColor);
+    font-size: 44px;
+    font-weight: 400;
 }
 
 .subHeader{
     color: '#9013fe';
-    font-size: 2rem;
-    color: #9013fe;
+    color: var(--mainColor);
+    display: block;
 }
 
 .contentItemsCenter{

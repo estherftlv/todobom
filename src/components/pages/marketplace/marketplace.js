@@ -31,7 +31,9 @@ const Marketplace  = ({activities, user, lists}) => {
     const dispatch = useDispatch();
 
     useEffect(()=>{
-        dispatch(fetchActivities(""));
+        if(activitiesList.length === 0 ){
+            dispatch(fetchActivities(""));
+        } 
         setActivitiesList(activities);
         dispatch(fetchLists(user));
     },[dispatch, activities, user])

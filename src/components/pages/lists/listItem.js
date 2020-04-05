@@ -100,23 +100,19 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity})
                                 return  <ActivityInList showActivity={showActivity} markAsDone={markAsDone} category={categoryData} data={act} key={i}/>
                             }else{
                                 return (
-                                    <div className="collapseActivity" key={i} style={{backgroundColor:categoryData.color, color:'#fff'}}>
-
-                                        <div className= "checkBoxArea" style={{display: 'inline-block'}}>
-                                            <input type="checkbox" className="checkBox" onClick={()=>markAsDone(data.id)}/>
-                                            <img src={require("./images/time.png")} alt="clock"/>
-                                            <p>{data.time}</p>
-                                        </div>
-
+                                    <div className="collapseActivity done" key={i} style={{backgroundColor:categoryData.color, color:'#fff'}}>
                                         <span className="howWasIt">How was it? - {categoryData.text}</span>
-                                        <AiOutlineLike 
-                                            className="like"
-                                            onClick={!isUnLike && like}
-                                            style={{color: isUnLike ? '#9013fe75' : '#9013fe'}}/>
-                                        <AiOutlineDislike
-                                            className="unLike" 
-                                            onClick={!isLike && unLike}
-                                            style={{color: isLike ? '#9013fe75' : '#9013fe'}}/>
+                                        <span>
+                                            <AiOutlineLike 
+                                                className="like"
+                                                onClick={!isUnLike && like}
+                                                style={{color: isUnLike ? '#9013fe75' : '#9013fe'}}/>
+                                            <AiOutlineDislike
+                                                className="unLike" 
+                                                onClick={!isLike && unLike}
+                                                style={{color: isLike ? '#9013fe75' : '#9013fe'}}/>
+
+                                        </span>
                                     </div>
                                 )
                             }                   

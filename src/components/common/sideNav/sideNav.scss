@@ -4,6 +4,12 @@
     background-image: linear-gradient(to bottom, #0097d9 15%, #5615b6);
     position: fixed;
     z-index: 8;
+    .logo{
+        width: 122px;
+        left: -19px;
+        position: relative;
+        top: -25px;
+    }
     .sideNavIcon{
         font-size: 40px;
         color: #fff;
