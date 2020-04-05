@@ -1,23 +1,38 @@
-import React from 'react';
+import React, {useEffect, useCallback} from 'react';
 import {withRouter} from 'react-router-dom';
 import {connect, useDispatch} from 'react-redux';
-import {authenticate, logout} from '../../../redux/actions/user.actions';
+import {cloneDeep} from 'lodash';
+
+import {fetchRewards, updateRewardData} from '../../../redux/actions/rewards.actions';
 import styled from 'styled-components';
-import Button from '../../common/Button';
 import style from './rewards.module.css';
 import Reward from './reward'
-import { useState } from 'react';
 
 
-const Rewards = ({history, user}) => {
+const Rewards = ({history, user, rewardsList}) => {
     const dispatch = useDispatch();
-    const [rewardsComponent, setRewardsNum] = useState([]);
+
+    useEffect(()=>{
+        dispatch(fetchRewards(user));
+    },[dispatch, user])
 
 
     function addReward() {
-        const newR = {name:`Reward #${rewardsComponent.length + 1}`}        
-        setRewardsNum([...rewardsComponent , newR])
+        const newReward = {title:"", time:0, index: rewardsList.length};
+        updateRewards(newReward);
     }
+
+    const updateRewards = useCallback(rewardItem=>{
+      if(user.uid){//user is logged in
+          let data = cloneDeep(rewardsList);
+          // replaces 1 element at index==rewardItem.index
+          data.splice(rewardItem.index, 1, rewardItem);
+          dispatch(updateRewardData({user,data}));
+      }
+      else{
+        console.log("can't add rewards when logged out")
+      }
+    },[dispatch, user, rewardsList]);
 
 	return (
         <RewardsContainer>
@@ -25,18 +40,18 @@ const Rewards = ({history, user}) => {
             <h2 className={style.subHeader}>Define rewards for activity completion</h2>
 
             <div className={style.rewardContainer}>
-                {rewardsComponent.map( (item,index) => <Reward key={item.name} defaultTime={(index+1) * 45} name={item.name}/> )}
+                {rewardsList.map( (item,index) => <Reward key={index} time={(index+1) * 45} title={item.title} index={index} onSave={updateRewards}/> )}
             </div>
-             
 
 
-            <NewRawardContainer className={style.newRewardArea}>
+
+            <NewRewardContainer className={style.newRewardArea}>
                 <div className={style.contentItemsCenter}>
                     <img src={require('./images/plus.png')} alt="present image"/>
                     <h2>NEW REWARD</h2>
                 </div>
                 <div onClick={addReward} className={style.plus}></div>
-            </NewRawardContainer>
+            </NewRewardContainer>
 
         </RewardsContainer>
 	);
@@ -47,7 +62,9 @@ const Rewards = ({history, user}) => {
 
 const mapStateToProps = state => {
 	return {
-		user: state.user
+		user: state.user,
+    rewardsList: state.rewards
+
 	};
 };
 
@@ -61,7 +78,7 @@ const RewardsContainer = styled.div`
 `;
 
 
-const NewRawardContainer = styled.div`
+const NewRewardContainer = styled.div`
     min-height: 180px;
     margin: 45px auto 0;
     padding: 16px;
