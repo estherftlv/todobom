@@ -1,4 +1,4 @@
-import React, { useCallback,useState,useRef} from 'react';
+import React, { useCallback,useState,useRef, useEffect} from 'react';
 import {useDispatch, connect} from "react-redux";
 import './list.scss'
 import { Modal } from 'react-bootstrap';
@@ -14,6 +14,7 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
     const [isMenuopen, setIsMenuOpen] = useState(false);
     const [currentListID, setCurrentListID] = useState(null);
     const [activityInfo, setActivityInfo] = useState(null);
+    const [rewardsScore, setRewardsScore] = useState(null);
 
     // add list popup
     const [show, setShow] = useState(false);
@@ -21,6 +22,12 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
 
     const inputText = useRef(null);
 
+    useEffect(() => {
+        if(!rewardsScore){
+            const rewardsScore = rewards.map(reward => +reward.time)
+            console.log('rewardsScore',rewardsScore)
+        }
+    },[rewards])
 
     const dispatch = useDispatch();
 
