@@ -15,20 +15,15 @@ import TextInput from '../common/TextInput';
 import ClickOut from '../common/ClickOut';
 import Spinner from '../common/Spinner';
 import FileLoader from '../common/FileLoader';
-import { DropdownButton, DropdownItem } from 'react-bootstrap';
 
 import {addActivity} from "../../redux/actions/activity.actions";
 
 const AddActivityTmp4Esther = ({history, user}) => {
 	const dispatch = useDispatch();
 
-	//dropdown state:
-	const [open, setOpen] = useState(null);//for dropdown menus
-	const [newItem, setNewItem] = useState("");//for adding a topics
 
-	//question state:
 	const [ID, setID] = useState("");
-	const [category, setCategory] = useState("other");//drop down list
+	const [category, setCategory] = useState("");//drop down list
   const [title, setTitle] = useState("New activity");
 	const [url, setUrl] = useState("none");//
 	const [description, setDescription] = useState("none");
@@ -37,8 +32,8 @@ const AddActivityTmp4Esther = ({history, user}) => {
 	const [maxAge, setMaxAge] = useState(120);//optional
 
 
-  const [showError, setShowError] = useState("");
 	const [imageSrc,setImageSrc] = useState(null);
+	const [showMenu,setShowMenu] = useState(false);
 
 
 	const marks = {
@@ -70,41 +65,7 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 
   const categories = Object.keys(CATEGORIES);
-  //const topics = ["topic1","topic2","topic3","topic4"];
   const active = "true";
-
-  const toggle = useCallback((x)=>{
-    if(open===null)
-      setOpen(x);
-    else {
-      setOpen(null);
-    }
-  }, [open]);
-
-
-  const handleClickOut = useCallback((x) => {
-		if (open ===x) {
-			setOpen(null);
-		}
-
-	}, [open]);
-
-  const addToList = useCallback(type =>{
-    if((type!==undefined)&&(newItem!=="")){
-      const action = {
-        type: `ADD_${type}`,
-        payload: {newItem}
-      }
-      dispatch(action);
-    }
-  },[newItem,dispatch]);
-
-  const onChangeProp = useCallback((x,type,propSetter) => {
-    propSetter(x);
-    handleClickOut(type);
-
-  }, [handleClickOut]);
-
 
   const onAgeRangeChange = useCallback(value=>{
     setMinAge(value[0]);
@@ -113,7 +74,6 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 
   const onAddtoFirebase = useCallback(action=>{
-    setShowError("");
     setID(action.id);
   },[setID]);
 
@@ -153,34 +113,6 @@ const AddActivityTmp4Esther = ({history, user}) => {
 
 
 
-  const menu = (type, stateProp, list, propSetter, mayAdd=false)=>{
-    if(!list)
-    	return "";
-    return(<ClickOut onClick={()=>handleClickOut(type)}>
-              <Box onClick={()=>toggle(type)} red={showError &&(!stateProp)}>
-              {stateProp? stateProp:type}
-              </Box>
-              <Menu visible={open ===type}>
-              {
-                list.map(x=>(<MenuItem key={`menuItem_${x}`} onClick={()=>onChangeProp(x,type,propSetter)}>{x}</MenuItem>))
-              }
-
-              {mayAdd&& <MenuItem>
-                          <TextInput onChange={event =>setNewItem(event.target.value)}></TextInput>
-                          <Button onClick={()=>{addToList(type)}}>addToList</Button>
-                        </MenuItem>
-              }
-              {mayAdd && (newItem!=="") && <MenuItem>
-                                              <Box>Add {newItem} to {type} list?</Box>
-                                            </MenuItem>
-              }
-              </Menu>
-            </ClickOut>
-    )
-  }
-
-
-
   if(false)//TBD: if(!topics || topics===undefined)//await return of topics from firebase
   return (<Page>
   						<H1>loading topics</H1>
@@ -192,13 +124,19 @@ const AddActivityTmp4Esther = ({history, user}) => {
 			<H1>ADD A NEW ACTIVITY</H1>
 			<Row>
 	      <Col width="30%">
-
 					<H1>{ID}</H1>
+					<Label>Activity type</Label>
+					<ClickOut onClick={()=>setShowMenu(false)}>
+							<Box onClick={()=>setShowMenu(!showMenu)}>
+							{category? category:"Select your category"}
+							</Box>
+              <Menu visible={showMenu}>
+              {
+                categories.map(item => <MenuItem key={`menuItem_${item}`} onClick={()=>{setCategory(item);setShowMenu(false)}}>{item}</MenuItem>)
+              }
 
-					<TextInput label="Activity type" placeholder={category}/>
-					<DropdownButton title="Select a category" onChange={e=>setCategory(e)}>
-							{categories.map(item => <DropdownItem key={item}>{item}</DropdownItem>)}
-	        </DropdownButton>
+              </Menu>
+		      </ClickOut>
 					<TextInput onChange={event =>setUrl(event.target.value)} label="Link to activity (optional)" placeholder="Copy and paste the activity’s web address">url</TextInput>
 		      <TextInput onChange={event =>setTitle(event.target.value)} label="Activity title" placeholder="Name your activity"/>
 		      <TextInput onChange={event =>setDescription(event.target.value)} label="Activity description (optional)" placeholder="Describe your activity in detail"/>
@@ -250,7 +188,8 @@ const H1 = styled.div`
 const Row = styled.div`
 	display: flex;
 	flex-direction: row;
-	align-items: space-around;
+	align-items: flex-end;
+	justify-content: flex-end;
 	margin-top: 20px;
 	left:0px;
 `;
@@ -277,42 +216,35 @@ const Label = styled.div`
 	font-size: 16px;
 	min-height: 20px;
 	width: 100%;
-	margin-top: 30px;
+	margin: 30px 0px 10px 0px;
 	color: ${({theme})=> theme.purple2};
 `;
 
 const Box = styled.div`
-	min-width: 120px;
+	width: 450px;
 	height: 32px;
+	color: #37383A;
+	border: 1px solid #CCCED3;
 	border-radius: 2px;
-	background: black;
 	cursor: pointer;
 	display: flex;
-	align-items: center;
-	justify-content: center;
-	font-size: 16px;
-	color: #fff;
-	font-weight: 200;
+	align-items: flex-start;
+	justify-content: flex-start;
+	font-size: 13px;
 	transition: all 300ms;
-  margin: 5px;
-
-	&:hover {
-		background: ${({theme}) => theme.a500};
-	}
-
-	background: ${({theme,red})=> red && theme.r500};
+  padding: 5px 5px 5px 10px;
 `;
 
 const Menu = styled.div`
-	width: 180px;
+	width: 450px;
 	min-height: 100px;
-	background: #fff;
 	display: flex;
 	flex-direction: column;
+	border: ${({theme}) => theme.purple1};
 	border-radius: 2px;
+	background: #ffffff;
 	box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 	position: absolute;
-	top: calc(100% + 18px);
 	left: 0;
 	overflow: hidden;
 	transition: all 300ms;

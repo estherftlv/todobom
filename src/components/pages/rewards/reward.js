@@ -1,59 +1,56 @@
 import React, { useState , useCallback, useRef } from 'react';
 import {withRouter} from 'react-router-dom';
-import {connect, useDispatch} from 'react-redux';
-import {authenticate, logout} from '../../../redux/actions/user.actions';
+import {connect} from 'react-redux';
 import styled from 'styled-components';
-import Button from '../../common/Button';
 import style from './reward.module.css';
 import {MdDone} from 'react-icons/md';
 
 
 
-const Reward = ({name, defaultTime}) => {
+const Reward = ({title, time, index, onSave,onDelete}) => {
     // const dispatch = useDispatch();
     const inputTime = useRef(null);
-    const inputDiscription = useRef(null);
+    const inputDescription = useRef(null);
     const [isSave, setIsSave] = useState(false);
-    const [isDesciptionValid, setIsDesciptionValid] = useState(true);
+    const [isDescriptionValid, setIsDescriptionValid] = useState(true);
     const [isTimeValid, setIsTimeValid] = useState(true);
 
 
     const saveReward = useCallback(() => {
-        
+
         let timeFlag = true;
         let descFlag = true;
-        
+
         if (inputTime.current.value.length <= 0){
             timeFlag = false;
             setIsTimeValid(false);
         }else {
             setIsTimeValid(true);
         }
-        
-        if (inputDiscription.current.value.length <= 0){
+
+        if (inputDescription.current.value.length <= 0){
             descFlag = false;
-            setIsDesciptionValid(false);
+            setIsDescriptionValid(false);
         }else {
-            setIsDesciptionValid(true);
+            setIsDescriptionValid(true);
         }
 
 
-        ////TODO : Ester - save rewards in the block 
+        ////TODO : Ester - save rewards in the block
         if (timeFlag && descFlag){
             setIsSave(true);
-            //TODO : Ester - save rewards to firebase + load them on initial
-            //doSomething(a, b);
+            onSave({index, title: inputDescription.current.value , time:inputTime.current.value})
         }
-        
+
     },
     []
     );
-    
+
 	return (
             <RawardContainer>
                 <div className={style.contentItemsCenter}>
-                    <img src={require('./images/present.png')} alt="present image"/>
-                    <h2 className={style.rewardTitle}>{name}</h2>
+                    <img src={require('./images/present.png')}/>
+                    <h2 className={style.rewardTitle}>{title}</h2>
                 </div>
 
                 <div className={style.userImputContainer}>
@@ -64,7 +61,7 @@ const Reward = ({name, defaultTime}) => {
                              style={{border: isTimeValid ? '2px solid #9013fe' : '2px solid #f75f5b'}}>
 
                             <div className={style.first}>
-                                <input ref={inputTime} placeholder={defaultTime} type="number" min={defaultTime} max="999"/>
+                                <input ref={inputTime} placeholder={time} type="number" min={time} max="999"/>
                             </div>
                             <div className={style.secound}>
                                 <span>min</span>
@@ -76,13 +73,13 @@ const Reward = ({name, defaultTime}) => {
                         <h4>Reward description</h4>
                         <div className={style.contentItemsCenter}>
 
-                            <input 
-                                ref={inputDiscription}
-                                style={{border: isDesciptionValid ? '2px solid #9013fe' : '2px solid #f75f5b'}}
-                                placeholder="Choose a tackout for the entrie family" type="text"/>
+                            <input
+                                ref={inputDescription}
+                                style={{border: isDescriptionValid ? '2px solid #9013fe' : '2px solid #f75f5b'}}
+                                placeholder="e.g. Choose your favorite takeout for the whole family.." type="text"/>
 
-                            {!isSave && <MdDone className={style.save} onClick={saveReward}/>}        
-                            <div className={style.trash}></div>
+                            {!isSave && <MdDone className={style.save} onClick={saveReward}/>}
+                            <div className={style.trash} onClick={()=>onDelete({title,time,index})}></div>
                         </div>
                     </div>
 

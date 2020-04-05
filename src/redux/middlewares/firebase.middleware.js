@@ -1,9 +1,10 @@
 import * as AT from '../action.types';
 import firebaseManager from '../../services/firebaseManager';
 
-import {setUser, setMiniUsers, setUserData} from "../actions/user.actions";
+import {setUser, setMiniUsers} from "../actions/user.actions";
 import {setActivities} from "../actions/activity.actions";
 import {fetchLists,setLists} from "../actions/list.actions";
+import {fetchRewards,setRewards} from "../actions/rewards.actions";
 
 const firebase = new firebaseManager();
 const firebaseMiddleware = store => {
@@ -58,6 +59,12 @@ const firebaseMiddleware = store => {
 			case AT.DELETE_LIST_BY_USER:
 				  firebase.remove(`/lists/${action.payload.user.uid}/${action.payload.currentListID}`);
 					store.dispatch(fetchLists(action.payload.user));
+					break;
+			case AT.FETCH_REWARDS:
+				  firebase.get(`/rewards/${action.payload.uid}`, data => {store.dispatch(setRewards(data))});
+					break;
+			case AT.UPDATE_REWARD_DATA:
+				  firebase.set(`/rewards/${action.payload.user.uid}`,action.payload.data ,data => {store.dispatch(fetchRewards(action.payload.user))});
 					break;
 			case AT.CHECK_FILE:
 			  firebase.checkFile(action.payload);
