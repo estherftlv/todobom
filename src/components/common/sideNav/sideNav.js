@@ -9,6 +9,7 @@ import { ReactComponent as Logout } from './logout.svg';
 import { ReactComponent as Audit } from './audit.svg'; 
 import { ReactComponent as Present } from './present.svg'; 
 import { ReactComponent as Logo } from './logo.svg'; 
+import {FiLogOut} from 'react-icons/fi'
 
 
 export default function SideNav({onClick , active =''}) {
@@ -40,7 +41,7 @@ export default function SideNav({onClick , active =''}) {
                     {activeUrl === 'rewards' && <FaCaretLeft className="activeIcon"/>}
                 </Link>
             </div>
-            <Logout className="sideNavIcon setting" onClick={() => dispatch(logout())}/>
+            <FiLogOut className="sideNavIcon setting" onClick={() => dispatch(logout())}/>
             {/* <IoMdSettings className="sideNavIcon setting" onClick={() => dispatch(logout())}/> */}
         </div>
     )
