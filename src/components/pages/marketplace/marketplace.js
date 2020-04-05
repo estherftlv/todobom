@@ -43,7 +43,7 @@ const Marketplace  = ({activities, user, lists}) => {
         if(originalActivity === null) originalActivity = activitiesList ;
         const value = e.target.value;
         timeOut = setTimeout(()=>{
-            const newActivites = originalActivity.filter(item => item.title.includes(value) || item.description.includes(value));
+            const newActivites = originalActivity.filter(item => item.title.toLowerCase().includes(value) || item.description.toLowerCase().includes(value));
             setActivitiesList(newActivites)
         },500)
         console.log(`typed search for: ${e.target.value}`);
