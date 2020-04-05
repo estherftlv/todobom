@@ -34,13 +34,25 @@ const Rewards = ({history, user, rewardsList}) => {
       }
     },[dispatch, user, rewardsList]);
 
+    const deleteReward = useCallback(rewardItem=>{
+      if(user.uid){//user is logged in
+          let data = cloneDeep(rewardsList);
+          // remove 1 element at index==rewardItem.index
+          data.splice(rewardItem.index, 1);
+          dispatch(updateRewardData({user,data}));
+      }
+      else{
+        console.log("can't add rewards when logged out")
+      }
+    },[dispatch, user, rewardsList]);
+
 	return (
         <RewardsContainer>
             <h1 className={style.header}>Rewards</h1>
             <h2 className={style.subHeader}>Define rewards for activity completion</h2>
 
             <div className={style.rewardContainer}>
-                {rewardsList.map( (item,index) => <Reward key={index} time={(index+1) * 45} title={item.title} index={index} onSave={updateRewards}/> )}
+                {rewardsList.map( (item,index) => <Reward key={index} time={(index+1) * 45} title={item.title} index={index} onSave={updateRewards} onDelete={deleteReward}/> )}
             </div>
 
 

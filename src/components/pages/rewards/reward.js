@@ -7,7 +7,7 @@ import {MdDone} from 'react-icons/md';
 
 
 
-const Reward = ({title, time, index, onSave}) => {
+const Reward = ({title, time, index, onSave,onDelete}) => {
     // const dispatch = useDispatch();
     const inputTime = useRef(null);
     const inputDescription = useRef(null);
@@ -79,7 +79,7 @@ const Reward = ({title, time, index, onSave}) => {
                                 placeholder="e.g. Choose your favorite takeout for the whole family.." type="text"/>
 
                             {!isSave && <MdDone className={style.save} onClick={saveReward}/>}
-                            <div className={style.trash}></div>
+                            <div className={style.trash} onClick={()=>onDelete({title,time,index})}></div>
                         </div>
                     </div>
 
