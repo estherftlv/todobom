@@ -1,26 +1,36 @@
-import React, { useCallback,useState,useRef} from 'react';
+import React, { useCallback,useState,useRef, useEffect} from 'react';
 import {useDispatch, connect} from "react-redux";
 import './list.scss'
 import { Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 
 import {addNewListForUser, deleteListByUser, updateListData} from '../../../redux/actions/list.actions';
+import {fetchRewards} from '../../../redux/actions/rewards.actions';
 
 import { ListItem } from './listItem';
 import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
 import {IoIosClose} from 'react-icons/io'
 
- const List = ({user,itemListComponent}) => {
+ const List = ({user,itemListComponent,rewards}) => {
     const [menuPos, setMenuPos] = useState(null);
     const [isMenuopen, setIsMenuOpen] = useState(false);
     const [currentListID, setCurrentListID] = useState(null);
     const [activityInfo, setActivityInfo] = useState(null);
+    const [rewardsScore, setRewardsScore] = useState(null);
 
     // add list popup
     const [show, setShow] = useState(false);
     const [popupType, setPopupType] = useState("");
     const inputText = useRef(null);
 
+    useEffect(() => {
+        if(!rewards)
+          dispatch(fetchRewards(user));
+        if(!rewardsScore){
+            const rewardsScore = rewards.map(reward => +reward.time)
+            console.log('rewardsScore',rewardsScore)
+        }
+    },[rewards])
 
     const dispatch = useDispatch();
 
@@ -168,17 +178,18 @@ import {IoIosClose} from 'react-icons/io'
                             updateListProgress={updateListProgress}
                             data={item}
                             showActivity={setActivityInfo}
+                            rewards = {rewards}
                             openMenuFunc={e =>openMenu(e,item.id)}/> )}
 
 
-                    <div className="addList">
+                    <div className="addList"  onClick={()=>{setPopupType("newList");setShow(true)}}>
                         <header>
                             <div className="header2">
                             <div className="plus"></div>
                                 <h2>New List</h2>
                             </div>
                         </header>
-                        <div onClick={()=>{setPopupType("newList");setShow(true)}} className="bigPlus"></div>
+                        <div className="bigPlus"></div>
                     </div>
                 </div>
             </main>
@@ -206,7 +217,8 @@ import {IoIosClose} from 'react-icons/io'
 const mapStateToProps = state => {
 	return {
 		user: state.user,
-    itemListComponent: state.lists
+    itemListComponent: state.lists,
+    rewards: state.rewards
 	};
 };
 export default connect(mapStateToProps)(List);

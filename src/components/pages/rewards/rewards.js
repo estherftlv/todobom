@@ -30,7 +30,7 @@ const Rewards = ({history, user, rewardsList}) => {
           dispatch(updateRewardData({user,data}));
       }
       else{
-        console.log("can't add rewards when logged out")
+        history.push('/login');
       }
     },[dispatch, user, rewardsList]);
 
