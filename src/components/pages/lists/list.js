@@ -9,6 +9,7 @@ import {fetchRewards} from '../../../redux/actions/rewards.actions';
 
 import { ListItem } from './listItem';
 import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
+import {IoIosClose} from 'react-icons/io'
 
  const List = ({user,itemListComponent,rewards}) => {
     const [menuPos, setMenuPos] = useState(null);
@@ -20,7 +21,6 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
     // add list popup
     const [show, setShow] = useState(false);
     const [popupType, setPopupType] = useState("");
-
     const inputText = useRef(null);
 
     useEffect(() => {
@@ -34,49 +34,59 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
 
     const dispatch = useDispatch();
 
+
     const popUp = () =>{
       let modalTitle = "";
       let handlerClick = ()=>{};
       let saveText = "Done";
+      let subTitle = ""
       switch(popupType){
         case "newList":
           modalTitle = "Add a new list";
           handlerClick = handleAddList;
           saveText = "Add";
+          subTitle = "Name your list";
           break;
         case "rename":
           modalTitle = "Rename the list";
           handlerClick = renameList;
+          subTitle = "Type new name";
           break;
         case "duplicate":
           modalTitle = "copy the list";
           handlerClick = duplicateList;
+          subTitle = ""
           break;
         default:
           modalTitle = "Modal";
+          subTitle = ""
           handlerClick = ()=>{};
           break;
       }
 
+
       return(
-        <Modal show={show} onHide={()=>setShow(false)}>
-            <Modal.Header closeButton>
-                <Modal.Title>{modalTitle}</Modal.Title>
-            </Modal.Header>
+        <div>
+            {
+                show && 
+                <div className="mask">
+                    <div className="modalAddList" show={show} onHide={()=>setShow(false)}>
+                        <div clasName="headerModeal">
+                            <h2>{modalTitle}</h2>
+                            <div className="closeModalAddList"><IoIosClose/></div>
+                        </div>
 
-            <Modal.Body>
-                <input ref={inputText} type="text"/>
-            </Modal.Body>
+                        <p>{subTitle}</p>
+                        <input ref={inputText} type="text"/>
 
-            <Modal.Footer>
-                <Button variant="secondary" onClick={()=>setShow(false)}>
-                    Close
-                </Button>
-                <Button variant="primary" onClick={handlerClick}>
-                    {saveText}
-                </Button>
-            </Modal.Footer>
-        </Modal>
+                        <div className="btnArea">
+                            <button onClick={()=>setShow(false)}>Cancel</button>
+                            <button onClick={handlerClick}>{saveText}</button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
       )
 
     }
