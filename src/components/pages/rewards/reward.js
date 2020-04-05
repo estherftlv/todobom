@@ -100,7 +100,7 @@ export default connect(mapStateToProps)(withRouter(Reward));
 
 const RawardContainer = styled.div`
     min-height: 200px;
-    margin: 45px auto 0;
+    margin: 16px auto 0;
     padding: 16px;
     border: 1px solid #9013fe;
     border-radius: 4px;

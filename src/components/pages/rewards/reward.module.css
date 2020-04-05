@@ -1,13 +1,13 @@
 h4{
-    font-size: 16px;
-    font-weight: 300;
-    color: #9013fe;
-    display: inline-block;
- }
+   font-size: 16px;
+   font-weight: 300;
+   color: #9013fe;
+   display: inline-block;
+}
 
 
 div.userImputContainer{
-    margin-top: 50px;
+   margin-top: 50px;
 }
 
 div.userImputContainer .timeArea{

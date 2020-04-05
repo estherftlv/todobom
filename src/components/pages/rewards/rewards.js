@@ -59,7 +59,7 @@ const Rewards = ({history, user, rewardsList}) => {
 
 
 
-            <NewRewardContainer className={style.newRewardArea}>
+            <NewRewardContainer onClick={addReward} className={style.newRewardArea}>
                 <div className={style.contentItemsCenter}>
                     <img src={require('./images/plus.png')} alt="present image"/>
                     <h2>NEW REWARD</h2>
@@ -94,7 +94,7 @@ const RewardsContainer = styled.div`
 
 const NewRewardContainer = styled.div`
     min-height: 180px;
-    margin: 45px auto 0;
+    margin: 16px auto 0;
     padding: 16px;
     border: 1px dashed #9013fe;
     border-radius: 4px;
