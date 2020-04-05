@@ -63,12 +63,12 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity, 
 
 
     return (
-        <div className="listItem">
+        <div id={data.id} className="listItem">
             <header>
                 <div className="headerAndMore">
                     <h2>{data.title}</h2>
                     {/* Pass listID to openMenuFunc as parameter*/}
-                    <div onClick={e => openMenuFunc(e)}/>
+                    <div onClick={e => openMenuFunc(e, data.id)}/>
                 </div>
 
                 <div className="prograss">
