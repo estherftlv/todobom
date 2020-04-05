@@ -7,7 +7,7 @@ import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
 
 export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity, rewards}) => {
 
-    const lists = rewards && rewards.length > 0 ? rewards : [0];
+    const lists = rewards && rewards.length > 0 ? rewards : [];
     const max = Math.max(...lists);
     //const min = Math.min(...lists);
     const [progress, setProgress] = useState(0);
@@ -72,7 +72,7 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity, 
                 </div>
 
                 <div className="prograss">
-                {listPosition.map((item,i)=>
+                { rewards &&rewards.length > 0 && listPosition.map((item,i)=>
                     <span key={i} className={progress >= item.value ? 'green' : ''} style={{left:`${item.pos}%`}}>
                         <Present style={{left: `${i === listPosition.length - 1 ? '-30px' : '-17px'}`}}/>
                     </span>)
@@ -80,10 +80,10 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity, 
                     <div className="fill" style={{width:`${progress / one }%`}}/>
                 </div>
 
-
+                { rewards &&rewards.length > 0 && 
                 <div className="feedBack">
                         <span>{progress}</span><span> / {max}</span>
-                </div>
+                </div>}
                 {
                     missionData &&  missionData.map((act,i)=>{
                         const {category} = act;
