@@ -1,6 +1,6 @@
 import * as AT from '../action.types';
 
-const INITIAL_STATE = [];
+const INITIAL_STATE = null;
 
 const rewardsReducer = (state = INITIAL_STATE, action) => {
 	switch (action.type) {

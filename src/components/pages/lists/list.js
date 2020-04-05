@@ -26,7 +26,7 @@ import {IoIosClose} from 'react-icons/io'
     useEffect(() => {
         if(!rewards)
           dispatch(fetchRewards(user));
-        if(!rewardsScore){
+        else if(!rewardsScore){
             const rewardsScore = rewards.map(reward => +reward.time)
             setRewardsScore(rewardsScore.sort((a, b) => a - b));
         }
@@ -68,7 +68,7 @@ import {IoIosClose} from 'react-icons/io'
       return(
         <div>
             {
-                show && 
+                show &&
                 <div className="mask">
                     <div className="modalAddList" show={show} onHide={()=>setShow(false)}>
                         <div clasName="headerModeal">
