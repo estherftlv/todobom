@@ -8,6 +8,7 @@ import { logout } from '../../../redux/actions/user.actions';
 import { ReactComponent as Logout } from './logout.svg'; 
 import { ReactComponent as Audit } from './audit.svg'; 
 import { ReactComponent as Present } from './present.svg'; 
+import { ReactComponent as Logo } from './logo.svg'; 
 
 
 export default function SideNav({onClick , active =''}) {
@@ -24,6 +25,7 @@ export default function SideNav({onClick , active =''}) {
 
     return (
         <div className="sideNav">
+            <Logo className="logo"/>
             <div className="actions">
                 <Link to="/marketplace" className="linkNav sideNavIcon">
                     <FaToolbox className="sideNavIcon"/>
