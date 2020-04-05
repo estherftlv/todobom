@@ -65,7 +65,7 @@ const Reward = ({title, time, index, onSave,onDelete}) => {
                                     ref={inputTime} 
                                     type="number"
                                     defaultValue={time}
-                                    disabled={time ? true: false}
+                                    disabled={time && title.length ? true: false}
                                     min={time} max="999"/>
                             </div>
                             <div className={style.secound}>
