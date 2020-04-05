@@ -12,7 +12,6 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
  const List = ({user,itemListComponent}) => {
     const [menuPos, setMenuPos] = useState(null);
     const [isMenuopen, setIsMenuOpen] = useState(false);
-    const [listName, setListName] = useState('default')
     const [currentListID, setCurrentListID] = useState(null);
     const [activityInfo, setActivityInfo] = useState(null);
 
@@ -32,16 +31,20 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
       switch(popupType){
         case "newList":
           modalTitle = "Add a new list";
-          handlerClick = ester_handleAddList;
+          handlerClick = handleAddList;
           saveText = "Add";
           break;
         case "rename":
           modalTitle = "Rename the list";
-          handlerClick = ester_renameList;
+          handlerClick = renameList;
           break;
         case "duplicate":
           modalTitle = "copy the list";
-          handlerClick = ester_duplicateList;
+          handlerClick = duplicateList;
+          break;
+        default:
+          modalTitle = "Modal";
+          handlerClick = ()=>{};
           break;
       }
 
@@ -67,18 +70,10 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
       )
 
     }
-    const ester_handleAddList = () => {
+    const handleAddList = () => {
         const data = {title: inputText.current.value};
         dispatch(addNewListForUser({user,data}));
         setShow(false);
-    }
-
-    // add list item component
-
-    function addList() {
-        // new List
-        const newI = {name:`${listName} ${itemListComponent.length + 1}`}
-        //setItemList([...itemListComponent , newI])
     }
 
     const openMenu = (e, listID = null) => {
@@ -100,7 +95,7 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
 
     // Menu pop-up functions
 
-    const ester_renameList = () => {
+    const renameList = () => {
       //make a shallow copy and change title
       const found = itemListComponent.find(list=>list.id===currentListID)
       const data = {...found, title: inputText.current.value};
@@ -108,7 +103,7 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
       setShow(false);
     }
 
-    const ester_duplicateList = () => {
+    const duplicateList = () => {
       const found = itemListComponent.find(list=>list.id===currentListID);
       const title = `Copy of ${found.title}`;
       const data = {...found, title};
@@ -120,8 +115,7 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
         console.log("ester_resetList");
     }
 
-    const ester_fullReset = () => {
-        console.log('ester_fullReset');
+    const fullReset = () => {
         //make a shallow copy and reset assignedActs
         const found = itemListComponent.find(list=>list.id===currentListID)
         const data = {...found, assignedActs:null};
@@ -129,7 +123,6 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
     }
 
     const updateListProgress = (listData) => {
-        console.log('ester_fullReset');
         //make a shallow copy and reset assignedActs
         const found = itemListComponent.find(list=>list.id===currentListID)
         const data = {...found, assignedActs:listData};
@@ -141,7 +134,7 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
     const deleteList = useCallback(() => {
   		  dispatch(deleteListByUser({user, currentListID}));
 
-  	}, [currentListID]);
+  	}, [dispatch, user, currentListID]);
 
 
     return (
@@ -180,9 +173,9 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
             {menuPos && isMenuopen && <div className="menu" style={{left: menuPos.x - 170, top: menuPos.y}}>
                     <img onClick={closeMenu} className="closeMenuBtn" src={require('./images/more.png')} alt="closeMenuBtn"/>
                     <p onClick={()=>{setPopupType("rename");setShow(true)}}>Rename list</p>
-                    <p onClick={ester_duplicateList}>Duplicate list</p>
+                    <p onClick={duplicateList}>Duplicate list</p>
                     <p onClick={ester_resetList}>Reset list (all undone)</p>
-                    <p onClick={ester_fullReset}>Full reset(remove all)</p>
+                    <p onClick={fullReset}>Full reset(remove all)</p>
                     <p onClick={deleteList} className="deleteList">Delete list</p>
                 </div>}
 
