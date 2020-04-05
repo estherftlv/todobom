@@ -45,7 +45,7 @@ const Login = ({history, user}) => {
 				<Logo className="logo"/>
 			</div>
 
-			<h2 className="subTitle">kids activity marketplace to help keep your sanity</h2>
+			<h2 className="subTitle">Kids activity marketplace to help keep your sanity</h2>
 
 
 			<div onClick={() => dispatch(authenticate({provider: 'GOOGLE'}))} className="loginBtns googleLoginBtn"></div>
@@ -53,7 +53,7 @@ const Login = ({history, user}) => {
 			<div className="loginBtns facebookLoginBtn" onClickk={() => dispatch(authenticate({provider: 'FACEBOOK'}))}></div>
 
 
-			<p className="signInWithYourAccount">or sign in with your account</p>
+			<p className="signInWithYourAccount">Or sign in with your account</p>
 
 
 			
