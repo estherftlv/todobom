@@ -26,9 +26,9 @@ import {IoIosClose} from 'react-icons/io'
     useEffect(() => {
         if(!rewards)
           dispatch(fetchRewards(user));
-        if(!rewardsScore){
+        else if(!rewardsScore){
             const rewardsScore = rewards.map(reward => +reward.time)
-            console.log('rewardsScore',rewardsScore)
+            setRewardsScore(rewardsScore.sort((a, b) => a - b));
         }
     },[rewards])
 
@@ -68,7 +68,7 @@ import {IoIosClose} from 'react-icons/io'
       return(
         <div>
             {
-                show && 
+                show &&
                 <div className="mask">
                     <div className="modalAddList">
                         <div className="headerModeal">
@@ -184,7 +184,7 @@ import {IoIosClose} from 'react-icons/io'
                             updateListProgress={updateListProgress}
                             data={item}
                             showActivity={setActivityInfo}
-                            rewards = {rewards}
+                            rewards = {rewardsScore}
                             openMenuFunc={e =>openMenu(e,item.id)}/> )}
 
 
