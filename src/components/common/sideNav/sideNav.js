@@ -26,7 +26,8 @@ export default function SideNav({onClick , active =''}) {
 
     return (
         <div className="sideNav">
-            <Logo className="logo"/>
+            <Link to="/marketplace"><Logo className="logo"/></Link>
+            
             <div className="actions">
                 <Link to="/marketplace" className={`linkNav sideNavIcon ${activeUrl === 'marketplace' ? 'active' : ''}`}>
                     <FaToolbox className="sideNavIcon"/>
