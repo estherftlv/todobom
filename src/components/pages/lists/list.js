@@ -120,6 +120,7 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
         const found = itemListComponent.find(list=>list.id===currentListID)
         const data = {...found, assignedActs:null};
         dispatch(updateListData({user,data}));
+        setShow(false);
     }
 
     const updateListProgress = (listData) => {
@@ -128,11 +129,13 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
         const data = {...found, assignedActs:listData};
         dispatch(updateListData({user,data}));
         //TODO: ester -  retun  after dispatch old list and not updated list
+        setShow(false);
     }
 
 
     const deleteList = useCallback(() => {
   		  dispatch(deleteListByUser({user, currentListID}));
+        setShow(false);
 
   	}, [dispatch, user, currentListID]);
 
