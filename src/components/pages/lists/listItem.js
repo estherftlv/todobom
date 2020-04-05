@@ -5,7 +5,7 @@ import { ActivityInList } from './activityInList'
 import { CATEGORIES } from '../../../utils/enums';
 import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
 
-export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity}) => {
+export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity, rewards}) => {
 
     const lists = [45 , 120 , 245];
     const max = Math.max(...lists);

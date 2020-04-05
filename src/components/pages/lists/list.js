@@ -9,7 +9,7 @@ import {addNewListForUser, deleteListByUser, updateListData} from '../../../redu
 import { ListItem } from './listItem';
 import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
 
- const List = ({user,itemListComponent}) => {
+ const List = ({user,itemListComponent,rewards}) => {
     const [menuPos, setMenuPos] = useState(null);
     const [isMenuopen, setIsMenuOpen] = useState(false);
     const [currentListID, setCurrentListID] = useState(null);
@@ -158,17 +158,18 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
                             updateListProgress={updateListProgress}
                             data={item}
                             showActivity={setActivityInfo}
+                            rewards = {rewards}
                             openMenuFunc={e =>openMenu(e,item.id)}/> )}
 
 
-                    <div className="addList">
+                    <div className="addList"  onClick={()=>{setPopupType("newList");setShow(true)}}>
                         <header>
                             <div className="header2">
                             <div className="plus"></div>
                                 <h2>New List</h2>
                             </div>
                         </header>
-                        <div onClick={()=>{setPopupType("newList");setShow(true)}} className="bigPlus"></div>
+                        <div className="bigPlus"></div>
                     </div>
                 </div>
             </main>
@@ -196,7 +197,8 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
 const mapStateToProps = state => {
 	return {
 		user: state.user,
-    itemListComponent: state.lists
+    itemListComponent: state.lists,
+    rewards: state.rewards
 	};
 };
 export default connect(mapStateToProps)(List);
