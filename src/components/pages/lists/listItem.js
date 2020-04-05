@@ -51,19 +51,18 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity})
   	}, [data]);
 
     const markAsDone = (actId) =>{
-        let progerss = 0;
-        console.log('ssssss')
+        let newProgress = progress;
             const newMissionData = missionData.map((act=> {
                 if(act.id === actId){
                     act.completed = true;
                 }
                 if(act.completed){
-                    progerss += act.time;
+                    newProgress += act.time;
                 }
                 return act;
             }))
             setMissionData(newMissionData);
-            setProgress(progerss);
+            setProgress(newProgress);
             updateListProgress(missionData);
     }
 
