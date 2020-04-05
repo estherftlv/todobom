@@ -7,7 +7,7 @@ import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
 
 export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity, rewards}) => {
 
-    const lists = [45 , 120 , 245];
+    const lists = rewards && rewards.length > 0 ? rewards : [0];
     const max = Math.max(...lists);
     //const min = Math.min(...lists);
     const [progress, setProgress] = useState(0);
@@ -17,8 +17,17 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity, 
     const [isUnLike, setIsUnLike] = useState(false);
 
     useEffect(() => {
-        if(data.assignedActs&&(!missionData)){
+        if(data.assignedActs && (!missionData)){
             setMissionData(data.assignedActs);
+            let progressTemp = 0;
+
+            data && data.assignedActs.forEach(mission => {
+                if(mission.completed){
+                    progressTemp += mission.time;
+                }
+            })
+
+            setProgress(progressTemp);
         }
     },[data,missionData])
 
@@ -42,8 +51,8 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity, 
                 if(act.id === actId){
                     act.completed = true;
                 }
-                if(act.completed){
-                    newProgress += act.time;
+                if(act.completed && act.id === actId){
+                    newProgress =  newProgress + act.time;
                 }
                 return act;
             }))
@@ -83,10 +92,10 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity, 
                         if (act.description || act.title){
 
                             if(!act.completed){
-                                return  <ActivityInList showActivity={showActivity} markAsDone={markAsDone} category={categoryData} data={act} key={i}/>
+                                return  <ActivityInList showActivity={showActivity} markAsDone={markAsDone} category={categoryData} data={act} key={act.id}/>
                             }else{
                                 return (
-                                    <div className="collapseActivity done" key={i} style={{backgroundColor:categoryData.color, color:'#fff'}}>
+                                    <div className="collapseActivity done" key={act.id} style={{backgroundColor:categoryData.color, color:'#fff'}}>
                                         <span className="howWasIt">How was it? - {categoryData.text}</span>
                                         <span>
                                             <AiOutlineLike
@@ -103,7 +112,7 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity, 
                                 )
                             }
                         }
-                        else return(<div/>);
+                        //else return(<div/>);
                     })
                 }
 

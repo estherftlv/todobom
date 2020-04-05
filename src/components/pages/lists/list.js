@@ -28,7 +28,7 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
           dispatch(fetchRewards(user));
         if(!rewardsScore){
             const rewardsScore = rewards.map(reward => +reward.time)
-            console.log('rewardsScore',rewardsScore)
+            setRewardsScore(rewardsScore.sort((a, b) => a - b));
         }
     },[rewards])
 
@@ -168,7 +168,7 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
                             updateListProgress={updateListProgress}
                             data={item}
                             showActivity={setActivityInfo}
-                            rewards = {rewards}
+                            rewards = {rewardsScore}
                             openMenuFunc={e =>openMenu(e,item.id)}/> )}
 
 
