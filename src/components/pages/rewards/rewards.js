@@ -52,7 +52,7 @@ const Rewards = ({history, user, rewardsList}) => {
             <small className={style.subHeader}>Define rewards for activity completion</small>
 
             <div className={style.rewardContainer}>
-                {rewardsList.map( (item,index) => <Reward key={index} time={(index+1) * 45} title={item.title} index={index} onSave={updateRewards} onDelete={deleteReward}/> )}
+                {rewardsList && rewardsList.map( (item,index) => <Reward key={index} time={(index+1) * 45} title={item.title} index={index} onSave={updateRewards} onDelete={deleteReward}/> )}
             </div>
 
 
