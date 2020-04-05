@@ -101,8 +101,11 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
     // Menu pop-up functions
 
     const ester_renameList = () => {
-        // setListName('name from fireBase')
-        console.log("ester_renameList");
+      //make a shallow copy and change title
+      const found = itemListComponent.find(list=>list.id===currentListID)
+      const data = {...found, title: inputText.current.value};
+      dispatch(updateListData({user,data}));
+      setShow(false);
     }
 
     const ester_duplicateList = () => {
@@ -154,10 +157,10 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
 
 
                     {itemListComponent.map( (item, index) =>
-                        <ListItem 
-                            key={index} 
-                            updateListProgress={updateListProgress} 
-                            data={item} 
+                        <ListItem
+                            key={index}
+                            updateListProgress={updateListProgress}
+                            data={item}
                             showActivity={setActivityInfo}
                             openMenuFunc={e =>openMenu(e,item.id)}/> )}
 
@@ -189,7 +192,7 @@ import { ActiveityInfo } from '../../common/activeityInfo/activeityInfo';
           {popUp()}
 
         </div>
-        <ActiveityInfo closeCb={setActivityInfo} activity={activityInfo} /> 
+        <ActiveityInfo closeCb={setActivityInfo} activity={activityInfo} />
         </div>
     )
 };
