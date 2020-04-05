@@ -21,8 +21,8 @@ const Rewards = ({history, user}) => {
 
 	return (
         <RewardsContainer>
-            <h1 className={style.header}>Rewards</h1>
-            <h2 className={style.subHeader}>Define rewards for activity completion</h2>
+            <h2 className={style.header}>Rewards</h2>
+            <small className={style.subHeader}>Define rewards for activity completion</small>
 
             <div className={style.rewardContainer}>
                 {rewardsComponent.map( (item,index) => <Reward key={item.name} defaultTime={(index+1) * 45} name={item.name}/> )}

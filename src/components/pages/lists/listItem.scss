@@ -63,6 +63,11 @@
             padding: 4px;
             margin-top: 16px;
 
+            &.done{
+                display: flex;
+                justify-content: space-between;
+            }
+
             .like{
                 font-size: 24px;
                 margin-left: 2px;
