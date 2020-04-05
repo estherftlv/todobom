@@ -55,11 +55,6 @@ const Login = ({history, user}) => {
 
 			<p className="signInWithYourAccount">Or sign in with your account</p>
 
-
-			
-
-
-
 			<Form.Group className="loginBtns loginEmail">
               <InputGroup>
                 <InputGroup.Prepend>
