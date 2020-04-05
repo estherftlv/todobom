@@ -70,8 +70,8 @@ import {IoIosClose} from 'react-icons/io'
             {
                 show && 
                 <div className="mask">
-                    <div className="modalAddList" show={show} onHide={()=>setShow(false)}>
-                        <div clasName="headerModeal">
+                    <div className="modalAddList">
+                        <div className="headerModeal">
                             <h2>{modalTitle}</h2>
                             <div className="closeModalAddList"><IoIosClose/></div>
                         </div>
@@ -97,14 +97,19 @@ import {IoIosClose} from 'react-icons/io'
     }
 
     const openMenu = (e, listID = null) => {
-        setCurrentListID(listID);
-        const pos = {
-            x: e.clientX,
-            y : e.clientY
-        }
+        const element = document.getElementById(listID);
 
-        setIsMenuOpen(true);
-        setMenuPos(pos);
+        if (element){
+            const {x, y} = element.getBoundingClientRect();
+            setCurrentListID(listID);
+            const pos = {
+                x: x + 397,
+                y
+            }
+
+            setIsMenuOpen(true);
+            setMenuPos(pos);
+        }
     }
 
     const closeMenu = () => {
@@ -121,6 +126,7 @@ import {IoIosClose} from 'react-icons/io'
       const data = {...found, title: inputText.current.value};
       dispatch(updateListData({user,data}));
       setShow(false);
+      
     }
 
     const duplicateList = () => {
@@ -172,7 +178,7 @@ import {IoIosClose} from 'react-icons/io'
                 <div className="horizontal">
 
 
-                    {itemListComponent.map( (item, index) =>
+                    {itemListComponent.map( (item, index) =>                        
                         <ListItem
                             key={index}
                             updateListProgress={updateListProgress}
@@ -182,7 +188,7 @@ import {IoIosClose} from 'react-icons/io'
                             openMenuFunc={e =>openMenu(e,item.id)}/> )}
 
 
-                    <div className="addList"  onClick={()=>{setPopupType("newList");setShow(true)}}>
+                    <div className="addList"  onClick={()=>{setPopupType("newList");setShow(true);setMenuPos(null);}}>
                         <header>
                             <div className="header2">
                             <div className="plus"></div>
@@ -196,11 +202,11 @@ import {IoIosClose} from 'react-icons/io'
 
             {menuPos && isMenuopen && <div className="menu" style={{left: menuPos.x - 170, top: menuPos.y}}>
                     <img onClick={()=>closeMenu()} className="closeMenuBtn" src={require('./images/more.png')} alt="closeMenuBtn"/>
-                    <p onClick={()=>{setPopupType("rename");setShow(true)}}>Rename list</p>
-                    <p onClick={duplicateList}>Duplicate list</p>
-                    <p onClick={ester_resetList}>Reset list (all undone)</p>
-                    <p onClick={fullReset}>Full reset(remove all)</p>
-                    <p onClick={deleteList} className="deleteList">Delete list</p>
+                    <p onClick={()=>{setPopupType("rename");setShow(true);setMenuPos(null);}}>Rename list</p>
+                    <p onClick={() => {duplicateList();setMenuPos(null)}}>Duplicate list</p>
+                    <p onClick={()=> {ester_resetList();setMenuPos(null)}}>Reset list (all undone)</p>
+                    <p onClick={() => {fullReset();setMenuPos(null)}}>Full reset(remove all)</p>
+                    <p onClick={() => {deleteList();setMenuPos(null)}} className="deleteList">Delete list</p>
                 </div>}
 
 
