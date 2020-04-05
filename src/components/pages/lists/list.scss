@@ -17,7 +17,8 @@ h2{
 
 
 .header{
-    padding: 25px 0 ;
+    padding: 25px;
+    z-index: 3;
     color: var(--filterColor);
     small {
         display: block;

@@ -13,17 +13,20 @@ h2{
  
 }
 .header{
-    padding: 25px 0 0px 0;
-    color:var(--filterColor);
+    /* padding: 25px 0 0px 0;
     font-size: 44px;
-    font-weight: 400;
+    font-weight: 400; */
+    color:var(--filterColor);
+    padding: 25px;
+    z-index: 3;
+    color: var(--filterColor);
 }
-
 .subHeader{
-    color: '#9013fe';
-    color: var(--mainColor);
     display: block;
-}
+    color: var(--mainColor);
+    font-size: 0.9rem;
+}   
+
 
 .contentItemsCenter{
     display: flex;

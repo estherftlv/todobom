@@ -23,36 +23,38 @@ const Rewards = ({history, user, rewardsList}) => {
     }
 
     const updateRewards = useCallback(rewardItem=>{
-      if(user.uid){//user is logged in
-          let data = cloneDeep(rewardsList);
-          // replaces 1 element at index==rewardItem.index
-          data.splice(rewardItem.index, 1, rewardItem);
-          dispatch(updateRewardData({user,data}));
-      }
-      else{
-        history.push('/login');
-      }
+        if(user.uid){//user is logged in
+            let data = cloneDeep(rewardsList);
+            // replaces 1 element at index==rewardItem.index
+            data.splice(rewardItem.index, 1, rewardItem);
+            dispatch(updateRewardData({user,data}));
+        }
+        else{
+            history.push('/login');
+        }
     },[dispatch, user, rewardsList]);
 
     const deleteReward = useCallback(rewardItem=>{
-      if(user.uid){//user is logged in
-          let data = cloneDeep(rewardsList);
-          // remove 1 element at index==rewardItem.index
-          data.splice(rewardItem.index, 1);
-          dispatch(updateRewardData({user,data}));
-      }
-      else{
+        if(user.uid){//user is logged in
+            let data = cloneDeep(rewardsList);
+            // remove 1 element at index==rewardItem.index
+            data.splice(rewardItem.index, 1);
+            dispatch(updateRewardData({user,data}));
+        }
+        else{
         console.log("can't add rewards when logged out")
-      }
+        }
     },[dispatch, user, rewardsList]);
 
 	return (
         <RewardsContainer>
-            <h2 className={style.header}>Rewards</h2>
-            <small className={style.subHeader}>Define rewards for activity completion</small>
+            <h2 className={style.header}>
+                <span>REWARDS</span>
+                <small className={style.subHeader}>Define rewards for activity completion</small>
+            </h2>
 
             <div className={style.rewardContainer}>
-                {rewardsList.map( (item,index) => <Reward key={index} time={(index+1) * 45} title={item.title} index={index} onSave={updateRewards} onDelete={deleteReward}/> )}
+                {rewardsList && rewardsList.map( (item,index) => <Reward key={index} time={(index+1) * 45} title={item.title} index={index} onSave={updateRewards} onDelete={deleteReward}/> )}
             </div>
 
 
