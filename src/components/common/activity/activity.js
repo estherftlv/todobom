@@ -8,7 +8,7 @@ export default function Activity({plusClick = null, activity, showActivityInfo})
     const [offset , setOffset] = React.useState(1000);
     const category = CATEGORIES[activity.category.toLowerCase()]!==undefined? CATEGORIES[activity.category.toLowerCase()]: CATEGORIES["none"];
     const imageSrc= activity.imageSrc || 'https://loremflickr.com/320/240' ,
-        description= activity.description || "description placeholder",
+        description= activity.title || "description placeholder",
         colorActivity= category.color,
         time = activity.time || 0;
 
