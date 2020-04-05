@@ -50,7 +50,7 @@ const Reward = ({title, time, index, onSave,onDelete}) => {
             <RawardContainer>
                 <div className={style.contentItemsCenter}>
                     <img src={require('./images/present.png')}/>
-                    <h2 className={style.rewardTitle}>{title}</h2>
+                    <h2 className={style.rewardTitle}>Reward #{index+1}</h2>
                 </div>
 
                 <div className={style.userImputContainer}>
@@ -61,7 +61,12 @@ const Reward = ({title, time, index, onSave,onDelete}) => {
                              style={{border: isTimeValid ? '2px solid #9013fe' : '2px solid #f75f5b'}}>
 
                             <div className={style.first}>
-                                <input ref={inputTime} type="number" min={time} max="999"/>
+                                <input 
+                                    ref={inputTime} 
+                                    type="number"
+                                    defaultValue={time}
+                                    disabled={time ? true: false}
+                                    min={time} max="999"/>
                             </div>
                             <div className={style.secound}>
                                 <span>min</span>
@@ -75,10 +80,12 @@ const Reward = ({title, time, index, onSave,onDelete}) => {
 
                             <input
                                 ref={inputDescription}
+                                defaultValue={title}
+                                disabled={title.length > 0 ? true: false}
                                 style={{border: isDescriptionValid ? '2px solid #9013fe' : '2px solid #f75f5b'}}
                                 placeholder="e.g. Choose your favorite takeout for the whole family.." type="text"/>
 
-                            {!isSave && <MdDone className={style.save} onClick={saveReward}/>}
+                            {(!isSave && !title) && <MdDone className={style.save} onClick={saveReward}/>}
                             <div className={style.trash} onClick={()=>onDelete({title,time,index})}></div>
                         </div>
                     </div>
