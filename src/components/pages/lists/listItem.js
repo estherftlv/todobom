@@ -3,7 +3,7 @@ import './listItem.scss'
 import { ReactComponent as Present } from '../../common/sideNav/present.svg'
 import { ActivityInList } from './activityInList'
 import { CATEGORIES } from '../../../utils/enums'; 
-
+import {AiOutlineLike, AiOutlineDislike} from 'react-icons/ai'
 
 export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity}) => {
 
@@ -13,6 +13,8 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity})
     const [progress, setProgress] = useState(0);
     const one = max / 100;
     const [missionData , setMissionData] = useState(null);
+    const [isLike, setIsLike] = useState(false);
+    const [isUnLike, setIsUnLike] = useState(false);
 
     useEffect(() => {
         if(data.assignedActs){
@@ -20,10 +22,17 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity})
         }
     },[data])
 
-    // Menu
+    const like = () => {
+        setIsLike(true);
+        setIsUnLike(false);
+        console.log('like');
+    }
 
-
-    // List property
+    const unLike = () => {
+        setIsLike(false);
+        setIsUnLike(true);
+        console.log('unLike');
+    }
 
     const listPosition = lists.map(lists =>({pos : lists / one, value: lists }));
 
@@ -92,10 +101,23 @@ export const ListItem = ({data, openMenuFunc, updateListProgress, showActivity})
                                 return  <ActivityInList showActivity={showActivity} markAsDone={markAsDone} category={categoryData} data={act} key={i}/>
                             }else{
                                 return (
-                                    <div className="titleArea" key={i} style={{backgroundColor:categoryData.color, color:'#fff'}}>
+                                    <div className="collapseActivity" key={i} style={{backgroundColor:categoryData.color, color:'#fff'}}>
+
+                                        <div className= "checkBoxArea" style={{display: 'inline-block'}}>
+                                            <input type="checkbox" className="checkBox" onClick={()=>markAsDone(data.id)}/>
+                                            <img src={require("./images/time.png")} alt="clock"/>
+                                            <p>{data.time}</p>
+                                        </div>
+
                                         <span className="howWasIt">How was it? - {categoryData.text}</span>
-                                        <img className="recommend" src={require('./images/recommend.png')} alt="thumbs up"/>
-                                        <img className="unRecommend" src={require('./images/un-recommend.png')} alt="thumbs down"/>
+                                        <AiOutlineLike 
+                                            className="like"
+                                            onClick={!isUnLike && like}
+                                            style={{color: isUnLike ? '#9013fe75' : '#9013fe'}}/>
+                                        <AiOutlineDislike
+                                            className="unLike" 
+                                            onClick={!isLike && unLike}
+                                            style={{color: isLike ? '#9013fe75' : '#9013fe'}}/>
                                     </div>
                                 )
                             }                   

@@ -21,7 +21,12 @@ export const Addtolist = ({pos , list , addNewList , updateList, togglePopup}) =
     },[list])
 
     const addInputChange=(e)=>{
+<<<<<<< HEAD
         if(e.key === 'Enter' && e.target.value.length){
+=======
+        // TODO : validation empty string
+        if(e.key === 'Enter'){
+>>>>>>> 2d4da1cad1313980c0a5618795097d3d21e20c39
             checkListBeforeInsert(e);
         }
     }

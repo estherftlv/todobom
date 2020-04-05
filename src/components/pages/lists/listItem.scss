@@ -54,7 +54,38 @@
                     }
                 }
             }
-        } 
+        }
+
+        .collapseActivity {
+            border:1px solid var(--mainColor);
+            border-radius: 4px;
+            padding: 4px;
+            margin-top: 16px;
+
+            .like{
+                font-size: 24px;
+                margin-left: 2px;
+                color: var(--mainColor);
+            }
+
+            .unLike{
+                font-size: 24px;
+                margin-left: 2px;
+                color: var(--mainColor);
+            }
+
+
+            .like:hover{
+                transform: scale(1.2);
+                cursor: pointer;
+            }
+
+            .unLike:hover{
+                transform: scale(1.2);
+                cursor: pointer;
+            }
+        }
+
     }
 }
 
@@ -79,6 +110,7 @@
 .menu > p:hover{
     background: #daf1fd;
 }
+
 
 .menu > .deleteList{
     color: #f75f5b;

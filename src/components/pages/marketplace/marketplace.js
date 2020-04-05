@@ -128,9 +128,9 @@ const Marketplace  = ({activities, user, lists}) => {
                 style={{backgroundColor:'transparent', borderLeft: 'none'}}
                 onChange= {searchChange}
             />
-            </InputGroup>
-            <Link to={'/addActivity'}><TodoBtn><FaPlus/>Add Activity</TodoBtn></Link>
-            <small>Pick your favorite activities and add them to your lists</small>
+        </InputGroup>
+        <Link to={'/addActivity'}><TodoBtn><FaPlus/>Add Activity</TodoBtn></Link>
+        <small>Pick your favorite activities and add them to your lists</small>
         </h2>
         <div className={style.activities}>
             {

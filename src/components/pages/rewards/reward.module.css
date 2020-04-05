@@ -77,7 +77,7 @@ div.userImputContainer .timeArea{
 }
 
 .descriptionArea > .contentItemsCenter > input {
-   border: 2px solid #9013fe;
+   /* border: 2px solid #9013fe; */
    border-radius: 4px;
    width: 95%; 
    padding: 8px;
